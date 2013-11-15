@@ -11,32 +11,16 @@ class BenefitsController extends BaseController {
     {
         $lat = filter_var(Input::get('lat'), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         $lng = filter_var(Input::get('lng'), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-        $benefits = Benefit::findByLocation($lat, $lng);
+        if (is_float($lat) && is_float($lng)) {
+            $benefits = Benefit::findByLocation($lat, $lng);
+        } else {
+            $benefits = Benefit::all();
+        }
         $response = array(
-            'data' => $benefits,
+            'data' => $benefits->toArray(),
             'status' => true
         );
         return Response::json($response);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
-    {
-
     }
 
     /**
@@ -49,39 +33,6 @@ class BenefitsController extends BaseController {
     {
         $benefit = Benefit::find($id);
         return Response::json(array('data' => $benefit->toArray(), 'status' => true));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
-    {
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-
     }
 
     public function vote($id)
@@ -106,10 +57,19 @@ class BenefitsController extends BaseController {
         if (BenefitIgnore::saveIgnore($id, $user_id))
         {
             $response['data'] = array(
-                'id' => $id
+                'id' => $id,
             );
+            $response['status'] = true;
         }
         return Response::json($response);
+    }
+
+    public function search()
+    {
+        $q = filter_var(Input::get('q'), FILTER_SANITIZE_STRING);
+        $benefits = Benefit::where('description', 'LIKE', '%' . $q . '%')->get();
+        $response = array('data' => $benefits->toArray(), 'status' => true);
+        return Response::make($response);
     }
 
 }
