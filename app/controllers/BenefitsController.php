@@ -40,7 +40,7 @@ class BenefitsController extends BaseController {
     {
         $input = Input::all();
         $response = array('data' => array(), 'status' => false);
-        $user_id = 1;
+        $user_id = Auth::getUser()->id;
         if (BenefitVote::saveVote($id, $user_id, $input['vote']))
         {
             $response['data'] = array(
