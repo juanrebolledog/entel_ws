@@ -15,5 +15,6 @@ Route::group(array('before' => 'auth'), function()
 
     Route::resource('api/categories', 'CategoriesController');
 
+    Route::get('api/users/profile', 'UsersController@profile');
     Route::resource('api/users', 'UsersController');
 });

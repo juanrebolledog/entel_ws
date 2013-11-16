@@ -54,6 +54,7 @@ Route::filter('auth', function()
                 {
                     return Response::make(array('message' => 'You are not authorized to access this resource.'), 403);
                 }
+                Auth::login($user);
             }
         }
         else

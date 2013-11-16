@@ -8,7 +8,15 @@ class UsersController extends BaseController {
 
     public function profile()
     {
-
+        $user = Auth::getUser();
+        $profile = array(
+            'id' => $user->id,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'rut' => $user->rut,
+            'cellphone_number' => $user->cellphone_number
+        );
+        return Response::json(array('data' => $profile, 'status' => true));
     }
 
     public function store()
