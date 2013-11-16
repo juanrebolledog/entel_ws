@@ -1,6 +1,7 @@
 <?php
 class LocationModel extends \BaseModel {
-    static public function calculateDistance($org, $dst) {
+    static public function calculateDistance($org, $dst)
+    {
         $earth_radius = 6367500;
         $d_lat = deg2rad($dst['lat'] - $org['lat']);
         $d_lon = deg2rad($dst['lng'] - $org['lng']);
@@ -13,12 +14,14 @@ class LocationModel extends \BaseModel {
         return $d;
     }
 
-    static public function findByLocation($lat, $lng) {
+    static public function findByLocation($lat, $lng)
+    {
         $models = array();
 
-        foreach (self::all() as $model) {
-            $distance = self::calculateDistance(['lat' => $lat, 'lng' => $lng],
-                ['lat' => $model->lat, 'lng' => $model->lng]);
+        foreach (self::all() as $model)
+        {
+            $distance = self::calculateDistance(array('lat' => $lat, 'lng' => $lng),
+                array('lat' => $model->lat, 'lng' => $model->lng));
 
             array_push($models, array(
                 'id' => $model->id,
@@ -32,7 +35,8 @@ class LocationModel extends \BaseModel {
             ));
         }
 
-        return array_sort($models, function($value) {
+        return array_sort($models, function($value)
+        {
             return $value['distance'];
         });
     }

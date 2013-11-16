@@ -9,15 +9,16 @@ class BenefitsController extends BaseController {
      */
     public function index()
     {
-        $lat = filter_var(Input::get('lat'), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-        $lng = filter_var(Input::get('lng'), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        $lat = (float)filter_var(Input::get('lat'), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        $lng = (float)filter_var(Input::get('lng'), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         if (is_float($lat) && is_float($lng)) {
             $benefits = Benefit::findByLocation($lat, $lng);
         } else {
             $benefits = Benefit::all();
+            $benefits = $benefits->toArray();
         }
         $response = array(
-            'data' => $benefits->toArray(),
+            'data' => $benefits,
             'status' => true
         );
         return Response::json($response);
