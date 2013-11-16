@@ -35,7 +35,34 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::guest('login');
+    $access_key = Request::header('ENTEL-ACCESS-KEY');
+    $api_key = Request::header('ENTEL-API-KEY');
+    if ($access_key && $access_key === Config::get('app.access_key') && $api_key)
+    {
+        $user = User::where('api_key', $api_key)->first();
+        if ($user->exists)
+        {
+            $password = hash('sha256', $api_key . $access_key);
+            if ($password !== $user->password || $api_key !== $user->api_key)
+            {
+                return Response::make(array('message' => 'You are not authorized to access this resource.'), 403);
+            }
+        }
+    }
+    else
+    {
+        return Response::make(array('message' => 'You are not authorized to access this resource.'), 403);
+    }
+
+});
+
+Route::filter('public', function()
+{
+    $access_key = Request::header('ENTEL-ACCESS-KEY');
+    if ($access_key !== Config::get('app.access_key'))
+    {
+        return Response::make(array('message' => 'You are not authorized to access this resource.'), 403);
+    }
 });
 
 

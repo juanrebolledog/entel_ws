@@ -10,3 +10,8 @@ Route::post('api/events/{id}/ignore', 'EventsController@ignore');
 Route::resource('api/events', 'EventsController');
 
 Route::resource('api/categories', 'CategoriesController');
+
+Route::post('api/users', array('before' => 'public', 'uses' => 'UsersController@store'));
+Route::resource('api/users', 'UsersController');
+
+Route::when('api/*', 'auth');
