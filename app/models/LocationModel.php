@@ -31,13 +31,14 @@ class LocationModel extends \BaseModel {
                 'lng' => $model->lng,
                 'special' => (bool)$model->special,
                 'min_points' => $model->min_points,
+                'rating' => $model->rating(),
                 'distance' => $distance
             ));
         }
-
-        return array_sort($models, function($value)
+        $models = array_values(array_sort($models, function($value)
         {
             return $value['distance'];
-        });
+        }));
+        return $models;
     }
 } 

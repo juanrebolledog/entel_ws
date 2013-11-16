@@ -7,6 +7,7 @@ Route::group(array('before' => 'auth'), function()
     Route::post('api/benefits/{id}/vote', 'BenefitsController@vote');
     Route::post('api/benefits/{id}/ignore', 'BenefitsController@ignore');
     Route::get('api/benefits/search', 'BenefitsController@search');
+    Route::get('api/benefits/ranking', 'BenefitsController@ranking');
     Route::resource('api/benefits', 'BenefitsController');
 
     Route::post('api/events/{id}/vote', 'EventsController@vote');

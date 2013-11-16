@@ -17,11 +17,8 @@ class BenefitsController extends BaseController {
             $benefits = Benefit::all();
             $benefits = $benefits->toArray();
         }
-        $response = array(
-            'data' => $benefits,
-            'status' => true
-        );
-        return Response::json($response);
+        $this->setApiResponse($benefits, true);
+        return Response::json($this->api_response);
     }
 
     /**
@@ -33,44 +30,54 @@ class BenefitsController extends BaseController {
     public function show($id)
     {
         $benefit = Benefit::find($id);
-        return Response::json(array('data' => $benefit->toArray(), 'status' => true));
+        $this->setApiResponse($benefit->toArray(), true);
+        return Response::json($this->api_response);
     }
 
     public function vote($id)
     {
         $input = Input::all();
-        $response = array('data' => array(), 'status' => false);
         $user_id = Auth::getUser()->id;
         if (BenefitVote::saveVote($id, $user_id, $input['vote']))
         {
-            $response['data'] = array(
+            $resp = array(
                 'vote' => $input['vote'],
                 'id' => $id
             );
+            $this->setApiResponse($resp, true);
         }
-        return Response::json($response);
+        return Response::json($this->api_response);
     }
 
     public function ignore($id)
     {
-        $response = array('data' => array(), 'status' => false);
-        $user_id = 1;
+        $user_id = Auth::getUser()->id;
         if (BenefitIgnore::saveIgnore($id, $user_id))
         {
-            $response['data'] = array(
+            $resp = array(
                 'id' => $id,
             );
-            $response['status'] = true;
+            $this->setApiResponse($resp, true);
         }
-        return Response::json($response);
+        return Response::json($this->api_response);
     }
 
     public function search()
     {
         $q = filter_var(Input::get('q'), FILTER_SANITIZE_STRING);
         $benefits = Benefit::where('description', 'LIKE', '%' . $q . '%')->get();
-        $response = array('data' => $benefits->toArray(), 'status' => true);
-        return Response::make($response);
+        $this->setApiResponse($benefits->toArray(), true);
+        return Response::make($this->api_response);
+    }
+
+    public function ranking()
+    {
+        $benefits = Benefit::findByRating();
+        if ($benefits)
+        {
+            $this->setApiResponse($benefits, true);
+        }
+        return Response::json($this->api_response);
     }
 
 }

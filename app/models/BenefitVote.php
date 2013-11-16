@@ -3,7 +3,7 @@
 class BenefitVote extends BaseModel {
     static public function saveVote($benefit_id, $user_id, $vote)
     {
-        $benefit_query = BenefitVote::where('user_id', '=', $user_id);
+        $benefit_query = BenefitVote::where('user_id', $user_id)->where('benefit_id', $benefit_id);
         $benefit = $benefit_query->first();
         if (!$benefit) {
             $benefit = new BenefitVote();

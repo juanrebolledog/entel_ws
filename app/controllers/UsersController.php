@@ -16,23 +16,19 @@ class UsersController extends BaseController {
             'rut' => $user->rut,
             'cellphone_number' => $user->cellphone_number
         );
-        return Response::json(array('data' => $profile, 'status' => true));
+        $this->setApiResponse($profile, true);
+        return Response::json($this->api_response);
     }
 
     public function store()
     {
-        $response = array(
-            'data' => array(),
-            'status' => false
-        );
         $data = Input::all();
 
         if ($user = User::createUser($data))
         {
-            $response['data'] = $user->toArray();
-            $response['status'] = true;
+            $this->setApiResponse($user->toArray(), true);
         }
-        return Response::json($response);
+        return Response::json($this->api_response);
     }
 
     public function update()

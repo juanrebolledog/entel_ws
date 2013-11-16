@@ -15,4 +15,15 @@ class BaseController extends Controller {
         }
     }
 
+    public $api_response = array(
+        'data' => array(),
+        'status' => false
+    );
+
+    public function setApiResponse($response, $status)
+    {
+        $this->api_response['data'] = $response;
+        $this->api_response['status'] = $status;
+    }
+
 }

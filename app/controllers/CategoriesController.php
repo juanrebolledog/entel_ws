@@ -9,11 +9,8 @@ class CategoriesController extends BaseController {
     public function index()
     {
         $categories = Category::all();
-        $response = array(
-            'data' => $categories->toArray(),
-            'status' => true
-        );
-        return Response::json($response);
+        $this->setApiResponse($categories->toArray(), true);
+        return Response::json($this->api_response);
     }
 
     /**
@@ -25,6 +22,7 @@ class CategoriesController extends BaseController {
     public function show($id)
     {
         $category = Category::find($id);
-        return Response::json(array('data' => $category->toArray(), 'status' => true));
+        $this->setApiResponse($category->toArray(), true);
+        return Response::json($this->api_response);
     }
 } 
