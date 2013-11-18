@@ -18,6 +18,9 @@ Route::group(array('before' => 'auth'), function()
     Route::get('api/events/search', 'EventsController@search');
     Route::resource('api/events', 'EventsController');
 
+    Route::get('api/events/{id}/comments', 'EventCommentsController@show');
+    Route::post('api/events/{id}/comments', 'EventCommentsController@store');
+
     Route::resource('api/categories', 'CategoriesController');
 
     Route::get('api/users/profile', 'UsersController@profile');

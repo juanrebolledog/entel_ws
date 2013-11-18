@@ -1,11 +1,11 @@
 <?php
-class BenefitCommentsController extends BaseController {
-    public function show($benefit_id)
+class EventCommentsController extends BaseController {
+    public function show($event_id)
     {
-        $benefit = Benefit::find($benefit_id);
-        if ($benefit)
+        $event = AppEvent::find($event_id);
+        if ($event)
         {
-            $comments = BenefitComment::where('benefit_id', $benefit->id)->get();
+            $comments = EventComment::where('event_id', $event->id)->get();
             $this->setApiResponse($comments->toArray(), true);
             return Response::json($this->api_response);
         }
@@ -13,14 +13,14 @@ class BenefitCommentsController extends BaseController {
         return Response::json($this->api_response);
     }
 
-    public function store($benefit_id)
+    public function store($event_id)
     {
-        $benefit = Benefit::find($benefit_id);
+        $event = AppEvent::find($event_id);
         $data = Input::all();
-        if ($benefit)
+        if ($event)
         {
-            $comment = new BenefitComment();
-            $comment->benefit_id = $benefit_id;
+            $comment = new EventComment();
+            $comment->event_id = $event_id;
             $comment->user_id = Auth::getUser()->id;
             $comment->text = $data['text'];
             if ($comment->save())
