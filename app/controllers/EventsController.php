@@ -24,7 +24,7 @@ class EventsController extends BaseController {
      */
     public function show($id)
     {
-        $benefit = Benefit::find($id);
+        $benefit = AppEvent::find($id);
         $this->setApiResponse($benefit->toArray(), true);
         return Response::json($this->api_response);
     }
@@ -41,6 +41,24 @@ class EventsController extends BaseController {
             $this->setApiResponse($resp, true);
         }
         return Response::json($this->api_response);
+    }
+
+    public function search()
+    {
+        $q = filter_var(Input::get('q'), FILTER_SANITIZE_STRING);
+        $events = AppEvent::orWhere(function($query) use ($q)
+        {
+            $query->where('description', 'LIKE', '%' . $q . '%')->where('name', 'LIKE', '%' . $q . '%');
+        })->get();
+        if ($events)
+        {
+            $this->setApiResponse($events->toArray(), true);
+        }
+        else
+        {
+            $this->setApiResponse(array(), false);
+        }
+        return Response::make($this->api_response);
     }
 
 }

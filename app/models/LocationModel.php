@@ -31,7 +31,7 @@ class LocationModel extends \BaseModel {
                 'lng' => $model->lng,
                 'special' => (bool)$model->special,
                 'min_points' => $model->min_points,
-                'rating' => $model->rating(),
+                'rating' => $model->rating,
                 'distance' => $distance
             ));
         }

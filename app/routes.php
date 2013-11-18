@@ -10,8 +10,12 @@ Route::group(array('before' => 'auth'), function()
     Route::get('api/benefits/ranking', 'BenefitsController@ranking');
     Route::resource('api/benefits', 'BenefitsController');
 
+    Route::get('api/benefits/{id}/comments', 'BenefitCommentsController@show');
+    Route::post('api/benefits/{id}/comments', 'BenefitCommentsController@store');
+
     Route::post('api/events/{id}/vote', 'EventsController@vote');
     Route::post('api/events/{id}/ignore', 'EventsController@ignore');
+    Route::get('api/events/search', 'EventsController@search');
     Route::resource('api/events', 'EventsController');
 
     Route::resource('api/categories', 'CategoriesController');

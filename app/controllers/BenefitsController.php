@@ -65,8 +65,18 @@ class BenefitsController extends BaseController {
     public function search()
     {
         $q = filter_var(Input::get('q'), FILTER_SANITIZE_STRING);
-        $benefits = Benefit::where('description', 'LIKE', '%' . $q . '%')->get();
-        $this->setApiResponse($benefits->toArray(), true);
+        $benefits = Benefit::orWhere(function($query) use ($q)
+        {
+            $query->where('description', 'LIKE', '%' . $q . '%')->where('name', 'LIKE', '%' . $q . '%');
+        })->get();
+        if ($benefits)
+        {
+            $this->setApiResponse($benefits->toArray(), true);
+        }
+        else
+        {
+            $this->setApiResponse(array(), false);
+        }
         return Response::make($this->api_response);
     }
 
