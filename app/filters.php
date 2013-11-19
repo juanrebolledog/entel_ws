@@ -37,6 +37,7 @@ Route::filter('auth', function()
 {
     $access_key = Request::header('ENTEL-ACCESS-KEY');
     $api_key = Request::header('ENTEL-API-KEY');
+
     if ($access_key)
     {
         $access_keys = Config::get('app.access_keys');
