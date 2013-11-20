@@ -8,7 +8,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
     private function prepareForTests()
     {
-        DB::connection('testing');
+        Route::enableFilters();
         Eloquent::unguard();
         $this->seed('BenefitSeeder');
         Mail::pretend(true);
@@ -34,7 +34,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
     {
         $unitTesting = true;
 
-        $testEnvironment = 't';
+        $testEnvironment = 'testing';
 
         return require __DIR__.'/../../bootstrap/start.php';
     }
