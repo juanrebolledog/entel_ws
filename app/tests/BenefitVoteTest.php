@@ -1,9 +1,14 @@
 <?php
 class BenefitVoteTest extends TestCase {
+    public function setUp()
+    {
+        parent::setUp();
+        $this->benefit = Benefit::take(1)->first();
+    }
     public function testVote()
     {
         $expected = new BenefitVote();
-        $result = BenefitVote::saveVote(1, 7, 10);
+        $result = BenefitVote::saveVote($this->benefit->id, 7, 10);
         $this->assertEquals(get_class($expected), get_class($result));
         $this->assertEquals($result->vote, 10);
     }
@@ -11,19 +16,19 @@ class BenefitVoteTest extends TestCase {
     public function testVoteTwice()
     {
         $expected = new BenefitVote();
-        $result = BenefitVote::saveVote(1, 7, 10);
+        $result = BenefitVote::saveVote($this->benefit->id, 7, 10);
         $this->assertEquals($result->vote, 10);
         $this->assertEquals(get_class($expected), get_class($result));
-        $result = BenefitVote::saveVote(1, 7, 1);
+        $result = BenefitVote::saveVote($this->benefit->id, 7, 1);
         $this->assertEquals($result->vote, 1);
         $this->assertEquals(get_class($expected), get_class($result));
     }
 
     public function testBenefitRating()
     {
-        $vote = BenefitVote::saveVote(1, 7, 10);
-        $benefit = Benefit::find(1);
-        $new_rating = Benefit::calculateRating(1);
+        $vote = BenefitVote::saveVote($this->benefit->id, 7, 10);
+        $benefit = Benefit::find($this->benefit->id);
+        $new_rating = Benefit::calculateRating($this->benefit->id);
         $this->assertEquals($benefit->rating, $new_rating);
     }
 

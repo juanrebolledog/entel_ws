@@ -48,16 +48,17 @@ class BenefitApiTest extends TestCase {
 
     public function testBenefitShow()
     {
-        $request = $this->request('GET', '/api/benefits/1');
+        $last = Benefit::take(1)->first();
+        $request = $this->request('GET', '/api/benefits/' . $last->id);
         $content = json_decode($request->getContent());
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
-        $this->assertTrue($content->data->id == 1);
+        $this->assertTrue($content->data->id == $last->id);
     }
 
     public function testBenefitSearch()
     {
-        $request = $this->request('GET', '/api/benefits/search?q=Pizza');
+        $request = $this->request('GET', '/api/benefits/search?q=sad');
         $content = json_decode($request->getContent());
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
@@ -81,15 +82,16 @@ class BenefitApiTest extends TestCase {
 
     public function testBenefitVote()
     {
+        $benefit = Benefit::take(1)->first();
         $data = array(
             'vote' => 10
         );
         $expected = array(
             'vote' => 10,
-            'id' => 1
+            'id' => $benefit->id
         );
         $this->setRequestData($data);
-        $request = $this->request('POST', '/api/benefits/1/vote');
+        $request = $this->request('POST', '/api/benefits/' . $benefit->id . '/vote');
         $content = json_decode($request->getContent());
         $this->assertTrue(!empty($content->data));
         $this->assertEquals($content->data, (object)$expected);
@@ -98,7 +100,8 @@ class BenefitApiTest extends TestCase {
 
     public function testBenefitIgnore()
     {
-        $request = $this->request('POST', '/api/benefits/1/ignore');
+        $benefit = Benefit::take(1)->first();
+        $request = $this->request('POST', '/api/benefits/' . $benefit->id . '/ignore');
         $content = json_decode($request->getContent());
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);

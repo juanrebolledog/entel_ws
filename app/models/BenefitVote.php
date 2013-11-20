@@ -8,7 +8,7 @@ class BenefitVote extends BaseModel {
         if (!$vote) {
             $vote = new BenefitVote();
             $vote->user_id = $user_id;
-            $vote->vote_id = $benefit_id;
+            $vote->benefit_id = $benefit_id;
             $vote->vote = $vote_value;
             if ($vote->save())
             {

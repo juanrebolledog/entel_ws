@@ -6,14 +6,23 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
     protected $td_headers = array();
 
-    public function setUp()
+    private function prepareForTests()
     {
-        parent::setUp();
+        DB::connection('testing');
+        Eloquent::unguard();
+        $this->seed('BenefitSeeder');
+        Mail::pretend(true);
         $headers = array(
             'HTTP_ENTEL-ACCESS-KEY' => Config::get('app.access_keys')['ios'],
             'HTTP_ENTEL-API-KEY' => 'dd4bbd802d0c72fe3a14b0fc365379ee1939600245705ae1ce551f5967216290'
         );
         $this->setRequestHeaders($headers);
+    }
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->prepareForTests();
     }
 
     /**

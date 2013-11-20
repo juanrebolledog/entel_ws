@@ -65,13 +65,10 @@ class BenefitsController extends BaseController {
     public function search()
     {
         $q = filter_var(Input::get('q'), FILTER_SANITIZE_STRING);
-        $benefits = Benefit::orWhere(function($query) use ($q)
+        $results = Benefit::searchByKeyword($q);
+        if ($results)
         {
-            $query->where('description', 'LIKE', '%' . $q . '%')->where('name', 'LIKE', '%' . $q . '%');
-        })->get();
-        if ($benefits)
-        {
-            $this->setApiResponse($benefits->toArray(), true);
+            $this->setApiResponse($results->toArray(), true);
         }
         else
         {
