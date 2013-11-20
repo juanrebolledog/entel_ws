@@ -5,29 +5,35 @@ class Benefit extends LocationModel {
     static public function recalculateRating($id)
     {
         $benefit = self::find($id);
-        $counter = 0;
+
         if ($benefit)
         {
-            $votes = BenefitVote::where('benefit_id', $id)->get();
-            if ($votes)
-            {
-                foreach ($votes as $vote)
-                {
-                    $counter += $vote->vote;
-                }
-                if (count($votes) == 0)
-                {
-                    $rating = $counter;
-                }
-                else
-                {
-                    $rating = $counter/count($votes);
-                }
-            }
-            $benefit->rating = $rating;
+            $benefit->rating = self::calculateRating($id);
             return $benefit->save();
         }
         return false;
+    }
+
+    static public function calculateRating($id)
+    {
+        $counter = 0;
+        $votes = BenefitVote::where('benefit_id', $id)->get();
+        if ($votes)
+        {
+            foreach ($votes as $vote)
+            {
+                $counter += $vote->vote;
+            }
+            if (count($votes) == 0)
+            {
+                $rating = $counter;
+            }
+            else
+            {
+                $rating = $counter/count($votes);
+            }
+        }
+        return $rating;
     }
 
     static public function findByRating()

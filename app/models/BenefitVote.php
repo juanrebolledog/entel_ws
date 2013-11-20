@@ -1,25 +1,26 @@
 <?php
 
 class BenefitVote extends BaseModel {
-    static public function saveVote($benefit_id, $user_id, $vote)
+    static public function saveVote($benefit_id, $user_id, $vote_value)
     {
-        $benefit_query = BenefitVote::where('user_id', $user_id)->where('benefit_id', $benefit_id);
-        $benefit = $benefit_query->first();
-        if (!$benefit) {
-            $benefit = new BenefitVote();
-            $benefit->user_id = $user_id;
-            $benefit->benefit_id = $benefit_id;
-            $benefit->vote = $vote;
-            if ($benefit->save())
+        $vote_query = BenefitVote::where('user_id', $user_id)->where('benefit_id', $benefit_id);
+        $vote = $vote_query->first();
+        if (!$vote) {
+            $vote = new BenefitVote();
+            $vote->user_id = $user_id;
+            $vote->vote_id = $benefit_id;
+            $vote->vote = $vote_value;
+            if ($vote->save())
             {
                 Benefit::recalculateRating($benefit_id);
-                return $benefit;
+                return $vote;
             }
         }
-        if ($benefit_query->update(array('vote' => $vote)))
+        if ($vote_query->update(array('vote' => $vote_value)))
         {
             Benefit::recalculateRating($benefit_id);
-            return $benefit;
+            $vote = $vote_query->first();
         }
+        return $vote;
     }
 } 
