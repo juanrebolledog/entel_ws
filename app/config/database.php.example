@@ -57,7 +57,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'entel',
 			'username'  => 'root',
-			'password'  => 'vagrant',
+			'password'  => '',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
