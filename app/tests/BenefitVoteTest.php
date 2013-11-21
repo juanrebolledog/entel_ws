@@ -1,5 +1,5 @@
 <?php
-class BenefitVoteTest extends TestCase {
+class BenefitVoteTest {
     public function setUp()
     {
         parent::setUp();

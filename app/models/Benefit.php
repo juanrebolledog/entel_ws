@@ -1,18 +1,16 @@
 <?php
 class Benefit extends LocationModel {
 
-    protected $table = 'benefits';
+    protected $table = 'beneficios';
 
     static public function createBenefit($data)
     {
         $benefit = new Benefit();
-        $benefit->name = $data['name'];
-        $benefit->description = $data['description'];
-        $benefit->category_id = $data['category_id'];
+        $benefit->nombre = $data['nombre'];
+        $benefit->descripcion = $data['descripcion'];
+        $benefit->categoria_id = $data['categoria_id'];
         $benefit->lat = $data['lat'];
         $benefit->lng = $data['lng'];
-        $benefit->special = isset($data['special']) ? $data['special'] : false;
-        $benefit->min_points = isset($data['min_points']) ? $data['min_points'] : 0;
         $benefit->rating = isset($data['rating']) ? $data['rating'] : 0;
         return $benefit->save();
     }
@@ -32,7 +30,7 @@ class Benefit extends LocationModel {
     static public function calculateRating($id)
     {
         $counter = 0;
-        $votes = BenefitVote::where('benefit_id', $id)->get();
+        $votes = BenefitVote::where('beneficio_id', $id)->get();
         if ($votes)
         {
             foreach ($votes as $vote)
@@ -59,12 +57,10 @@ class Benefit extends LocationModel {
         {
             array_push($models, array(
                 'id' => $model->id,
-                'name' => $model->name,
-                'description' => $model->description,
+                'nombre' => $model->nombre,
+                'descripcion' => $model->descripcion,
                 'lat' => $model->lat,
                 'lng' => $model->lng,
-                'special' => (bool)$model->special,
-                'min_points' => $model->min_points,
                 'rating' => $model->rating
             ));
         }
@@ -79,8 +75,8 @@ class Benefit extends LocationModel {
     {
         $results = Benefit::where(function($query) use ($q)
         {
-            $query->where('name', 'LIKE', '%' . $q . '%');
-            $query->orWhere('description', 'LIKE', '%' . $q . '%');
+            $query->where('nombre', 'LIKE', '%' . $q . '%');
+            $query->orWhere('descripcion', 'LIKE', '%' . $q . '%');
         })->get();
         return $results;
     }

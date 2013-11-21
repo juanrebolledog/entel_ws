@@ -32,8 +32,8 @@ class BenefitApiTest extends TestCase {
         $distances = array();
         foreach ($content->data as $dobj)
         {
-            $this->assertTrue(isset($dobj->distance) && is_float($dobj->distance));
-            array_push($distances, $dobj->distance);
+            $this->assertTrue(isset($dobj->distancia) && is_float($dobj->distancia));
+            array_push($distances, $dobj->distancia);
         }
 
         foreach ($distances as $k=>$distance)
@@ -80,7 +80,7 @@ class BenefitApiTest extends TestCase {
         $this->assertTrue($content->status);
     }
 
-    public function testBenefitVote()
+    public function BenefitVote()
     {
         $benefit = Benefit::take(1)->first();
         $data = array(
@@ -98,7 +98,7 @@ class BenefitApiTest extends TestCase {
         $this->assertTrue($content->status);
     }
 
-    public function testBenefitIgnore()
+    public function BenefitIgnore()
     {
         $benefit = Benefit::take(1)->first();
         $request = $this->request('POST', '/api/benefits/' . $benefit->id . '/ignore');

@@ -2,28 +2,55 @@
 class BenefitSeeder extends Seeder {
     public function run()
     {
-        DB::table('benefits')->delete();
+        DB::table('beneficios')->delete();
 
         Benefit::create(array(
-            'name' => 'Test Benefit',
-            'description' => 'Test Benefit is for those who are feeling lonely',
-            'category_id' => 1,
+            'nombre' => 'Test Benefit',
+            'descripcion' => 'Test Benefit is for those who are feeling lonely',
+            'sub_categoria_id' => 1,
+            'icono' => '',
+            'imagen_grande' => '',
+            'imagen_chica' => '',
+            'imagen_titulo' => '',
+            'fecha' => '',
+            'lugar' => '',
+            'tags' => '',
+            'sms_texto' => '',
+            'sms_nro' => '',
             'lat' => 10.1010,
             'lng' => -69.1234
         ));
 
         Benefit::create(array(
-            'name' => 'Test Benefit 2',
-            'description' => 'Test Benefit is for those who are feeling sad',
-            'category_id' => 1,
+            'nombre' => 'Test Benefit 2',
+            'descripcion' => 'Test Benefit is for those who are feeling sad',
+            'sub_categoria_id' => 1,
+            'icono' => '',
+            'imagen_grande' => '',
+            'imagen_chica' => '',
+            'imagen_titulo' => '',
+            'fecha' => '',
+            'lugar' => '',
+            'tags' => '',
+            'sms_texto' => '',
+            'sms_nro' => '',
             'lat' => 10.2020,
             'lng' => -69.666
         ));
 
         Benefit::create(array(
-            'name' => 'Super Test Benefit Turbo 2',
-            'description' => 'Test Benefit is for those who are feeling violent',
-            'category_id' => 1,
+            'nombre' => 'Super Test Benefit Turbo 2',
+            'descripcion' => 'Test Benefit is for those who are feeling violent',
+            'sub_categoria_id' => 1,
+            'icono' => '',
+            'imagen_grande' => '',
+            'imagen_chica' => '',
+            'imagen_titulo' => '',
+            'fecha' => '',
+            'lugar' => '',
+            'tags' => '',
+            'sms_texto' => '',
+            'sms_nro' => '',
             'lat' => 11.1010,
             'lng' => -79.1234
         ));

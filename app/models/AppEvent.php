@@ -1,11 +1,7 @@
 <?php
 
 class AppEvent extends LocationModel {
-    protected $table = 'events';
-
-    public function media() {
-        return $this->hasMany('EventMedia');
-    }
+    protected $table = 'eventos';
 
     static public function findByLocation($lat, $lng)
     {
@@ -18,18 +14,16 @@ class AppEvent extends LocationModel {
 
             array_push($models, array(
                 'id' => $model->id,
-                'name' => $model->name,
-                'description' => $model->description,
+                'nombre' => $model->name,
+                'descripcion' => $model->description,
                 'lat' => $model->lat,
                 'lng' => $model->lng,
-                'special' => (bool)$model->special,
-                'min_points' => $model->min_points,
-                'distance' => $distance
+                'distancia' => $distance
             ));
         }
         $models = array_values(array_sort($models, function($value)
         {
-            return $value['distance'];
+            return $value['distancia'];
         }));
         return $models;
     }

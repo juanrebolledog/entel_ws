@@ -1,5 +1,5 @@
 <?php
-class BenefitIgnoringTest extends TestCase {
+class BenefitIgnoringTest {
     public function testBenefitIgnore()
     {
 

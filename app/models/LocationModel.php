@@ -25,19 +25,17 @@ class LocationModel extends \BaseModel {
 
             array_push($models, array(
                 'id' => $model->id,
-                'name' => $model->name,
-                'description' => $model->description,
+                'nombre' => $model->name,
+                'descripcion' => $model->description,
                 'lat' => $model->lat,
                 'lng' => $model->lng,
-                'special' => (bool)$model->special,
-                'min_points' => $model->min_points,
                 'rating' => $model->rating,
-                'distance' => $distance
+                'distancia' => $distance
             ));
         }
         $models = array_values(array_sort($models, function($value)
         {
-            return $value['distance'];
+            return $value['distancia'];
         }));
         return $models;
     }
