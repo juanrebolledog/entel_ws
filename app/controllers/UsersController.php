@@ -28,6 +28,10 @@ class UsersController extends BaseController {
         {
             $this->setApiResponse($user->toArray(), true);
         }
+        else
+        {
+            $this->setApiResponse(array(), false, 'User invalid or already exists');
+        }
         return Response::json($this->api_response);
     }
 

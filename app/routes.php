@@ -26,5 +26,9 @@ Route::group(array('before' => 'public'), function()
     Route::resource('api/users', 'UsersController');
 });
 
-Route::get('admin/benefits', 'AdminBenefitsController@index');
 Route::get('admin/benefits/create', 'AdminBenefitsController@create');
+Route::get('admin/benefits', 'AdminBenefitsController@index');
+Route::get('admin/benefits/{id}', 'AdminBenefitsController@show');
+Route::get('admin/benefits/{id}/edit', 'AdminBenefitsController@edit');
+Route::put('admin/benefits/{id}/update', 'AdminBenefitsController@update');
+Route::post('admin/benefits/store', 'AdminBenefitsController@store');

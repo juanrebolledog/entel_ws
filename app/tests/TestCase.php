@@ -10,6 +10,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
     {
         Route::enableFilters();
         Eloquent::unguard();
+        $this->seed('CategorySeeder');
         $this->seed('BenefitSeeder');
         Mail::pretend(true);
         $headers = array(

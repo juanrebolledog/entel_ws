@@ -1,5 +1,6 @@
 <?php
 
 class BenefitCategory extends BaseModel {
-    protected $table = 'beneficios_categorias';
+    protected $table = 'categorias_beneficios';
+    public $timestamps = false;
 } 

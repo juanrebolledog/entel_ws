@@ -7,7 +7,7 @@ class BenefitSeeder extends Seeder {
         Benefit::create(array(
             'nombre' => 'Test Benefit',
             'descripcion' => 'Test Benefit is for those who are feeling lonely',
-            'sub_categoria_id' => 1,
+            'sub_categoria_id' => 2,
             'icono' => '',
             'imagen_grande' => '',
             'imagen_chica' => '',
@@ -24,7 +24,7 @@ class BenefitSeeder extends Seeder {
         Benefit::create(array(
             'nombre' => 'Test Benefit 2',
             'descripcion' => 'Test Benefit is for those who are feeling sad',
-            'sub_categoria_id' => 1,
+            'sub_categoria_id' => 2,
             'icono' => '',
             'imagen_grande' => '',
             'imagen_chica' => '',
@@ -41,7 +41,7 @@ class BenefitSeeder extends Seeder {
         Benefit::create(array(
             'nombre' => 'Super Test Benefit Turbo 2',
             'descripcion' => 'Test Benefit is for those who are feeling violent',
-            'sub_categoria_id' => 1,
+            'sub_categoria_id' => 2,
             'icono' => '',
             'imagen_grande' => '',
             'imagen_chica' => '',

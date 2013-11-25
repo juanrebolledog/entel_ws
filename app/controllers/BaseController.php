@@ -20,10 +20,14 @@ class BaseController extends Controller {
         'status' => false
     );
 
-    public function setApiResponse($response, $status)
+    public function setApiResponse($response, $status, $message = null)
     {
         $this->api_response['data'] = $response;
         $this->api_response['status'] = $status;
+        if ($message)
+        {
+            $this->api_response['message'] = $message;
+        }
     }
 
 }

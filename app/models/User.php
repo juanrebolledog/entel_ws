@@ -56,9 +56,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         {
             $user = new User();
             $user->first_name = $data['first_name'];
+            $user->middle_name = isset($data['middle_name']) ? $data['middle_name'] : null;
             $user->last_name = $data['last_name'];
+            $user->birth_date = isset($data['birth_date']) ? $data['birth_date'] : null;
             $user->rut = $data['rut'];
             $user->cellphone_number = $data['cellphone_number'];
+            $user->email = $data['email'];
+            $user->fb_id = isset($data['fb_id']) ? $data['fb_id'] : null;
             $user->api_key = hash('sha256', $user->cellphone_number);
             $user->password = hash('sha256', $user->api_key . Request::header('ENTEL-ACCESS-KEY'));
             if ($user->save())
