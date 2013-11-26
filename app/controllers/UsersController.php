@@ -11,10 +11,10 @@ class UsersController extends BaseController {
         $user = Auth::getUser();
         $profile = array(
             'id' => $user->id,
-            'first_name' => $user->first_name,
-            'last_name' => $user->last_name,
+            'nombres' => $user->nombres,
+            'apellidos' => $user->apellidos,
             'rut' => $user->rut,
-            'cellphone_number' => $user->cellphone_number
+            'telefono_movil' => $user->telefono_movil
         );
         $this->setApiResponse($profile, true);
         return Response::json($this->api_response);

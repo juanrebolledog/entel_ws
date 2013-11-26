@@ -10,7 +10,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      *
      * @var string
      */
-    protected $table = 'users';
+    protected $table = 'usuarios';
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -55,15 +55,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         if (!$user)
         {
             $user = new User();
-            $user->first_name = $data['first_name'];
-            $user->middle_name = isset($data['middle_name']) ? $data['middle_name'] : null;
-            $user->last_name = $data['last_name'];
-            $user->birth_date = isset($data['birth_date']) ? $data['birth_date'] : null;
+            $user->nombres = $data['nombres'];
+            $user->apellidos = $data['apellidos'];
             $user->rut = $data['rut'];
-            $user->cellphone_number = $data['cellphone_number'];
+            $user->telefono_movil = $data['telefono_movil'];
             $user->email = $data['email'];
             $user->fb_id = isset($data['fb_id']) ? $data['fb_id'] : null;
-            $user->api_key = hash('sha256', $user->cellphone_number);
+            $user->api_key = hash('sha256', $user->cellphone_number . $user->rut);
             $user->password = hash('sha256', $user->api_key . Request::header('ENTEL-ACCESS-KEY'));
             if ($user->save())
             {
