@@ -16,7 +16,7 @@ class BenefitApiTest extends TestCase {
 
     public function testBenefitIndexWithCoords()
     {
-        $request = $this->request('GET', '/api/benefits?lat=10.1010&lng=-69.1234');
+        $request = $this->request('GET', '/api/benefits?lat=' . $this->origin['lat'] . '&lng=' . $this->origin['lng']);
         $content = json_decode($request->getContent());
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
@@ -24,7 +24,7 @@ class BenefitApiTest extends TestCase {
 
     public function testBenefitIndexWithCoordsOrdering()
     {
-        $request = $this->request('GET', '/api/benefits?lat=10.1010&lng=-69.1234');
+        $request = $this->request('GET', '/api/benefits?lat=' . $this->origin['lat'] . '&lng=' . $this->origin['lng']);
         $content = json_decode($request->getContent());
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);

@@ -18,6 +18,14 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
             'HTTP_ENTEL-API-KEY' => 'dd4bbd802d0c72fe3a14b0fc365379ee1939600245705ae1ce551f5967216290'
         );
         $this->setRequestHeaders($headers);
+        $this->origin = array(
+            'lat' => 10.1010,
+            'lng' => -69.1234
+        );
+        $this->dest = array(
+            'lat' => 10.2020,
+            'lng' => -69.2468
+        );
     }
 
     public function setUp()
