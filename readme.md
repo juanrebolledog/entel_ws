@@ -133,7 +133,7 @@ Registro de usuarios. Es el único punto del WS donde solo se necesita la cabece
 
 Ejemplo:
 
-https://api.example.com/api/users/register
+https://api.example.com/api/users
 
 Datos:
 
