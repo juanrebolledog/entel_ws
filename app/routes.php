@@ -26,6 +26,11 @@ Route::group(array('before' => 'public'), function()
     Route::resource('api/users', 'UsersController');
 });
 
+// API Test
+
+Route::get('api/tests', 'TestsController@get');
+Route::post('api/tests', 'TestsController@post');
+
 Route::get('admin/benefits/create', 'AdminBenefitsController@create');
 Route::get('admin/benefits', 'AdminBenefitsController@index');
 Route::get('admin/benefits/{id}', 'AdminBenefitsController@show');
