@@ -1,201 +1,176 @@
-# Entel Events REST API
+# Zona Entel WebService
 
-## Resources
+## Autenticación
 
-### Benefits
+El acceso al WS se restringe a peticiones con cabeceras HTTP específicas que ayudan al sistema a identificar la plataforma de donde se hace la petición así como también autenticar y autorizar al usuario. Las cabeceras son las siguientes:
 
-Benefits endpoint.
-Base URL: /api/benefits
+- ENTEL-ACCESS-KEY
+- ENTEL-API-KEY
+
+La cabecera ENTEL-ACCESS-KEY cumple la función de identificar la plataforma de donde se esté haciendo la petición. La motivación de utilizar esta cabecera es autenticar la plataforma y de acuerdo al valor de la cabecera, autorizar el uso del WS. De esta forma se está evitando el uso del WS por otras plataformas/personas no autorizadas.
+
+Adicionalmente, el usuario tiene su propia clave que lo identifica dentro del sistema: ENTEL-API-KEY. Esta clave especial (podría ser considerada como un password del usuario que nunca ve) es única para un usuario y el sistema la calcula al registrarse (ver Recursos: Usuarios mas abajo).
+
+
+## Recursos
+
+- Beneficios
+- Eventos
+- Categorías
+- Usuarios
+
+
+### Beneficios
+
+URL Base: /api/benefits
 
 #### GET /
 
-Benefit index endpoint. Will accept coordinates to filter the benefits it will give out.
+Indice de beneficios. Acepta parámetros lat y lng para filtrar por coordenadas geográficas.
 
-Parameters:
+Parámetros:
 
  - lat
  - lng
 
-Example:
+Ejemplo:
 
 https://api.example.com/api/benefits?lat=10.1234&lng=-69.2134
 
 ### GET /ranking
 
-Benefit ranking endpoint. Will return a Benefit list sorted by user rating.
+Indice de Beneficios ordenados por el puntaje acumulado de sus votos.
 
-Example:
+Ejemplo:
 
 https://api.example.com/api/benefits/ranking
 
 ### POST /{benefit_id}/vote
 
-Benefit voting endpoint. Will return true on success.
+Votos sobre beneficios. Requiere datos POST en formato JSON.
 
-Example:
+Ejemplo:
 
 https://api.example.com/api/benefits/1/vote
 
+Datos:
+
+	{ "vote": 10 }
+
 #### GET /{benefit_id}
 
-Benefit info endpoint. Will give out the info for a specific benefit. Also includes BenefitMedia records.
+Información de un beneficio específico.
 
-Example:
+Ejemplo:
 
 https://api.example.com/api/benefits/1
 
 #### GET /search
 
-Benefit search endpoint. Will accept a keyword query string to filter.
+Búsqueda de beneficios. Acepta el parámetro q para incluir las palabras claves.
 
-Parameters:
+Parámetros:
 
  - q
 
-Example:
+Ejemplo:
 
-https://api.example.com/api/benefits/search?q=Text+search
+https://api.example.com/api/benefits/search?q=Busqueda+beneficio
 
 #### POST /{benefit_id}/ignore
 
-Benefit ignore endpoint. Will make a specific benefit hidden to the current user
+Ignorar un beneficio. Evitará que se regrese en las busquedas por coordenadas.
 
-Example:
+Ejemplo:
 
 https://api.example.com/api/benefits/1/ignore
 
-### Events
+### Eventos
 
-Events endpoint.
-Base URL: /api/events
+URL Base: /api/events
 
 #### GET /
 
-Event index endpoint. Will accept coordinates to filter the events it will give out.
+Indice de Eventos. Aceptará parámetros lat y lng para filtrar por coordenadas geográficas.
 
-Parameters:
+Parámetros:
 
  - lat
  - lng
 
-Example:
+Ejemplo:
 
 https://api.example.com/api/events?lat=10.1234&lng=-69.1234
 
 #### GET /{event_id}
 
-Event info endpoint. Will give out the info for a specific event. Also includes EventMedia records.
+Información detallada de un evento.
 
-Example:
+Ejemplo:
 
 https://api.example.com/api/events/1
 
 #### GET /search
 
-Event search endpoint. Will accept a keyword query string to filter.
+Busqueda de eventos. Aceptará el parámetro **q** para filtrar.
 
-Parameters:
+Parámetros:
 
  - q
 
-Example:
+Ejemplo:
 
 https://api.example.com/api/events/search?q=Text+search
 
-#### POST /{event_id}/ignore
 
-Event ignore endpoint. Will make a specific event hidden to the current user
+### Usuarios
 
-Example:
-
-https://api.example.com/api/events/1/ignore
-
-### POST /{event_id}/vote
-
-Event voting endpoint. Will return true on success.
-
-Example:
-
-https://api.example.com/api/events/1/vote
-
-### Users
-
-Users endpoint.
-Base URL: /api/users
-
-#### GET /profile
-
-User profile endpoint. Will give out user's profile info.
-
-Example:
-
-https://api.example.com/api/users/profile
-
-#### GET /{user_id}
-
-User info endpoint. Will give out the user's public profile info.
-
-Example:
-
-https://api.example.com/api/users/1
-
-### GET /unlocked
-
-Unlocked bonus benefits endpoint. Will give out which bonus benefits the user has unlocked.
-
-Example:
-
-https://api.example.com/api/users/unlocked
-
-### GET /achievements
-
-Achievement list endpoint. Returns a list of user unlocked achievements by participation or content generation.
-
-Example:
-
-https://api.example.com/api/users/achievements
+URL Base: /api/users
 
 #### POST /
 
-User registration endpoint. Will receive user data to register. On success the response will contain the apikey to use in all api communication.
+Registro de usuarios. Es el único punto del WS donde solo se necesita la cabecera de autenticación ENTEL-ACCESS-KEY para utilizarlo. Al registrar exitosamente al usuario, el sistema regresará los mismos datos que fueron enviados mas el valor único para el usuario y que será el valor para la cabecera ENTEL-API-KEY. Como es el valor que identifica al usuario y se entrega una sola vez, es recomendable guardarlo localmente en la aplicación móvil.
 
-Example:
+Ejemplo:
 
-https://api.example.com/api/users/register
+https://api.example.com/api/users
 
-#### PUT /{user_id}
+Datos:
 
-User update endpoint. Will receive user data to update a record. Only the owner or admin can perform this action.
+	{
+		"nombres": "Pedro",
+		"apellidos": "Pérez",
+		"rut": "12345678-9",
+		"telefono_movil": "1234567"
+	}
 
-Example:
+Respuesta de ejemplo:
 
-https://api.example.com/api/users/1
+	{
+		"nombres": "Pedro",
+		"apellidos": "Pérez",
+		"rut": "12345678-9",
+		"telefono_movil": "1234567",
+		"api_key": "d3242ea998d9f8298f029e0"
+	}
 
-#### DELETE /{user_id}
 
-User deletion endpoint. Will delete a user record only if the requester is an admin or is the same user.
+### Categorías
 
-Example:
-
-https://api.example.com/api/users/1
-
-### Categories
-
-Event/Benefit Categories endpoint.
-Base URL: /api/categories
+URL Base: /api/categories
 
 #### GET /
 
-Categories index endpoint. Will give out all categories.
+Índice de Categorías
 
-Example:
+Ejemplo:
 
 https://api.example.com/api/categories
 
 #### GET /{category_id}
 
-Category info endpoint. Will give out info on a specific category, including associated Benefits and Events.
+Información de categoría específica
 
-Example:
+Ejemplo:
 
 https://api.example.com/api/categories/1
