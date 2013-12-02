@@ -5,13 +5,21 @@ class TestsController extends \BaseController {
     public function get()
     {
         $input = Input::all();
-        return Response::json($input);
+        $headers = Request::header();
+        return Response::json(array(
+            'input' => $input,
+            'headers' => $headers
+        ));
     }
 
     public function post()
     {
         $input = Input::all();
-        return Response::json($input);
+        $headers = Request::header();
+        return Response::json(array(
+            'input' => $input,
+            'headers' => $headers
+        ));
     }
 
 }
