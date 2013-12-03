@@ -37,3 +37,10 @@ Route::get('admin/benefits/{id}', 'AdminBenefitsController@show');
 Route::get('admin/benefits/{id}/edit', 'AdminBenefitsController@edit');
 Route::put('admin/benefits/{id}/update', 'AdminBenefitsController@update');
 Route::post('admin/benefits/store', 'AdminBenefitsController@store');
+
+Route::get('admin/events/create', 'AdminEventsController@create');
+Route::get('admin/events', 'AdminEventsController@index');
+Route::get('admin/events/{id}', 'AdminEventsController@show');
+Route::get('admin/events/{id}/edit', 'AdminEventsController@edit');
+Route::put('admin/events/{id}/update', 'AdminEventsController@update');
+Route::post('admin/events/store', 'AdminEventsController@store');

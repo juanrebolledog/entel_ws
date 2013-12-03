@@ -31,7 +31,9 @@
             <li class="divider"></li>
             <li><a href="benefit_comments.html">Comentarios</a></li>
             <li class="divider"></li>
-            <li><a href="events.html">Eventos</a></li>
+            <li>
+                <?= link_to('admin/events', 'Eventos'); ?>
+            </li>
             <li class="divider"></li>
             <li><a href="zones.html">Zonas</a></li>
             <li class="divider"></li>
@@ -70,7 +72,7 @@
                 <a href="#/comments">Comentarios&nbsp;<span class="fa fa-comments"></span></a>
             </li>
             <li class="<?= $data['current'] == 'events' ? 'active':''; ?>">
-                <a href="#/events">Eventos&nbsp;<span class="fa fa-calendar"></span></a>
+                <?php echo HTML::decode(HTML::link('admin/events', 'Eventos&nbsp;<span class="fa fa-calendar"></span>', array('escape' => false))); ?>
             </li>
             <li class="<?= $data['current'] == 'zones' ? 'active':''; ?>">
                 <a href="#/zones">Zonas&nbsp;<span class="fa fa-location-arrow"></span></a>

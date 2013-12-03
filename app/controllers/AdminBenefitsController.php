@@ -1,5 +1,5 @@
 <?php
-class AdminBenefitsController extends BaseController {
+class AdminBenefitsController extends AdminBaseController {
     protected $layout = 'admin_layout';
     public function __construct()
     {
@@ -22,30 +22,30 @@ class AdminBenefitsController extends BaseController {
 
     public function create()
     {
-        if (Session::get('benefit_error'))
+        if (Session::get('event_error'))
         {
             Eloquent::unguard();
-            $benefit = new Benefit(Session::get('benefit_error'));
+            $event = new AppEvent(Session::get('event_error'));
         }
         else
         {
-            $benefit = new Benefit();
+            $event = new AppEvent();
         }
-        return $this->layout->content = View::make('admin_benefits.create', array('benefit' => $benefit));
+        return $this->layout->content = View::make('admin_events.create', array('event' => $event));
     }
 
     public function store()
     {
         $data = Input::all();
-        $benefit = Benefit::createBenefit($data);
-        if ($benefit->validator->fails())
+        $event = AppEvent::createEvent($data);
+        if ($event->validator->fails())
         {
-            Session::flash('benefit_error', $data);
-            return Redirect::to('admin/benefits/create')->withErrors($benefit->validator);
+            Session::flash('event_error', $data);
+            return Redirect::to('admin/events/create')->withErrors($event->validator);
         }
         else
         {
-            return Redirect::to('admin/benefits/' . $benefit->id);
+            return Redirect::to('admin/events/' . $event->id);
         }
     }
 

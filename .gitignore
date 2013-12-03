@@ -7,3 +7,4 @@ Thumbs.db
 .idea
 app/config/database.php
 app/config/testing/database.php
+public/img/**
