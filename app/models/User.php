@@ -74,7 +74,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
             $user_array = $user->toArray();
             $user_validator = Validator::make($user_array, self::$validation);
-            if ($user_validator->fails())
+            if (!$user_validator->fails())
             {
                 if ($user->save())
                 {
