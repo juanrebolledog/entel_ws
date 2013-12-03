@@ -1,46 +1,73 @@
 <?php
 
-Route::group(array('before' => 'public'), function()
+Route::group(array('prefix' => 'api', 'before' => 'public'), function()
 {
-    Route::post('api/benefits/{id}/vote', 'BenefitsController@vote');
-    Route::post('api/benefits/{id}/ignore', 'BenefitsController@ignore');
-    Route::get('api/benefits/search', 'BenefitsController@search');
-    Route::get('api/benefits/ranking', 'BenefitsController@ranking');
-    Route::resource('api/benefits', 'BenefitsController');
+    Route::group(array('prefix' => 'benefits'), function()
+    {
+        Route::get('', 'BenefitsController@index');
+        Route::get('{id}', 'BenefitsController@show');
+        Route::post('{id}/vote', 'BenefitsController@vote');
+        Route::post('{id}/ignore', 'BenefitsController@ignore');
+        Route::get('search', 'BenefitsController@search');
+        Route::get('ranking', 'BenefitsController@ranking');
 
-    Route::get('api/benefits/{id}/comments', 'BenefitCommentsController@show');
-    Route::post('api/benefits/{id}/comments', 'BenefitCommentsController@store');
+        Route::get('{id}/comments', 'BenefitCommentsController@show');
+        Route::post('{id}/comments', 'BenefitCommentsController@store');
+    });
+    
+    Route::group(array('prefix' => 'events'), function()
+    {
+        Route::get('', 'EventsController@index');
+        Route::get('{id}', 'EventsController@show');
+        Route::get('search', 'EventsController@search');
 
-    Route::post('api/events/{id}/vote', 'EventsController@vote');
-    Route::post('api/events/{id}/ignore', 'EventsController@ignore');
-    Route::get('api/events/search', 'EventsController@search');
-    Route::resource('api/events', 'EventsController');
+        Route::get('{id}/comments', 'EventCommentsController@show');
+        Route::post('{id}/comments', 'EventCommentsController@store');
+    });
 
-    Route::get('api/events/{id}/comments', 'EventCommentsController@show');
-    Route::post('api/events/{id}/comments', 'EventCommentsController@store');
+    Route::get('categories', 'CategoriesController@index');
+    Route::get('categories/{id}', 'CategoriesController@show');
 
-    Route::resource('api/categories', 'CategoriesController');
-
-    Route::get('api/users/profile', 'UsersController@profile');
-    Route::post('api/users', 'UsersController@store');
-    Route::resource('api/users', 'UsersController');
+    Route::post('users', 'UsersController@store');
 });
 
-// API Test
+Route::group(array('prefix' => 'api'), function()
+{
+    // API Test
+    Route::get('tests', 'TestsController@get');
+    Route::post('tests', 'TestsController@post');
+});
 
-Route::get('api/tests', 'TestsController@get');
-Route::post('api/tests', 'TestsController@post');
+Route::group(array('prefix' => 'tests'), function()
+{
+    Route::get('RESTClient', 'TestsController@restClient');
+});
 
-Route::get('admin/benefits/create', 'AdminBenefitsController@create');
-Route::get('admin/benefits', 'AdminBenefitsController@index');
-Route::get('admin/benefits/{id}', 'AdminBenefitsController@show');
-Route::get('admin/benefits/{id}/edit', 'AdminBenefitsController@edit');
-Route::put('admin/benefits/{id}/update', 'AdminBenefitsController@update');
-Route::post('admin/benefits/store', 'AdminBenefitsController@store');
+Route::group(array('prefix' => 'admin'), function()
+{
+    Route::group(array('prefix' => 'benefits'), function()
+    {
+        Route::get('create', 'AdminBenefitsController@create');
+        Route::get('', 'AdminBenefitsController@index');
+        Route::get('{id}', 'AdminBenefitsController@show');
+        Route::get('{id}/edit', 'AdminBenefitsController@edit');
+        Route::put('{id}/update', 'AdminBenefitsController@update');
+        Route::post('store', 'AdminBenefitsController@store');
+    });
+    
+    Route::group(array('prefix' => 'events'), function()
+    {
+        Route::get('create', 'AdminEventsController@create');
+        Route::get('', 'AdminEventsController@index');
+        Route::get('{id}', 'AdminEventsController@show');
+        Route::get('{id}/edit', 'AdminEventsController@edit');
+        Route::put('{id}/update', 'AdminEventsController@update');
+        Route::post('store', 'AdminEventsController@store');
+    });
 
-Route::get('admin/events/create', 'AdminEventsController@create');
-Route::get('admin/events', 'AdminEventsController@index');
-Route::get('admin/events/{id}', 'AdminEventsController@show');
-Route::get('admin/events/{id}/edit', 'AdminEventsController@edit');
-Route::put('admin/events/{id}/update', 'AdminEventsController@update');
-Route::post('admin/events/store', 'AdminEventsController@store');
+    Route::group(array('prefix' => 'users'), function()
+    {
+        Route::get('', 'AdminUsersController@index');
+        Route::get('{id}', 'AdminUsersController@show');
+    });
+});

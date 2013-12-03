@@ -93,8 +93,8 @@
             <li class="<?= $data['current'] == 'status' ? 'active':''; ?>">
                 <a href="#/status">Estado del Servicio&nbsp;<span class="fa fa-power-off"></span></a>
             </li>
-            <li <?= $data['current'] == 'users' ? 'active':''; ?>>
-                <a href="#/users">Usuarios&nbsp;<span class="fa fa-users"></span></a>
+            <li class="<?= $data['current'] == 'users' ? 'active':''; ?>">
+                <?php echo HTML::decode(HTML::link('admin/users', 'Usuarios&nbsp;<span class="fa fa-users"></span>', array('escape' => false))); ?>
             </li>
         </ul>
         <section class="entel-item">
