@@ -34,7 +34,7 @@
                         <input type="checkbox">
                     </td>
                     <td>
-                        <?= $user['nombres']; ?> <?= $user['apellidos']; ?>
+                        <?= link_to(action('AdminUsersController@show', $user['id']), $user['nombres'] . ' ' . $user['apellidos']) ?>
                     </td>
                     <td class="hide-for-small">
                         <?= $user['telefono_movil']; ?>

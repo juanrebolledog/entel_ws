@@ -4,120 +4,65 @@
 <section>
     <header>
         <h3>
-            <?= link_to(action('AdminEventsController@index'), 'Eventos'); ?> &raquo; <?= $event->nombre; ?>
+            <?= link_to(action('AdminUsersController@index'), 'Usuarios'); ?> &raquo; <?= $user->nombres; ?> <?= $user->apellidos; ?>
         </h3>
         <ul>
             <li>
-                <?= link_to(action('AdminEventsController@edit', $event->id), 'Editar'); ?>
+                <a href="#map-element">Editar</a>
             </li>
             <li>
                 <a href="#">Desactivar</a>
             </li>
-            <li>
-                <?= link_to(action('AdminEventsController@create'), 'Crear Nuevo'); ?>
-            </li>
         </ul>
     </header>
     <div class="row">
-        <div class="large-5 medium-6 small-12 columns">
+        <div class="large-12 medium-12 small-12 columns">
             <section class="entel-item">
-                <header>Ubicaci&oacute;n</header>
-                <div id='map-element'></div>
-                <div class="entel-item-content">
-                    <small>
-                        <strong>Lat.:</strong> <?= $event->lat; ?> <strong>Lng.:</strong> <?= $event->lng; ?>
-                    </small>
-                </div>
-            </section>
-            <section class="entel-item">
-                <header>Descripci&oacute;n</header>
-                <div class="entel-item-content">
-                    <?= $event->descripcion; ?>
-                </div>
-            </section>
-            <section class="entel-item">
-                <header>Sub Categor&iacute;a</header>
-                <div class="entel-item-content">
-                    <a href="category.html">Comida R&aacute;pida</a>
-                </div>
-            </section>
-            <section class="entel-item">
-                <header>SMS</header>
+                <header>Detalles</header>
                 <div class="entel-item-content">
                     <dl>
-                        <dt>Nro</dt>
-                        <dd><?= $event->sms_nro; ?></dd>
-                        <dt>Texto</dt>
-                        <dd><?= $event->sms_texto; ?></dd>
+                        <dt>Nombres</dt>
+                        <dd>
+                            <?= $user->nombres; ?>
+                        </dd>
+                        <dt>Apellidos</dt>
+                        <dd>
+                            <?= $user->apellidos; ?>
+                        </dd>
+                        <dt>RUT</dt>
+                        <dd>
+                            <?= $user->rut; ?>
+                        </dd>
+                        <dt>Tel&eacute;fono M&oacute;vil</dt>
+                        <dd>
+                            <?= $user->telefono_movil; ?>
+                        </dd>
+                        <dt>Correo</dt>
+                        <dd>
+                            <?= $user->email; ?>
+                        </dd>
                     </dl>
                 </div>
             </section>
             <section class="entel-item">
-                <header>Tags</header>
-                <div class="entel-item-content">
-                    <?php foreach (explode(',', $event->tags) as $tag): ?>
-                    <span class="round label"><?= trim($tag); ?></span>
-                    <?php endforeach; ?>
-                </div>
-            </section>
-
-            <section class="entel-item">
-                <header>Mas Info.</header>
-                <div class="entel-item-content">
-                    <small>[vac&iacute;o]</small>
-                </div>
-            </section>
-        </div>
-        <div class="large-7 medium-6 small-12 columns">
-            <section class="entel-item">
-                <header>Im&aacute;genes</header>
-                <div class="entel-item-content">
-                    <div class="entel-image">
-                        <img src="<?= asset($event->imagen_grande); ?>" alt="">
-                        <header>
-                            Grande / 800x200 / https://cdn.example.com/<?= $event->imagen_grande; ?>
-                        </header>
-                    </div>
-                    <div class="entel-image">
-                        <img src="<?= asset($event->imagen_chica); ?>" alt="">
-                        <header>
-                            Chica / 500x100 / https://cdn.example.com/<?= $event->imagen_chica; ?>
-                        </header>
-                    </div>
-                    <div class="entel-image">
-                        <img src="<?= asset($event->icono); ?>" alt="">
-                        <header>
-                            &Iacute;cono / 256x256 / https://cdn.example.com/<?= $event->icono; ?>
-                        </header>
-                    </div>
-                    <div class="entel-image">
-                        <img src="<?= asset($event->imagen_titulo); ?>" alt="">
-                        <header>
-                            T&iacute;tulo / 800x50 / https://cdn.example.com/<?= $event->imagen_titulo; ?>
-                        </header>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-12 medium-12 small-12">
-            <section class="entel-item">
-                <header>Comentarios</header>
+                <header>&Uacute;ltimos Comentarios</header>
                 <div class="entel-item-content">
                     <table>
                         <thead>
                         <tr>
-                            <th>Nombre Usuario</th>
-                            <th>Mensaje</th>
-                            <th>Fecha &#x21e3</th>
-                            <th class="hide-for-small">Compartir FB</th>
-                            <th class="hide-for-small">Compartir Tw</th>
+                            <th>Beneficio</th>
+                            <th>Fecha</th>
                             <th>&nbsp;</th>
                         </tr>
                         </thead>
                         <tbody>
+                        <tr>
+                            <td>
 
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -130,17 +75,17 @@
 @section('scripts')
 <script src="<?= asset('js/vendor/mapbox.js/mapbox.js'); ?>"></script>
 <script>
-    (function($, event) {
+    (function($, user) {
         var geojson = [
             {
                 "type": "Feature",
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [event.lng, event.lat]
+                    "coordinates": [user.lng, user.lat]
                 },
                 "properties": {
-                    "title": event.nombre,
-                    "description": event.descripcion,
+                    "title": user.nombre,
+                    "description": user.descripcion,
                     "marker-color": "#fc4353",
                     "marker-size": "large",
                     "marker-symbol": "fast-food"
@@ -148,11 +93,11 @@
             }
         ];
         var map = L.mapbox.map('map-element', 'juanrebolledog.gc0826d2')
-            .setView([event.lat, event.lng], 12);
+            .setView([user.lat, user.lng], 12);
 
         map.addControl(L.mapbox.geocoderControl('juanrebolledog.gc0826d2'));
         map.addControl(L.mapbox.shareControl());
         map.markerLayer.setGeoJSON(geojson);
-    })(jQuery, <?= json_encode($event->toArray()); ?>);
+    })(jQuery, <?= json_encode($user->toArray()); ?>);
 </script>
 @stop

@@ -17,8 +17,8 @@ class AdminUsersController extends AdminBaseController {
 
     public function show($id)
     {
-        $users = User::all();
-        return View::make('admin_users.index', array('users' => $users->toArray()));
+        $user = User::find($id);
+        return View::make('admin_users.show', array('user' => $user));
     }
 
 }
