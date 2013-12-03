@@ -4,7 +4,7 @@
 <section>
     <header>
         <h3>
-            <?= link_to(action('AdminUsersController@index'), 'Usuarios'); ?> &raquo; <?= $user->nombres; ?> <?= $user->apellidos; ?>
+            <?= link_to(action('AdminUsersController@index'), 'Usuarios'); ?> &raquo; <?= $user->nombres; ?>
         </h3>
         <ul>
             <li>
@@ -24,10 +24,6 @@
                         <dt>Nombres</dt>
                         <dd>
                             <?= $user->nombres; ?>
-                        </dd>
-                        <dt>Apellidos</dt>
-                        <dd>
-                            <?= $user->apellidos; ?>
                         </dd>
                         <dt>RUT</dt>
                         <dd>
@@ -71,33 +67,4 @@
     </div>
 
 </section>
-@stop
-@section('scripts')
-<script src="<?= asset('js/vendor/mapbox.js/mapbox.js'); ?>"></script>
-<script>
-    (function($, user) {
-        var geojson = [
-            {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [user.lng, user.lat]
-                },
-                "properties": {
-                    "title": user.nombre,
-                    "description": user.descripcion,
-                    "marker-color": "#fc4353",
-                    "marker-size": "large",
-                    "marker-symbol": "fast-food"
-                }
-            }
-        ];
-        var map = L.mapbox.map('map-element', 'juanrebolledog.gc0826d2')
-            .setView([user.lat, user.lng], 12);
-
-        map.addControl(L.mapbox.geocoderControl('juanrebolledog.gc0826d2'));
-        map.addControl(L.mapbox.shareControl());
-        map.markerLayer.setGeoJSON(geojson);
-    })(jQuery, <?= json_encode($user->toArray()); ?>);
-</script>
 @stop

@@ -7,7 +7,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     static protected $validation = array(
         'nombres' => 'required',
-        'apellidos' => 'required',
         'rut' => 'required',
         'telefono_movil' => 'required',
         'email' => 'required'
@@ -64,7 +63,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         {
             $user = new User();
             $user->nombres = $data['nombres'];
-            $user->apellidos = $data['apellidos'];
             $user->rut = $data['rut'];
             $user->telefono_movil = $data['telefono_movil'];
             $user->email = $data['email'];

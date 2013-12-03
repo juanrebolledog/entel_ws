@@ -12,7 +12,6 @@ class UsersController extends BaseController {
         $profile = array(
             'id' => $user->id,
             'nombres' => $user->nombres,
-            'apellidos' => $user->apellidos,
             'rut' => $user->rut,
             'telefono_movil' => $user->telefono_movil
         );
