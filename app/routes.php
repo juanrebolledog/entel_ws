@@ -1,6 +1,6 @@
 <?php
 
-Route::group(array('prefix' => 'api', 'before' => 'public'), function()
+Route::group(array('prefix' => 'api'), function()
 {
     Route::group(array('prefix' => 'benefits'), function()
     {
@@ -29,11 +29,7 @@ Route::group(array('prefix' => 'api', 'before' => 'public'), function()
     Route::get('categories/{id}', 'CategoriesController@show');
 
     Route::post('users', 'UsersController@store');
-});
 
-Route::group(array('prefix' => 'api'), function()
-{
-    // API Test
     Route::get('tests', 'TestsController@get');
     Route::post('tests', 'TestsController@post');
 });
