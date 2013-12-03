@@ -5,6 +5,14 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
+    static protected $validation = array(
+        'nombres' => 'required',
+        'apellidos' => 'required',
+        'rut' => 'required',
+        'telefono_movil' => 'required',
+        'email' => 'required'
+    );
+
     /**
      * The database table used by the model.
      *
@@ -63,9 +71,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             $user->fb_id = isset($data['fb_id']) ? $data['fb_id'] : null;
             $user->api_key = hash('sha256', $user->cellphone_number . $user->rut);
             $user->password = hash('sha256', $user->api_key . Request::header('ENTEL-ACCESS-KEY'));
-            if ($user->save())
+
+            $user_array = $user->toArray();
+            $user_validator = Validator::make($user_array, self::$validation);
+            if ($user_validator->fails())
             {
-                return $user;
+                if ($user->save())
+                {
+                    return $user;
+                }
             }
         }
         return false;
