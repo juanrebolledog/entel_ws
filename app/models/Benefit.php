@@ -214,7 +214,16 @@ class Benefit extends LocationModel {
         }
 
         $models = array();
-        foreach (self::whereNotIn('id', $ignored_ids)->get() as $model)
+        if (!empty($ignored_ids))
+        {
+            $benefits = self::whereNotIn('id', $ignored_ids)->get();
+        }
+        else
+        {
+            $benefits = self::all();
+        }
+
+        foreach ($benefits as $model)
         {
             $distance = self::calculateDistance(array('lat' => $lat, 'lng' => $lng),
                 array('lat' => $model->lat, 'lng' => $model->lng));
