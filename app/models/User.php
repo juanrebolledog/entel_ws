@@ -61,7 +61,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         $user = User::where('rut', $data['rut'])->first();
         if (!$user)
         {
+            $user_lvl = UserLevel::where('beneficios', 0)->first();
             $user = new User();
+            $user->nivel_id = $user_lvl->id;
             $user->nombres = $data['nombres'];
             $user->rut = $data['rut'];
             $user->telefono_movil = $data['telefono_movil'];
