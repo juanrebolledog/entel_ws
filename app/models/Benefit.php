@@ -204,11 +204,17 @@ class Benefit extends LocationModel {
         return $results;
     }
 
-    static public function findByLocation($lat, $lng)
+    static public function findByLocation($user_id, $lat, $lng)
     {
-        $models = array();
+        $ignored_benefits = BenefitIgnore::where('usuario_id', $user_id)->get();
+        $ignored_ids = array();
+        foreach ($ignored_benefits as $ib)
+        {
+            array_push($ignored_ids, $ib->beneficio_id);
+        }
 
-        foreach (self::all() as $model)
+        $models = array();
+        foreach (self::whereNotIn('id', $ignored_ids)->get() as $model)
         {
             $distance = self::calculateDistance(array('lat' => $lat, 'lng' => $lng),
                 array('lat' => $model->lat, 'lng' => $model->lng));
