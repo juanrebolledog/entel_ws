@@ -1,5 +1,41 @@
 # Zona Entel WebService
 
+El WebService para Zona Entel permite la comunicación entre las aplicaciones móviles y el sistema a través de un API REST. La autenticación se maneja a través de cabeceras HTTP donde, en cada petición, se envían credenciales especiales para poder tener acceso. Si algún endpoint requiere de datos adicionales (en el caso de rutas accesibles por POST o PUT) serán formateados como JSON (y por tanto, la cabecera Content-Type debe tener el valor application/json). Todas las respuestas del WS también vendrán en JSON.
+
+Ejemplo rápido usando cURL:
+
+    $ curl -H "Content-Type: application/json" -H "ENTEL-ACCESS-KEY: <ACCESS-KEY>" -H "ENTEL-API-KEY: <API-KEY>" https://example.com/api/benefits/4
+
+Ejemplo de Respuesta:
+
+    {
+        "data": {
+            "id": 4,
+            "nombre": "Esta es una prueba",
+            "descripcion": "Esta es una prueba y por lo tanto, tiene contenido de pruebas. Muchas veces es repetitivo, algunas veces es escaso. Hoy, es diferente.",
+            "sub_categoria_id": 1,
+            "icono": "img/benefits/icono_1.png",
+            "imagen_grande": "img/benefits/imagen_grande_1.png",
+            "imagen_chica": "img/benefits/imagen_chica_1.png",
+            "imagen_titulo": "img/benefits/imagen_titulo_1.png",
+            "fecha": "Hoy",
+            "lugar": "Ahi",
+            "sms_texto": "1029",
+            "sms_nro": "1209",
+            "lat": 10.134499549866,
+            "lng": -68.123397827148,
+            "rating": 0
+        },
+        "status": true
+    }
+
+## Recursos Disponibles
+
+- Beneficios
+- Eventos
+- Categorías
+- Usuarios
+
 ## Autenticación
 
 El acceso al WS se restringe a peticiones con cabeceras HTTP específicas que ayudan al sistema a identificar la plataforma de donde se hace la petición así como también autenticar y autorizar al usuario. Las cabeceras son las siguientes:
@@ -10,14 +46,6 @@ El acceso al WS se restringe a peticiones con cabeceras HTTP específicas que ay
 La cabecera ENTEL-ACCESS-KEY cumple la función de identificar la plataforma de donde se esté haciendo la petición. La motivación de utilizar esta cabecera es autenticar la plataforma y de acuerdo al valor de la cabecera, autorizar el uso del WS. De esta forma se está evitando el uso del WS por otras plataformas/personas no autorizadas.
 
 Adicionalmente, el usuario tiene su propia clave que lo identifica dentro del sistema: ENTEL-API-KEY. Esta clave especial (podría ser considerada como un password del usuario que nunca ve) es única para un usuario y el sistema la calcula al registrarse (ver Recursos: Usuarios mas abajo).
-
-
-## Recursos
-
-- Beneficios
-- Eventos
-- Categorías
-- Usuarios
 
 
 ### Beneficios
