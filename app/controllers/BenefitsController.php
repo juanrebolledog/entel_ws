@@ -88,4 +88,17 @@ class BenefitsController extends BaseController {
         return Response::json($this->api_response);
     }
 
+    public function redeem($id)
+    {
+        $user_id = Auth::getUser()->id;
+        if (BenefitRedeem::redeem($id, $user_id))
+        {
+            $this->setApiResponse(array(
+                'id' => $id,
+                'redeemed' => true
+            ), true);
+        }
+        return Response::json($this->api_response);
+    }
+
 }

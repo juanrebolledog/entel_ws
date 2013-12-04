@@ -10,6 +10,7 @@ Route::group(array('prefix' => 'api', 'before' => 'auth'), function()
         Route::get('{id}', 'BenefitsController@show');
         Route::post('{id}/vote', 'BenefitsController@vote');
         Route::post('{id}/ignore', 'BenefitsController@ignore');
+        Route::post('{id}/redeem', 'BenefitsController@redeem');
 
         Route::get('{id}/comments', 'BenefitCommentsController@show');
         Route::post('{id}/comments', 'BenefitCommentsController@store');
