@@ -28,7 +28,7 @@ URL Base: /api/benefits
 
 Indice de beneficios. Acepta parámetros lat y lng para filtrar por coordenadas geográficas.
 
-Parámetros:
+Parámetros (opcionales):
 
  - lat
  - lng
@@ -36,6 +36,72 @@ Parámetros:
 Ejemplo:
 
 https://api.example.com/api/benefits?lat=10.1234&lng=-69.2134
+
+Respuesta Ejemplo:
+
+    {
+        "data": [
+            {
+                "id": 4,
+                "nombre": "Esta es una prueba",
+                "descripcion": "Esta es una prueba y por lo tanto, tiene contenido de pruebas. Muchas veces es repetitivo, algunas veces es escaso. Hoy, es diferente.",
+                "sub_categoria_id": 1,
+                "lat": 10.134499549866,
+                "lng": -68.123397827148,
+                "rating": 0,
+                "imagen_icono": "img/benefits/icono_1.png",
+                "imagen_chica": "img/benefits/imagen_chica_1.png",
+                "imagen_grante": "img/benefits/imagen_grande_1.png",
+                "imagen_titulo": "img/benefits/imagen_titulo_1.png",
+                "fecha": "Hoy",
+                "lugar": "Ahi",
+                "sms_texto": "1029",
+                "sms_nro": "1209",
+                "distancia": 3387818.5066704
+            },
+            {
+                "id": 3,
+                "nombre": "PruebaUPDATE",
+                "descripcion": "Prueba",
+                "sub_categoria_id": 1,
+                "lat": 10.100999832153,
+                "lng": 10.100999832153,
+                "rating": 0,
+                "imagen_icono": "img/benefits/icono_1.png",
+                "imagen_chica": "img/benefits/imagen_chica_1.png",
+                "imagen_grante": "img/benefits/imagen_grande_1.png",
+                "imagen_titulo": "img/benefits/imagen_titulo_1.png",
+                "fecha": "prueba",
+                "lugar": "prueba",
+                "sms_texto": "prueba",
+                "sms_nro": "prueba",
+                "distancia": 11862411.263339
+            },
+            {
+                "id": 2,
+                "nombre": "Prueba",
+                "descripcion": "Prueba",
+                "sub_categoria_id": 1,
+                "lat": 10.100999832153,
+                "lng": 10.100999832153,
+                "rating": 0,
+                "imagen_icono": "img/benefits/icono_1.png",
+                "imagen_chica": "img/benefits/imagen_chica_1.png",
+                "imagen_grante": "img/benefits/imagen_grande_1.png",
+                "imagen_titulo": "img/benefits/imagen_titulo_1.png",
+                "fecha": "prueba",
+                "lugar": "prueba",
+                "sms_texto": "prueba",
+                "sms_nro": "prueba",
+                "distancia": 11862411.263339
+            }
+        ],
+        "status": true
+    }
+
+
+La distancia de cada beneficio está en metros.
+
 
 ### GET /ranking
 
@@ -45,9 +111,68 @@ Ejemplo:
 
 https://api.example.com/api/benefits/ranking
 
+Respuesta Ejemplo:
+
+    {
+        "data": [
+            {
+                "id": 4,
+                "nombre": "Esta es una prueba",
+                "descripcion": "Esta es una prueba y por lo tanto, tiene contenido de pruebas. Muchas veces es repetitivo, algunas veces es escaso. Hoy, es diferente.",
+                "sub_categoria_id": 1,
+                "lat": 10.134499549866,
+                "lng": -68.123397827148,
+                "rating": 10,
+                "imagen_icono": "img/benefits/icono_1.png",
+                "imagen_chica": "img/benefits/imagen_chica_1.png",
+                "imagen_grante": "img/benefits/imagen_grande_1.png",
+                "imagen_titulo": "img/benefits/imagen_titulo_1.png",
+                "fecha": "Hoy",
+                "lugar": "Ahi",
+                "sms_texto": "1029",
+                "sms_nro": "1209"
+            },
+            {
+                "id": 3,
+                "nombre": "PruebaUPDATE",
+                "descripcion": "Prueba",
+                "sub_categoria_id": 1,
+                "lat": 10.100999832153,
+                "lng": 10.100999832153,
+                "rating": 6,
+                "imagen_icono": "img/benefits/icono_1.png",
+                "imagen_chica": "img/benefits/imagen_chica_1.png",
+                "imagen_grante": "img/benefits/imagen_grande_1.png",
+                "imagen_titulo": "img/benefits/imagen_titulo_1.png",
+                "fecha": "prueba",
+                "lugar": "prueba",
+                "sms_texto": "prueba",
+                "sms_nro": "prueba"
+            },
+            {
+                "id": 2,
+                "nombre": "Prueba",
+                "descripcion": "Prueba",
+                "sub_categoria_id": 1,
+                "lat": 10.100999832153,
+                "lng": 10.100999832153,
+                "rating": 2.3,
+                "imagen_icono": "img/benefits/icono_1.png",
+                "imagen_chica": "img/benefits/imagen_chica_1.png",
+                "imagen_grante": "img/benefits/imagen_grande_1.png",
+                "imagen_titulo": "img/benefits/imagen_titulo_1.png",
+                "fecha": "prueba",
+                "lugar": "prueba",
+                "sms_texto": "prueba",
+                "sms_nro": "prueba"
+            }
+        ],
+        "status": true
+    }
+
 ### POST /{benefit_id}/vote
 
-Votos sobre beneficios. Requiere datos POST en formato JSON.
+Votos sobre beneficios. El usuario podrá votar cuantas veces prefiera pero se guardará siempre el último valor y no se guardarán duplicados para un usuario en particular. Requiere datos POST en formato JSON.
 
 Ejemplo:
 
@@ -55,7 +180,19 @@ https://api.example.com/api/benefits/1/vote
 
 Datos:
 
-	{ "vote": 10 }
+    {
+        "vote": 10
+    }
+
+Respuesta Ejemplo:
+
+    {
+        "data": {
+            "vote": 10,
+            "id": "4"
+        },
+        "status": true
+    }
 
 #### GET /{benefit_id}
 
@@ -63,7 +200,30 @@ Información de un beneficio específico.
 
 Ejemplo:
 
-https://api.example.com/api/benefits/1
+https://api.example.com/api/benefits/4
+
+Respuesta Ejemplo:
+
+    {
+        "data": {
+            "id": 4,
+            "nombre": "Esta es una prueba",
+            "descripcion": "Esta es una prueba y por lo tanto, tiene contenido de pruebas. Muchas veces es repetitivo, algunas veces es escaso. Hoy, es diferente.",
+            "sub_categoria_id": 1,
+            "icono": "img/benefits/icono_1.png",
+            "imagen_grande": "img/benefits/imagen_grande_1.png",
+            "imagen_chica": "img/benefits/imagen_chica_1.png",
+            "imagen_titulo": "img/benefits/imagen_titulo_1.png",
+            "fecha": "Hoy",
+            "lugar": "Ahi",
+            "sms_texto": "1029",
+            "sms_nro": "1209",
+            "lat": 10.134499549866,
+            "lng": -68.123397827148,
+            "rating": 0
+        },
+        "status": true
+    }
 
 #### GET /search
 
@@ -75,7 +235,36 @@ Parámetros:
 
 Ejemplo:
 
-https://api.example.com/api/benefits/search?q=Busqueda+beneficio
+https://api.example.com/api/benefits/search?q=contenido+de+pruebas
+
+Respuesta Ejemplo:
+
+    {
+        "data": [
+            {
+                "id": 4,
+                "nombre": "Esta es una prueba",
+                "descripcion": "Esta es una prueba y por lo tanto, tiene contenido de pruebas. Muchas veces es repetitivo, algunas veces es escaso. Hoy, es diferente.",
+                "sub_categoria_id": 1,
+                "icono": "img/benefits/icono_1.png",
+                "imagen_grande": "img/benefits/imagen_grande_1.png",
+                "imagen_chica": "img/benefits/imagen_chica_1.png",
+                "imagen_titulo": "img/benefits/imagen_titulo_1.png",
+                "fecha": "Hoy",
+                "lugar": "Ahi",
+                "tags": "prueba, beneficio, diferente, contenido",
+                "sms_texto": "1029",
+                "sms_nro": "1209",
+                "lat": 10.134499549866,
+                "lng": -68.123397827148,
+                "rating": 0,
+                "caducado": 0,
+                "created_at": "2013-11-25 22:33:12",
+                "updated_at": "2013-12-04 01:20:39"
+            }
+        ],
+        "status": true
+    }
 
 #### POST /{benefit_id}/ignore
 
@@ -84,6 +273,15 @@ Ignorar un beneficio. Evitará que se regrese en las busquedas por coordenadas.
 Ejemplo:
 
 https://api.example.com/api/benefits/1/ignore
+
+Respuesta Ejemplo:
+
+    {
+        "data": {
+            "id": "2"
+        },
+        "status": true
+    }
 
 ### Eventos
 
@@ -137,22 +335,21 @@ https://api.example.com/api/users
 
 Datos:
 
-	{
-		"nombres": "Pedro",
-		"apellidos": "Pérez",
-		"rut": "12345678-9",
-		"telefono_movil": "1234567"
-	}
+    {
+        "nombres": "Pedro Pérez",
+        "rut": "12345678-9",
+        "telefono_movil": "1234567",
+        "email": "pedro@perez.net"
+    }
 
 Respuesta de ejemplo:
 
-	{
-		"nombres": "Pedro",
-		"apellidos": "Pérez",
-		"rut": "12345678-9",
-		"telefono_movil": "1234567",
-		"api_key": "d3242ea998d9f8298f029e0"
-	}
+    {
+        "nombres": "Pedro Pérez",
+        "rut": "12345678-9",
+        "telefono_movil": "1234567",
+        "api_key": "d3242ea998d9f8298f029e0"
+    }
 
 
 ### Categorías

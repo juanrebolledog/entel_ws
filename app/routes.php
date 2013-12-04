@@ -1,15 +1,15 @@
 <?php
 
-Route::group(array('prefix' => 'api'), function()
+Route::group(array('prefix' => 'api', 'before' => 'auth'), function()
 {
     Route::group(array('prefix' => 'benefits'), function()
     {
         Route::get('', 'BenefitsController@index');
+        Route::get('search', 'BenefitsController@search');
+        Route::get('ranking', 'BenefitsController@ranking');
         Route::get('{id}', 'BenefitsController@show');
         Route::post('{id}/vote', 'BenefitsController@vote');
         Route::post('{id}/ignore', 'BenefitsController@ignore');
-        Route::get('search', 'BenefitsController@search');
-        Route::get('ranking', 'BenefitsController@ranking');
 
         Route::get('{id}/comments', 'BenefitCommentsController@show');
         Route::post('{id}/comments', 'BenefitCommentsController@store');
@@ -18,8 +18,8 @@ Route::group(array('prefix' => 'api'), function()
     Route::group(array('prefix' => 'events'), function()
     {
         Route::get('', 'EventsController@index');
-        Route::get('{id}', 'EventsController@show');
         Route::get('search', 'EventsController@search');
+        Route::get('{id}', 'EventsController@show');
 
         Route::get('{id}/comments', 'EventCommentsController@show');
         Route::post('{id}/comments', 'EventCommentsController@store');
@@ -28,10 +28,13 @@ Route::group(array('prefix' => 'api'), function()
     Route::get('categories', 'CategoriesController@index');
     Route::get('categories/{id}', 'CategoriesController@show');
 
-    Route::post('users', 'UsersController@store');
-
     Route::get('tests', 'TestsController@get');
     Route::post('tests', 'TestsController@post');
+});
+
+Route::group(array('prefix' => 'api', 'before' => 'public'), function()
+{
+    Route::post('users', 'UsersController@store');
 });
 
 Route::group(array('prefix' => 'tests'), function()

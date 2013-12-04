@@ -172,9 +172,18 @@ class Benefit extends LocationModel {
                 'id' => $model->id,
                 'nombre' => $model->nombre,
                 'descripcion' => $model->descripcion,
+                'sub_categoria_id' => $model->sub_categoria_id,
                 'lat' => $model->lat,
                 'lng' => $model->lng,
-                'rating' => $model->rating
+                'rating' => $model->rating,
+                'imagen_icono' => $model->icono,
+                'imagen_chica' => $model->imagen_chica,
+                'imagen_grante' => $model->imagen_grande,
+                'imagen_titulo' => $model->imagen_titulo,
+                'fecha' => $model->fecha,
+                'lugar' => $model->lugar,
+                'sms_texto' => $model->sms_texto,
+                'sms_nro' => $model->sms_nro,
             ));
         }
         $models = array_values(array_sort($models, function($value)
@@ -193,5 +202,40 @@ class Benefit extends LocationModel {
             $query->orWhere('tags', 'LIKE', '%' . $q . '%');
         })->get();
         return $results;
+    }
+
+    static public function findByLocation($lat, $lng)
+    {
+        $models = array();
+
+        foreach (self::all() as $model)
+        {
+            $distance = self::calculateDistance(array('lat' => $lat, 'lng' => $lng),
+                array('lat' => $model->lat, 'lng' => $model->lng));
+
+            array_push($models, array(
+                'id' => $model->id,
+                'nombre' => $model->nombre,
+                'descripcion' => $model->descripcion,
+                'sub_categoria_id' => $model->sub_categoria_id,
+                'lat' => $model->lat,
+                'lng' => $model->lng,
+                'rating' => $model->rating,
+                'imagen_icono' => $model->icono,
+                'imagen_chica' => $model->imagen_chica,
+                'imagen_grante' => $model->imagen_grande,
+                'imagen_titulo' => $model->imagen_titulo,
+                'fecha' => $model->fecha,
+                'lugar' => $model->lugar,
+                'sms_texto' => $model->sms_texto,
+                'sms_nro' => $model->sms_nro,
+                'distancia' => $distance
+            ));
+        }
+        $models = array_values(array_sort($models, function($value)
+        {
+            return $value['distancia'];
+        }));
+        return $models;
     }
 } 
