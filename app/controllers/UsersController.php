@@ -34,6 +34,14 @@ class UsersController extends BaseController {
         return Response::json($this->api_response);
     }
 
+    public function level()
+    {
+        $user = Auth::getUser();
+        $level = UserLevel::find($user->nivel_id);
+        $this->setApiResponse($level->toArray(), true);
+        return Response::json($this->api_response);
+    }
+
     public function update()
     {
 

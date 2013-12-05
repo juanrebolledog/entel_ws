@@ -380,6 +380,29 @@ Respuesta de ejemplo:
         "api_key": "d3242ea998d9f8298f029e0"
     }
 
+#### GET /level
+
+Regresa el nivel del usuario actual.
+
+Ejemplo:
+
+    https://api.example.com/api/users/level
+
+Respuesta de Ejemplo:
+
+    {
+        "data": {
+            "id": 1,
+            "categoria": "Usuario",
+            "beneficios": 0,
+            "comentarios": 0,
+            "compartir": 0,
+            "imagen_on": null,
+            "imagen_off": null
+        },
+        "status": true
+    }
+
 
 ### Categorías
 
