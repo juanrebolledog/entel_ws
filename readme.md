@@ -33,7 +33,7 @@ Ejemplo de Respuesta:
 
 - Beneficios
 - Eventos
-- Categorías
+- Categorías de Eventos/Beneficios
 - Usuarios
 - Niveles de Usuario
 
@@ -312,6 +312,104 @@ Respuesta Ejemplo:
         "status": true
     }
 
+### Categorías de Beneficios
+
+URL Base: /api/benefits/categories
+
+#### GET /
+
+Índice de Categorías
+
+Ejemplo:
+
+    https://api.example.com/api/benefits/categories
+
+Respuesta de Ejemplo:
+
+    {
+        "data": [
+            {
+                "id": 1,
+                "nombre": "Gastronomía",
+                "banner": " ",
+                "banner_link": " ",
+                "icono": null
+            }
+        ],
+        "status": true
+    }
+
+#### GET /{category_id}
+
+Información de categoría específica
+
+Ejemplo:
+
+    https://api.example.com/api/benefits/categories/1
+
+Respuesta de Ejemplo:
+
+    {
+        "data": {
+            "id": 1,
+            "nombre": "Gastronomía",
+            "banner": " ",
+            "banner_link": " ",
+            "icono": null
+        },
+        "status": true,
+        "time": 1386283992,
+        "tz": "UTC"
+    }
+
+### Sub Categorías de Beneficios
+
+URL Base: /api/benefits/sub_categories
+
+#### GET /
+
+Índice de Sub Categorías
+
+Ejemplo:
+
+    https://api.example.com/api/benefits/sub_categories
+
+Respuesta de Ejemplo:
+
+    {
+        "data": [
+            {
+                "id": 1,
+                "categoria_id": 1,
+                "nombre": "BK",
+                "banner": null,
+                "banner_link": null
+            }
+        ],
+        "status": true
+    }
+
+#### GET /{sub_category_id}
+
+Información de sub categoría específica
+
+Ejemplo:
+
+    https://api.example.com/api/benefits/sub_categories/1
+
+Respuesta de Ejemplo:
+
+    {
+        "data": {
+            "id": 1,
+            "categoria_id": 1,
+            "nombre": "BK",
+            "banner": null,
+            "banner_link": null
+        },
+        "status": true
+    }
+
 ### Eventos
 
 URL Base: /api/events
@@ -402,27 +500,6 @@ Respuesta de Ejemplo:
         },
         "status": true
     }
-
-
-### Categorías
-
-URL Base: /api/categories
-
-#### GET /
-
-Índice de Categorías
-
-Ejemplo:
-
-    https://api.example.com/api/categories
-
-#### GET /{category_id}
-
-Información de categoría específica
-
-Ejemplo:
-
-    https://api.example.com/api/categories/1
 
 
 ### Niveles de Usuario

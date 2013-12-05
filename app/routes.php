@@ -7,7 +7,13 @@ Route::group(array('prefix' => 'api', 'before' => 'auth'), function()
         Route::get('', 'BenefitsController@index');
         Route::get('search', 'BenefitsController@search');
         Route::get('ranking', 'BenefitsController@ranking');
+        Route::get('categories', 'BenefitCategoriesController@index');
+        Route::get('categories/{id}', 'BenefitCategoriesController@show');
+        Route::get('sub_categories', 'BenefitSubCategoriesController@index');
+        Route::get('sub_categories/{id}', 'BenefitSubCategoriesController@show');
         Route::get('{id}', 'BenefitsController@show');
+        Route::get('{id}/category', 'BenefitsController@category');
+        Route::get('{id}/sub_category', 'BenefitsController@sub_category');
         Route::post('{id}/vote', 'BenefitsController@vote');
         Route::post('{id}/ignore', 'BenefitsController@ignore');
         Route::post('{id}/redeem', 'BenefitsController@redeem');
@@ -25,9 +31,6 @@ Route::group(array('prefix' => 'api', 'before' => 'auth'), function()
         Route::get('{id}/comments', 'EventCommentsController@show');
         Route::post('{id}/comments', 'EventCommentsController@store');
     });
-
-    Route::get('categories', 'CategoriesController@index');
-    Route::get('categories/{id}', 'CategoriesController@show');
 
     Route::get('users/level', 'UsersController@level');
 

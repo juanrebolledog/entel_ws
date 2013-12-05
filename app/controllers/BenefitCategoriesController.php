@@ -1,6 +1,7 @@
 <?php
 
-class CategoriesController extends BaseController {
+class BenefitCategoriesController extends \BaseController {
+
     /**
      * Display a listing of the resource.
      *
@@ -8,7 +9,7 @@ class CategoriesController extends BaseController {
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = BenefitCategory::all();
         $this->setApiResponse($categories->toArray(), true);
         return Response::json($this->api_response);
     }
@@ -21,8 +22,9 @@ class CategoriesController extends BaseController {
      */
     public function show($id)
     {
-        $category = Category::find($id);
+        $category = BenefitCategory::find($id);
         $this->setApiResponse($category->toArray(), true);
         return Response::json($this->api_response);
     }
-} 
+
+}

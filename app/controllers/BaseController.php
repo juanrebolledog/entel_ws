@@ -28,6 +28,8 @@ class BaseController extends Controller {
         {
             $this->api_response['message'] = $message;
         }
+        $this->api_response['time'] = time();
+        $this->api_response['tz'] = date_default_timezone_get();
     }
 
 }
