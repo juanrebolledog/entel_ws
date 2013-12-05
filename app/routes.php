@@ -29,6 +29,9 @@ Route::group(array('prefix' => 'api', 'before' => 'auth'), function()
     Route::get('categories', 'CategoriesController@index');
     Route::get('categories/{id}', 'CategoriesController@show');
 
+    Route::get('user_levels', 'UserLevelsController@index');
+    Route::get('user_levels/{id}', 'UserLevelsController@show');
+
     Route::get('tests', 'TestsController@get');
     Route::post('tests', 'TestsController@post');
 });
