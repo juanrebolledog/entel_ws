@@ -64,7 +64,7 @@ Parámetros (opcionales):
 
 Ejemplo:
 
-https://api.example.com/api/benefits?lat=10.1234&lng=-69.2134
+    https://api.example.com/api/benefits?lat=10.1234&lng=-69.2134
 
 Respuesta Ejemplo:
 
@@ -138,7 +138,7 @@ Indice de Beneficios ordenados por el puntaje acumulado de sus votos.
 
 Ejemplo:
 
-https://api.example.com/api/benefits/ranking
+    https://api.example.com/api/benefits/ranking
 
 Respuesta Ejemplo:
 
@@ -205,7 +205,7 @@ Votos sobre beneficios. El usuario podrá votar cuantas veces prefiera pero se g
 
 Ejemplo:
 
-https://api.example.com/api/benefits/1/vote
+    https://api.example.com/api/benefits/1/vote
 
 Datos:
 
@@ -229,7 +229,7 @@ Información de un beneficio específico.
 
 Ejemplo:
 
-https://api.example.com/api/benefits/4
+    https://api.example.com/api/benefits/4
 
 Respuesta Ejemplo:
 
@@ -264,7 +264,7 @@ Parámetros:
 
 Ejemplo:
 
-https://api.example.com/api/benefits/search?q=contenido+de+pruebas
+    https://api.example.com/api/benefits/search?q=contenido+de+pruebas
 
 Respuesta Ejemplo:
 
@@ -301,7 +301,7 @@ Ignorar un beneficio. Evitará que se regrese en las busquedas por coordenadas.
 
 Ejemplo:
 
-https://api.example.com/api/benefits/1/ignore
+    https://api.example.com/api/benefits/1/ignore
 
 Respuesta Ejemplo:
 
@@ -327,7 +327,7 @@ Parámetros:
 
 Ejemplo:
 
-https://api.example.com/api/events?lat=10.1234&lng=-69.1234
+    https://api.example.com/api/events?lat=10.1234&lng=-69.1234
 
 #### GET /{event_id}
 
@@ -335,7 +335,7 @@ Información detallada de un evento.
 
 Ejemplo:
 
-https://api.example.com/api/events/1
+    https://api.example.com/api/events/1
 
 #### GET /search
 
@@ -347,7 +347,7 @@ Parámetros:
 
 Ejemplo:
 
-https://api.example.com/api/events/search?q=Text+search
+    https://api.example.com/api/events/search?q=Text+search
 
 
 ### Usuarios
@@ -360,7 +360,7 @@ Registro de usuarios. Es el único punto del WS donde solo se necesita la cabece
 
 Ejemplo:
 
-https://api.example.com/api/users
+    https://api.example.com/api/users
 
 Datos:
 
@@ -391,7 +391,7 @@ URL Base: /api/categories
 
 Ejemplo:
 
-https://api.example.com/api/categories
+    https://api.example.com/api/categories
 
 #### GET /{category_id}
 
@@ -399,7 +399,7 @@ Información de categoría específica
 
 Ejemplo:
 
-https://api.example.com/api/categories/1
+    https://api.example.com/api/categories/1
 
 
 ### Niveles de Usuario
@@ -412,7 +412,7 @@ URL Base: /api/user_levels
 
 Ejemplo:
 
-https://api.example.com/api/user_levels
+    https://api.example.com/api/user_levels
 
 Respuesta de Ejemplo:
 
@@ -518,7 +518,7 @@ Información de nivel específico
 
 Ejemplo:
 
-https://api.example.com/api/user_levels/4
+    https://api.example.com/api/user_levels/4
 
 Respuesta de Ejemplo:
 

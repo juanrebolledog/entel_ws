@@ -29,6 +29,14 @@
             <?php endif; ?>
 
             <?php
+            echo Form::label('legal', 'Términos y Condiciones');
+            echo Form::textarea('legal');
+            ?>
+            <?php if ($errors->has('legal')): ?>
+                <small class="error"><?php echo $errors->first('legal'); ?></small>
+            <?php endif; ?>
+
+            <?php
             echo Form::label('tags', 'Tags');
             echo Form::text('tags');
             ?>

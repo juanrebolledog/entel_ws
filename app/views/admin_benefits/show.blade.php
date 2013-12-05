@@ -42,6 +42,12 @@
                 </div>
             </section>
             <section class="entel-item">
+                <header>T&eacute;rminos y Condiciones</header>
+                <div class="entel-item-content">
+                    <?= $benefit->legal; ?>
+                </div>
+            </section>
+            <section class="entel-item">
                 <header>SMS</header>
                 <div class="entel-item-content">
                     <dl>

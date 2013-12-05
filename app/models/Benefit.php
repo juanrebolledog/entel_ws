@@ -3,9 +3,14 @@ class Benefit extends LocationModel {
 
     protected $table = 'beneficios';
 
+    protected $hidden = array(
+        'created_at', 'updated_at', 'last_login', 'caducado'
+    );
+
     static protected $validation = array(
         'nombre' => 'required',
         'descripcion' => 'required',
+        'legal' => 'required',
         'sub_categoria_id' => 'required',
         'fecha' => 'required',
         'rating' => 'required',
@@ -26,6 +31,7 @@ class Benefit extends LocationModel {
         $benefit = new Benefit();
         $benefit->nombre = $data['nombre'];
         $benefit->descripcion = $data['descripcion'];
+        $benefit->legal = $data['legal'];
         $benefit->sub_categoria_id = $data['sub_categoria_id'];
         $benefit->fecha = $data['fecha'];
         $benefit->rating = isset($data['rating']) ? $data['rating'] : 0;
@@ -76,6 +82,7 @@ class Benefit extends LocationModel {
         $benefit = Benefit::find($id);
         $benefit->nombre = $data['nombre'];
         $benefit->descripcion = $data['descripcion'];
+        $benefit->legal = $data['legal'];
         $benefit->sub_categoria_id = $data['sub_categoria_id'];
         $benefit->fecha = $data['fecha'];
         $benefit->rating = isset($data['rating']) ? $data['rating'] : 0;
@@ -172,6 +179,7 @@ class Benefit extends LocationModel {
                 'id' => $model->id,
                 'nombre' => $model->nombre,
                 'descripcion' => $model->descripcion,
+                'legal' => $model->legal,
                 'sub_categoria_id' => $model->sub_categoria_id,
                 'lat' => $model->lat,
                 'lng' => $model->lng,
@@ -232,6 +240,7 @@ class Benefit extends LocationModel {
                 'id' => $model->id,
                 'nombre' => $model->nombre,
                 'descripcion' => $model->descripcion,
+                'legal' => $model->legal,
                 'sub_categoria_id' => $model->sub_categoria_id,
                 'lat' => $model->lat,
                 'lng' => $model->lng,
