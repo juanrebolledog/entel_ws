@@ -19,7 +19,7 @@ class AppEvent extends LocationModel {
         'imagen_titulo' => 'required'
     );
 
-    static public function findByLocation($lat, $lng)
+    static public function findByLocation($user_id, $lat, $lng)
     {
         $models = array();
 
