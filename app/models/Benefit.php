@@ -7,13 +7,12 @@ class Benefit extends LocationModel {
         'created_at', 'updated_at', 'last_login', 'caducado'
     );
 
-    static protected $validation = array(
+    static public $validation = array(
         'nombre' => 'required',
         'descripcion' => 'required',
         'legal' => 'required',
         'sub_categoria_id' => 'required',
         'fecha' => 'required',
-        'rating' => 'required',
         'tags' => 'required',
         'lat' => 'required',
         'lng' => 'required',
@@ -26,6 +25,19 @@ class Benefit extends LocationModel {
         'imagen_titulo' => 'required'
     );
 
+    public static function validate($input, $options = array())
+    {
+        if (!empty($options) && isset($options['except']))
+        {
+            foreach ($options['except'] as $ignored_field)
+            {
+                unset(self::$validation[$ignored_field]);
+            }
+        }
+        $benefit_validator = Validator::make($input, Benefit::$validation);
+        return $benefit_validator;
+    }
+
     static public function createBenefit($data)
     {
         $benefit = new Benefit();
@@ -34,7 +46,7 @@ class Benefit extends LocationModel {
         $benefit->legal = $data['legal'];
         $benefit->sub_categoria_id = $data['sub_categoria_id'];
         $benefit->fecha = $data['fecha'];
-        $benefit->rating = isset($data['rating']) ? $data['rating'] : 0;
+        $benefit->rating = 0;
         $benefit->tags = $data['tags'];
 
         $benefit->lat = $data['lat'];
@@ -44,37 +56,28 @@ class Benefit extends LocationModel {
         $benefit->sms_texto = $data['sms_texto'];
         $benefit->sms_nro = $data['sms_nro'];
 
-        if ($data['icono']->move('public/img/benefits/', 'icono_1.png'))
+        $name_prefix = hash('sha1', $benefit->lat . ' - ' . $benefit->lng);
+        Log::info(json_encode($data));
+
+        if ($data['icono'] && $data['icono']->move('public/img/benefits/', $name_prefix . '_icono.png'))
         {
-            $benefit->icono = 'img/benefits/icono_1.png';
+            $benefit->icono = 'img/benefits/' . $name_prefix . '_icono.png';
         }
-        if ($data['imagen_grande']->move('public/img/benefits/', 'imagen_grande_1.png'))
+        if ($data['imagen_grande'] && $data['imagen_grande']->move('public/img/benefits/', $name_prefix . '_grande.png'))
         {
-            $benefit->imagen_grande = 'img/benefits/imagen_grande_1.png';
+            $benefit->imagen_grande = 'img/benefits/' . $name_prefix . '_grande.png';
         }
-        if ($data['imagen_chica']->move('public/img/benefits/', 'imagen_chica_1.png'))
+        if ($data['imagen_chica'] && $data['imagen_chica']->move('public/img/benefits/', $name_prefix . '_chica.png'))
         {
-            $benefit->imagen_chica = 'img/benefits/imagen_chica_1.png';
+            $benefit->imagen_chica = 'img/benefits/' . $name_prefix . '_chica.png';
         }
-        if ($data['imagen_titulo']->move('public/img/benefits/', 'imagen_titulo_1.png'))
+        if ($data['imagen_titulo'] && $data['imagen_titulo']->move('public/img/benefits/', $name_prefix . '_titulo.png'))
         {
-            $benefit->imagen_titulo = 'img/benefits/imagen_titulo_1.png';
+            $benefit->imagen_titulo = 'img/benefits/' . $name_prefix . '_titulo.png';
         }
 
-        $benefit_array = $benefit->toArray();
-        $benefit_validator = Validator::make($benefit_array, self::$validation);
-        if ($benefit_validator->fails())
-        {
-            return $benefit;
-        }
-        else
-        {
-            if ($benefit->save())
-            {
-                $benefit->validator = $benefit_validator;
-                return $benefit;
-            }
-        }
+        $benefit->save();
+        return $benefit;
     }
 
     static public function updateBenefit($id, $data)
@@ -95,19 +98,19 @@ class Benefit extends LocationModel {
         $benefit->sms_texto = $data['sms_texto'];
         $benefit->sms_nro = $data['sms_nro'];
 
-        if ($data['icono'] && $data['icono']->move('public/img/benefits/', 'icono_1.png'))
+        if (get_class($data['icono']) == 'UploadedFile' && $data['icono']->move('public/img/benefits/', 'icono_1.png'))
         {
             $benefit->icono = 'img/benefits/icono_1.png';
         }
-        if ($data['imagen_grande'] && $data['imagen_grande']->move('public/img/benefits/', 'imagen_grande_1.png'))
+        if (get_class($data['imagen_grande']) == 'UploadedFile' && $data['imagen_grande']->move('public/img/benefits/', 'imagen_grande_1.png'))
         {
             $benefit->imagen_grande = 'img/benefits/imagen_grande_1.png';
         }
-        if ($data['imagen_chica'] && $data['imagen_chica']->move('public/img/benefits/', 'imagen_chica_1.png'))
+        if (get_class($data['imagen_chica']) == 'UploadedFile' && $data['imagen_chica']->move('public/img/benefits/', 'imagen_chica_1.png'))
         {
             $benefit->imagen_chica = 'img/benefits/imagen_chica_1.png';
         }
-        if ($data['imagen_titulo'] && $data['imagen_titulo']->move('public/img/benefits/', 'imagen_titulo_1.png'))
+        if (get_class($data['imagen_titulo']) == 'UploadedFile' && $data['imagen_titulo']->move('public/img/benefits/', 'imagen_titulo_1.png'))
         {
             $benefit->imagen_titulo = 'img/benefits/imagen_titulo_1.png';
         }

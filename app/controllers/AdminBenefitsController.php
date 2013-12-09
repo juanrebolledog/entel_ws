@@ -22,51 +22,65 @@ class AdminBenefitsController extends AdminBaseController {
 
     public function create()
     {
-        if (Session::get('event_error'))
+        $benefit = new Benefit();
+        $benefit_categories = BenefitSubCategory::all();
+        $categories = array();
+        foreach ($benefit_categories as $cat)
         {
-            Eloquent::unguard();
-            $event = new AppEvent(Session::get('event_error'));
+            $categories[$cat->id] = $cat->nombre;
         }
-        else
-        {
-            $event = new AppEvent();
-        }
-        return $this->layout->content = View::make('admin_events.create', array('event' => $event));
+        return $this->layout->content = View::make('admin_benefits.create', array('benefit' => $benefit, 'categories' => $categories));
     }
 
     public function store()
     {
         $data = Input::all();
-        $event = AppEvent::createEvent($data);
-        if ($event->validator->fails())
+
+        $benefit_validator = Benefit::validate($data);
+
+        if ($benefit_validator->fails())
         {
-            Session::flash('event_error', $data);
-            return Redirect::to('admin/events/create')->withErrors($event->validator);
+            return Redirect::to('admin/benefits/create')->withErrors($benefit_validator)->withInput();
         }
         else
         {
-            return Redirect::to('admin/events/' . $event->id);
+            $benefit = Benefit::createBenefit($data);
+            if ($benefit->exists)
+            {
+                return Redirect::to('admin/benefits/' . $benefit->id);
+            }
         }
     }
 
     public function edit($id)
     {
         $benefit = Benefit::find($id);
-        return $this->layout->content = View::make('admin_benefits.edit', array('benefit' => $benefit));
+        $benefit_categories = BenefitSubCategory::all();
+        $categories = array();
+        foreach ($benefit_categories as $cat)
+        {
+            $categories[$cat->id] = $cat->nombre;
+        }
+        return $this->layout->content = View::make('admin_benefits.edit', array('benefit' => $benefit, 'categories' => $categories));
     }
 
     public function update($id)
     {
         $data = Input::all();
-        $benefit = Benefit::updateBenefit($id, $data);
-        if ($benefit->validator->fails())
+
+        $benefit_validator = Benefit::validate($data, array('except' => array('imagen_titulo', 'imagen_grande', 'icono', 'imagen_chica')));
+
+        if ($benefit_validator->fails())
         {
-            Session::flash('benefit_error', $data);
-            return Redirect::to('admin/benefits/' . $id . '/edit')->withErrors($benefit->validator);
+            return Redirect::to('admin/benefits/' . $id . '/edit')->withErrors($benefit_validator)->withInput();
         }
         else
         {
-            return Redirect::to('admin/benefits/' . $id);
+            $benefit = Benefit::updateBenefit($id, $data);
+            if ($benefit->exists)
+            {
+                return Redirect::to('admin/benefits/' . $benefit->id);
+            }
         }
     }
 

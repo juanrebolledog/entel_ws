@@ -194,8 +194,9 @@
                 }
             }
         ];
-        var map = L.mapbox.map('map-element', 'juanrebolledog.gc0826d2')
-            .setView([benefit.lat, benefit.lng], 12);
+        var map = L.mapbox.map('map-element')
+            .setView([benefit.lat, benefit.lng], 12)
+            .addLayer(L.mapbox.tileLayer('juanrebolledog.gc0826d2', { detectRetina: true }));
 
         map.addControl(L.mapbox.geocoderControl('juanrebolledog.gc0826d2'));
         map.addControl(L.mapbox.shareControl());

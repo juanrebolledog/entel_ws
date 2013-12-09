@@ -58,7 +58,13 @@ class AdminEventsController extends AdminBaseController {
     public function edit($id)
     {
         $event = AppEvent::find($id);
-        return $this->layout->content = View::make('admin_events.edit', array('event' => $event));
+        $event_categories = EventSubCategory::all();
+        $categories = array();
+        foreach ($event_categories as $cat)
+        {
+            $categories[$cat->id] = $cat->nombre;
+        }
+        return $this->layout->content = View::make('admin_events.edit', array('event' => $event, 'categories' => $categories));
     }
 
     public function update($id)

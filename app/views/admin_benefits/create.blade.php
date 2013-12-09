@@ -54,7 +54,7 @@
 
             <?php
             echo Form::label('sub_categoria_id', 'Sub Categoría');
-            echo Form::select('sub_categoria_id', array('1' => 'Música'));
+            echo Form::select('sub_categoria_id', $categories);
             ?>
             <?php if ($errors->has('sub_categoria_id')): ?>
                 <small class="error"><?php echo $errors->first('sub_categoria_id'); ?></small>
