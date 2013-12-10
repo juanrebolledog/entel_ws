@@ -169,7 +169,7 @@ class Benefit extends LocationModel {
         {
             foreach ($votes as $vote)
             {
-                $counter += $vote->vote;
+                $counter += $vote->votacion;
             }
             if (count($votes) == 0)
             {
