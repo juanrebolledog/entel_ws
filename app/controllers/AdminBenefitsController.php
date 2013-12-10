@@ -10,7 +10,7 @@ class AdminBenefitsController extends AdminBaseController {
     }
     public function index()
     {
-        $benefits = Benefit::all();
+        $benefits = Benefit::with('sub_category')->where('caducado', false)->get();
         return $this->layout->content = View::make('admin_benefits.index')->with(array('benefits' => $benefits));
     }
 

@@ -9,7 +9,7 @@ class BenefitCategoriesController extends \BaseController {
      */
     public function index()
     {
-        $categories = BenefitCategory::all();
+        $categories = BenefitCategory::with('sub_categories')->get();
         $this->setApiResponse($categories->toArray(), true);
         return Response::json($this->api_response);
     }
@@ -22,7 +22,7 @@ class BenefitCategoriesController extends \BaseController {
      */
     public function show($id)
     {
-        $category = BenefitCategory::find($id);
+        $category = BenefitCategory::with('sub_categories')->find($id);
         $this->setApiResponse($category->toArray(), true);
         return Response::json($this->api_response);
     }

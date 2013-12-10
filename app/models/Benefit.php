@@ -25,6 +25,11 @@ class Benefit extends LocationModel {
         'imagen_titulo' => 'required'
     );
 
+    public function sub_category()
+    {
+        return $this->belongsTo('BenefitSubCategory', 'sub_categoria_id');
+    }
+
     public static function validate($input, $options = array())
     {
         if (!empty($options) && isset($options['except']))
