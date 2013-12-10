@@ -39,7 +39,7 @@
                         <input type="checkbox">
                     </td>
                     <td>
-                        <?= link_to('admin/benefits/' . $benefit->id, $benefit->nombre); ?>
+                        <?= link_to(action('AdminBenefitsController@show', $benefit->id), $benefit->nombre); ?>
                     </td>
                     <td class="hide-for-small">
                         <?= substr($benefit->descripcion, 0, 40); ?>
@@ -49,7 +49,7 @@
                     </td>
                     <td>
                         <a href="#" alt="Desactivar"><span class="fa fa-eye-slash"></span></a>
-                        <?= HTML::decode(HTML::link('admin/benefits/' . $benefit->id . '/edit', '<span class="fa fa-edit"></span>')); ?>
+                        <?= HTML::decode(HTML::link(action('AdminBenefitsController@edit', $benefit->id), '<span class="fa fa-edit"></span>')); ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

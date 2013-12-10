@@ -15,7 +15,7 @@ class BenefitsController extends BaseController {
         if (is_float($lat) && is_float($lng)) {
             $benefits = Benefit::findByLocation($user_id, $lat, $lng);
         } else {
-            $benefits = Benefit::all();
+            $benefits = Benefit::with('sub_category', 'comments')->get();
             $benefits = $benefits->toArray();
         }
         $this->setApiResponse($benefits, true);
@@ -30,7 +30,7 @@ class BenefitsController extends BaseController {
      */
     public function show($id)
     {
-        $benefit = Benefit::find($id);
+        $benefit = Benefit::with('sub_category', 'comments')->find($id);
         $this->setApiResponse($benefit->toArray(), true);
         return Response::json($this->api_response);
     }

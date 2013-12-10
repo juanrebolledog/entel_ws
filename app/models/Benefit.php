@@ -30,6 +30,11 @@ class Benefit extends LocationModel {
         return $this->belongsTo('BenefitSubCategory', 'sub_categoria_id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('BenefitComment', 'beneficio_id');
+    }
+
     public static function validate($input, $options = array())
     {
         if (!empty($options) && isset($options['except']))
@@ -62,7 +67,6 @@ class Benefit extends LocationModel {
         $benefit->sms_nro = $data['sms_nro'];
 
         $name_prefix = hash('sha1', $benefit->lat . ' - ' . $benefit->lng);
-        Log::info(json_encode($data));
 
         if ($data['icono'] && $data['icono']->move('public/img/benefits/', $name_prefix . '_icono.png'))
         {
@@ -103,21 +107,23 @@ class Benefit extends LocationModel {
         $benefit->sms_texto = $data['sms_texto'];
         $benefit->sms_nro = $data['sms_nro'];
 
-        if (get_class($data['icono']) == 'UploadedFile' && $data['icono']->move('public/img/benefits/', 'icono_1.png'))
+        $name_prefix = hash('sha1', $benefit->lat . ' - ' . $benefit->lng);
+
+        if ($data['icono'] && $data['icono']->move('public/img/benefits/', $name_prefix . '_icono.png'))
         {
-            $benefit->icono = 'img/benefits/icono_1.png';
+            $benefit->icono = 'img/benefits/' . $name_prefix . '_icono.png';
         }
-        if (get_class($data['imagen_grande']) == 'UploadedFile' && $data['imagen_grande']->move('public/img/benefits/', 'imagen_grande_1.png'))
+        if ($data['imagen_grande'] && $data['imagen_grande']->move('public/img/benefits/', $name_prefix . '_grande.png'))
         {
-            $benefit->imagen_grande = 'img/benefits/imagen_grande_1.png';
+            $benefit->imagen_grande = 'img/benefits/' . $name_prefix . '_grande.png';
         }
-        if (get_class($data['imagen_chica']) == 'UploadedFile' && $data['imagen_chica']->move('public/img/benefits/', 'imagen_chica_1.png'))
+        if ($data['imagen_chica'] && $data['imagen_chica']->move('public/img/benefits/', $name_prefix . '_chica.png'))
         {
-            $benefit->imagen_chica = 'img/benefits/imagen_chica_1.png';
+            $benefit->imagen_chica = 'img/benefits/' . $name_prefix . '_chica.png';
         }
-        if (get_class($data['imagen_titulo']) == 'UploadedFile' && $data['imagen_titulo']->move('public/img/benefits/', 'imagen_titulo_1.png'))
+        if ($data['imagen_titulo'] && $data['imagen_titulo']->move('public/img/benefits/', $name_prefix . '_titulo.png'))
         {
-            $benefit->imagen_titulo = 'img/benefits/imagen_titulo_1.png';
+            $benefit->imagen_titulo = 'img/benefits/' . $name_prefix . '_titulo.png';
         }
 
         $benefit_array = $benefit->toArray();
@@ -181,7 +187,7 @@ class Benefit extends LocationModel {
     {
         $models = array();
 
-        foreach (self::all() as $model)
+        foreach (self::with('sub_category', 'comments')->get() as $model)
         {
             array_push($models, array(
                 'id' => $model->id,
@@ -211,7 +217,7 @@ class Benefit extends LocationModel {
 
     static public function searchByKeyword($q = null)
     {
-        $results = Benefit::where(function($query) use ($q)
+        $results = Benefit::with('sub_category', 'comments')->where(function($query) use ($q)
         {
             $query->where('nombre', 'LIKE', '%' . $q . '%');
             $query->orWhere('descripcion', 'LIKE', '%' . $q . '%');
@@ -232,11 +238,11 @@ class Benefit extends LocationModel {
         $models = array();
         if (!empty($ignored_ids))
         {
-            $benefits = self::whereNotIn('id', $ignored_ids)->get();
+            $benefits = self::with('sub_category', 'comments')->whereNotIn('id', $ignored_ids)->get();
         }
         else
         {
-            $benefits = self::all();
+            $benefits = self::with('sub_category', 'comments')->get();
         }
 
         foreach ($benefits as $model)
@@ -244,25 +250,8 @@ class Benefit extends LocationModel {
             $distance = self::calculateDistance(array('lat' => $lat, 'lng' => $lng),
                 array('lat' => $model->lat, 'lng' => $model->lng));
 
-            array_push($models, array(
-                'id' => $model->id,
-                'nombre' => $model->nombre,
-                'descripcion' => $model->descripcion,
-                'legal' => $model->legal,
-                'sub_categoria_id' => $model->sub_categoria_id,
-                'lat' => $model->lat,
-                'lng' => $model->lng,
-                'rating' => $model->rating,
-                'imagen_icono' => $model->icono,
-                'imagen_chica' => $model->imagen_chica,
-                'imagen_grante' => $model->imagen_grande,
-                'imagen_titulo' => $model->imagen_titulo,
-                'fecha' => $model->fecha,
-                'lugar' => $model->lugar,
-                'sms_texto' => $model->sms_texto,
-                'sms_nro' => $model->sms_nro,
-                'distancia' => $distance
-            ));
+            $model->distancia = $distance;
+            array_push($models, $model->toArray());
         }
         $models = array_values(array_sort($models, function($value)
         {
