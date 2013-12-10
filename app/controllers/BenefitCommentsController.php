@@ -5,7 +5,7 @@ class BenefitCommentsController extends BaseController {
         $benefit = Benefit::find($benefit_id);
         if ($benefit)
         {
-            $comments = BenefitComment::where('benefit_id', $benefit->id)->get();
+            $comments = BenefitComment::where('beneficio_id', $benefit->id)->get();
             $this->setApiResponse($comments->toArray(), true);
             return Response::json($this->api_response);
         }
@@ -20,9 +20,9 @@ class BenefitCommentsController extends BaseController {
         if ($benefit)
         {
             $comment = new BenefitComment();
-            $comment->benefit_id = $benefit_id;
-            $comment->user_id = Auth::getUser()->id;
-            $comment->text = $data['text'];
+            $comment->beneficio_id = $benefit_id;
+            $comment->usuario_id = Auth::getUser()->id;
+            $comment->mensaje = $data['mensaje'];
             if ($comment->save())
             {
                 $this->setApiResponse($comment->toArray(), true);
