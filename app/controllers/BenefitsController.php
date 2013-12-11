@@ -30,7 +30,7 @@ class BenefitsController extends BaseController {
      */
     public function show($id)
     {
-        $benefit = Benefit::with('sub_category', 'comments')->find($id);
+        $benefit = Benefit::getBenefit($id);
         $this->setApiResponse($benefit->toArray(), true);
         return Response::json($this->api_response);
     }

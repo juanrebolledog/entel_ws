@@ -47,6 +47,20 @@ class Benefit extends LocationModel {
         $benefit_validator = Validator::make($input, Benefit::$validation);
         return $benefit_validator;
     }
+    
+    static public function getBenefit($id)
+    {
+        $benefit = self::with('comments', 'sub_category')->find($id);
+        if ($benefit->exists)
+        {
+            $benefit->imagen_titulo = asset($benefit->imagen_titulo);
+            $benefit->imagen_grande = asset($benefit->imagen_grande);
+            $benefit->imagen_chica = asset($benefit->imagen_chica);
+            $benefit->icono = asset($benefit->icono);
+            return $benefit;
+        }
+        return false;
+    }
 
     static public function createBenefit($data)
     {
@@ -66,24 +80,7 @@ class Benefit extends LocationModel {
         $benefit->sms_texto = $data['sms_texto'];
         $benefit->sms_nro = $data['sms_nro'];
 
-        $name_prefix = hash('sha1', $benefit->lat . ' - ' . $benefit->lng);
-
-        if ($data['icono'] && $data['icono']->move('public/img/benefits/', $name_prefix . '_icono.png'))
-        {
-            $benefit->icono = 'img/benefits/' . $name_prefix . '_icono.png';
-        }
-        if ($data['imagen_grande'] && $data['imagen_grande']->move('public/img/benefits/', $name_prefix . '_grande.png'))
-        {
-            $benefit->imagen_grande = 'img/benefits/' . $name_prefix . '_grande.png';
-        }
-        if ($data['imagen_chica'] && $data['imagen_chica']->move('public/img/benefits/', $name_prefix . '_chica.png'))
-        {
-            $benefit->imagen_chica = 'img/benefits/' . $name_prefix . '_chica.png';
-        }
-        if ($data['imagen_titulo'] && $data['imagen_titulo']->move('public/img/benefits/', $name_prefix . '_titulo.png'))
-        {
-            $benefit->imagen_titulo = 'img/benefits/' . $name_prefix . '_titulo.png';
-        }
+        $benefit = self::uploadImages($benefit, $data);
 
         $benefit->save();
         return $benefit;
@@ -107,24 +104,7 @@ class Benefit extends LocationModel {
         $benefit->sms_texto = $data['sms_texto'];
         $benefit->sms_nro = $data['sms_nro'];
 
-        $name_prefix = hash('sha1', $benefit->lat . ' - ' . $benefit->lng);
-
-        if ($data['icono'] && $data['icono']->move('public/img/benefits/', $name_prefix . '_icono.png'))
-        {
-            $benefit->icono = 'img/benefits/' . $name_prefix . '_icono.png';
-        }
-        if ($data['imagen_grande'] && $data['imagen_grande']->move('public/img/benefits/', $name_prefix . '_grande.png'))
-        {
-            $benefit->imagen_grande = 'img/benefits/' . $name_prefix . '_grande.png';
-        }
-        if ($data['imagen_chica'] && $data['imagen_chica']->move('public/img/benefits/', $name_prefix . '_chica.png'))
-        {
-            $benefit->imagen_chica = 'img/benefits/' . $name_prefix . '_chica.png';
-        }
-        if ($data['imagen_titulo'] && $data['imagen_titulo']->move('public/img/benefits/', $name_prefix . '_titulo.png'))
-        {
-            $benefit->imagen_titulo = 'img/benefits/' . $name_prefix . '_titulo.png';
-        }
+        $benefit = self::uploadImages($benefit, $data);
 
         $benefit_array = $benefit->toArray();
         $benefit_validator = Validator::make($benefit_array, self::$validation);
@@ -140,6 +120,33 @@ class Benefit extends LocationModel {
                 return $benefit;
             }
         }
+    }
+
+    static public function uploadImages($benefit, $data)
+    {
+        $name_prefix = hash('sha1', $benefit->lat . ' - ' . $benefit->lng);
+
+        if ($data['icono'] && $data['icono']->move('public/img/benefits/', $name_prefix . '_icono.png'))
+        {
+            $ext = $data['icono']->getClientOriginalExtension();
+            $benefit->icono = 'img/benefits/' . $name_prefix . '_icono.' . $ext;
+        }
+        if ($data['imagen_grande'] && $data['imagen_grande']->move('public/img/benefits/', $name_prefix . '_grande.png'))
+        {
+            $ext = $data['imagen_grande']->getClientOriginalExtension();
+            $benefit->imagen_grande = 'img/benefits/' . $name_prefix . '_grande.' . $ext;
+        }
+        if ($data['imagen_chica'] && $data['imagen_chica']->move('public/img/benefits/', $name_prefix . '_chica.png'))
+        {
+            $ext = $data['imagen_chica']->getClientOriginalExtension();
+            $benefit->imagen_chica = 'img/benefits/' . $name_prefix . '_chica.' . $ext;
+        }
+        if ($data['imagen_titulo'] && $data['imagen_titulo']->move('public/img/benefits/', $name_prefix . '_titulo.png'))
+        {
+            $ext = $data['imagen_titulo']->getClientOriginalExtension();
+            $benefit->imagen_titulo = 'img/benefits/' . $name_prefix . '_titulo.' . $ext;
+        }
+        return $benefit;
     }
 
     static public function disableBenefitToggle($id)
@@ -189,24 +196,11 @@ class Benefit extends LocationModel {
 
         foreach (self::with('sub_category', 'comments')->get() as $model)
         {
-            array_push($models, array(
-                'id' => $model->id,
-                'nombre' => $model->nombre,
-                'descripcion' => $model->descripcion,
-                'legal' => $model->legal,
-                'sub_categoria_id' => $model->sub_categoria_id,
-                'lat' => $model->lat,
-                'lng' => $model->lng,
-                'rating' => $model->rating,
-                'imagen_icono' => $model->icono,
-                'imagen_chica' => $model->imagen_chica,
-                'imagen_grante' => $model->imagen_grande,
-                'imagen_titulo' => $model->imagen_titulo,
-                'fecha' => $model->fecha,
-                'lugar' => $model->lugar,
-                'sms_texto' => $model->sms_texto,
-                'sms_nro' => $model->sms_nro,
-            ));
+            $model->imagen_titulo = asset($model->imagen_titulo);
+            $model->imagen_grande = asset($model->imagen_grande);
+            $model->imagen_chica = asset($model->imagen_chica);
+            $model->icono = asset($model->icono);
+            array_push($models, $model->toArray());
         }
         $models = array_values(array_sort($models, function($value)
         {
@@ -251,6 +245,10 @@ class Benefit extends LocationModel {
                 array('lat' => $model->lat, 'lng' => $model->lng));
 
             $model->distancia = $distance;
+            $model->imagen_titulo = asset($model->imagen_titulo);
+            $model->imagen_grande = asset($model->imagen_grande);
+            $model->imagen_chica = asset($model->imagen_chica);
+            $model->icono = asset($model->icono);
             array_push($models, $model->toArray());
         }
         $models = array_values(array_sort($models, function($value)
