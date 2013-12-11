@@ -38,7 +38,9 @@
             <section class="entel-item">
                 <header>Sub Categor&iacute;a</header>
                 <div class="entel-item-content">
-                    <a href="category.html">Comida R&aacute;pida</a>
+                    <a href="category.html">
+                        <?= $benefit->sub_category->nombre; ?>
+                    </a>
                 </div>
             </section>
             <section class="entel-item">

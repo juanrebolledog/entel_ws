@@ -16,7 +16,7 @@ class AdminBenefitsController extends AdminBaseController {
 
     public function show($id)
     {
-        $benefit = Benefit::find($id);
+        $benefit = Benefit::with('sub_category', 'comments')->find($id);
         return $this->layout->content = View::make('admin_benefits.show')->with(array('benefit' => $benefit));
     }
 
