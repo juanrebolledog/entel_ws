@@ -31,7 +31,14 @@ class BenefitsController extends BaseController {
     public function show($id)
     {
         $benefit = Benefit::getBenefit($id);
-        $this->setApiResponse($benefit->toArray(), true);
+        if ($benefit)
+        {
+            $this->setApiResponse($benefit->toArray(), true);
+        }
+        else
+        {
+            $this->setApiResponse(array(), false, 'Not Found');
+        }
         return Response::json($this->api_response);
     }
 

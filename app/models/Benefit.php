@@ -51,7 +51,7 @@ class Benefit extends LocationModel {
     static public function getBenefit($id)
     {
         $benefit = self::with('comments', 'sub_category')->find($id);
-        if ($benefit->exists)
+        if ($benefit && $benefit->exists)
         {
             $benefit->imagen_titulo = asset($benefit->imagen_titulo);
             $benefit->imagen_grande = asset($benefit->imagen_grande);
