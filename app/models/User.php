@@ -5,6 +5,10 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
+    protected $hidden = array(
+        'created_at', 'updated_at', 'api_key', 'password', 'fb_access_token'
+    );
+
     static protected $validation = array(
         'nombres' => 'required',
         'rut' => 'required',
@@ -18,13 +22,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      * @var string
      */
     protected $table = 'usuarios';
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = array('password');
 
     /**
      * Get the unique identifier for the user.
@@ -76,6 +73,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             $user_validator = Validator::make($user_array, self::$validation);
             if (!$user_validator->fails())
             {
+                unset($user->hidden[2]);
                 if ($user->save())
                 {
                     return $user;
