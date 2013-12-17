@@ -127,25 +127,37 @@ class Benefit extends LocationModel {
         $name_prefix = hash('sha1', $benefit->lat . ' - ' . $benefit->lng);
         $dir = public_path() . '/' . 'img' . '/' . 'benefits' . '/';
 
-        if ($data['icono'] && $data['icono']->move($dir, $name_prefix . '_icono.png'))
+        if ($data['icono'])
         {
             $ext = $data['icono']->getClientOriginalExtension();
-            $benefit->icono = 'img/benefits/' . $name_prefix . '_icono.' . $ext;
+            if ($data['icono']->move($dir, $name_prefix . '_icono.' . $ext))
+            {
+                $benefit->icono = 'img/benefits/' . $name_prefix . '_icono.' . $ext;
+            }
         }
-        if ($data['imagen_grande'] && $data['imagen_grande']->move($dir, $name_prefix . '_grande.png'))
+        if ($data['imagen_grande'])
         {
             $ext = $data['imagen_grande']->getClientOriginalExtension();
-            $benefit->imagen_grande = 'img/benefits/' . $name_prefix . '_grande.' . $ext;
+            if ($data['imagen_grande']->move($dir, $name_prefix . '_grande.' . $ext))
+            {
+                $benefit->imagen_grande = 'img/benefits/' . $name_prefix . '_grande.' . $ext;
+            }
         }
-        if ($data['imagen_chica'] && $data['imagen_chica']->move($dir, $name_prefix . '_chica.png'))
+        if ($data['imagen_chica'])
         {
             $ext = $data['imagen_chica']->getClientOriginalExtension();
-            $benefit->imagen_chica = 'img/benefits/' . $name_prefix . '_chica.' . $ext;
+            if ($data['imagen_chica']->move($dir, $name_prefix . '_chica.' . $ext))
+            {
+                $benefit->imagen_chica = 'img/benefits/' . $name_prefix . '_chica.' . $ext;
+            }
         }
-        if ($data['imagen_titulo'] && $data['imagen_titulo']->move($dir, $name_prefix . '_titulo.png'))
+        if ($data['imagen_titulo'])
         {
             $ext = $data['imagen_titulo']->getClientOriginalExtension();
-            $benefit->imagen_titulo = 'img/benefits/' . $name_prefix . '_titulo.' . $ext;
+            if ($data['imagen_titulo']->move($dir, $name_prefix . '_titulo.' . $ext))
+            {
+                $benefit->imagen_titulo = 'img/benefits/' . $name_prefix . '_titulo.' . $ext;
+            }
         }
         return $benefit;
     }
