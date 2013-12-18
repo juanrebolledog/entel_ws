@@ -128,7 +128,7 @@
 </section>
 @stop
 @section('scripts')
-<script src="<?= asset('js/vendor/mapbox.js/mapbox.js'); ?>"></script>
+<script src="//api.tiles.mapbox.com/mapbox.js/v1.5.0/mapbox.js"></script>
 <script>
     (function($, event) {
         var geojson = [
@@ -147,8 +147,9 @@
                 }
             }
         ];
-        var map = L.mapbox.map('map-element', 'juanrebolledog.gc0826d2')
-            .setView([event.lat, event.lng], 12);
+        var map = L.mapbox.map('map-element')
+            .setView([event.lat, event.lng], 12)
+            .addLayer(L.mapbox.tileLayer('juanrebolledog.gc0826d2', { detectRetina: true }));
 
         map.addControl(L.mapbox.geocoderControl('juanrebolledog.gc0826d2'));
         map.addControl(L.mapbox.shareControl());
