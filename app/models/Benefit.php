@@ -35,6 +35,11 @@ class Benefit extends LocationModel {
         return $this->hasMany('BenefitComment', 'beneficio_id');
     }
 
+    public function votes()
+    {
+        return $this->hasMany('BenefitVote', 'beneficio_id');
+    }
+
     public static function validate($input, $options = array())
     {
         if (!empty($options) && isset($options['except']))
@@ -50,7 +55,10 @@ class Benefit extends LocationModel {
     
     static public function getBenefit($id)
     {
-        $benefit = self::with('comments', 'sub_category')->find($id);
+        $benefit = self::with(array('votes' => function($query)
+            {
+                $query->where('usuario_id', Auth::getUser()->id);
+            }, 'comments', 'sub_category'))->find($id);
         if ($benefit && $benefit->exists)
         {
             $benefit->imagen_titulo = asset($benefit->imagen_titulo);
