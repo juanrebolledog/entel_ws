@@ -22,6 +22,16 @@ class BenefitSubCategoriesController extends \BaseController {
      */
     public function show($id)
     {
+        $include = (bool)filter_var(Input::get('include'), FILTER_SANITIZE_STRING);
+        if ($include)
+        {
+            $count = (int)filter_var(Input::get('count'), FILTER_SANITIZE_NUMBER_INT);
+            $order = (string)filter_var(Input::get('order', FILTER_SANITIZE_STRING));
+            if ($count)
+            {
+
+            }
+        }
         $sub_category = BenefitSubCategory::with('benefits')->find($id);
         $this->setApiResponse($sub_category->toArray(), true);
         return Response::json($this->api_response);
