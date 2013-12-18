@@ -100,30 +100,6 @@
             </section>
         </div>
     </div>
-    <div class="row">
-        <div class="large-12 medium-12 small-12">
-            <section class="entel-item">
-                <header>Comentarios</header>
-                <div class="entel-item-content">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Nombre Usuario</th>
-                            <th>Mensaje</th>
-                            <th>Fecha &#x21e3</th>
-                            <th class="hide-for-small">Compartir FB</th>
-                            <th class="hide-for-small">Compartir Tw</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </div>
-    </div>
 
 </section>
 @stop
