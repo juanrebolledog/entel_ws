@@ -75,25 +75,25 @@
                     <div class="entel-image">
                         <img src="<?= asset($event->imagen_grande); ?>" alt="">
                         <header>
-                            Grande / 800x200 / https://cdn.example.com/<?= $event->imagen_grande; ?>
+                            Grande / 800x200 / <?= asset($event->imagen_grande); ?>
                         </header>
                     </div>
                     <div class="entel-image">
                         <img src="<?= asset($event->imagen_chica); ?>" alt="">
                         <header>
-                            Chica / 500x100 / https://cdn.example.com/<?= $event->imagen_chica; ?>
+                            Chica / 500x100 / <?= asset($event->imagen_chica); ?>
                         </header>
                     </div>
                     <div class="entel-image">
                         <img src="<?= asset($event->icono); ?>" alt="">
                         <header>
-                            &Iacute;cono / 256x256 / https://cdn.example.com/<?= $event->icono; ?>
+                            &Iacute;cono / 256x256 / <?= asset($event->icono); ?>
                         </header>
                     </div>
                     <div class="entel-image">
                         <img src="<?= asset($event->imagen_titulo); ?>" alt="">
                         <header>
-                            T&iacute;tulo / 800x50 / https://cdn.example.com/<?= $event->imagen_titulo; ?>
+                            T&iacute;tulo / 800x50 / <?= asset($event->imagen_titulo); ?>
                         </header>
                     </div>
                 </div>
