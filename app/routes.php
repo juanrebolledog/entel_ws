@@ -79,4 +79,15 @@ Route::group(array('prefix' => 'admin'), function()
         Route::get('', 'AdminUsersController@index');
         Route::get('{id}', 'AdminUsersController@show');
     });
+
+    Route::group(array('prefix' => 'zones'), function()
+    {
+        Route::get('create', 'AdminZonesController@create');
+        Route::get('', 'AdminZonesController@index');
+        Route::get('{id}', 'AdminZonesController@show');
+        Route::get('{id}/edit', 'AdminZonesController@edit');
+        Route::put('{id}/update', 'AdminZonesController@update');
+        //Route::delete('{id}/delete', 'AdminZonesController@delete');
+        Route::post('store', 'AdminZonesController@store');
+    });
 });

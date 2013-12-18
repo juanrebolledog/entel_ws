@@ -38,7 +38,9 @@
                 <?= link_to('admin/events', 'Eventos'); ?>
             </li>
             <li class="divider"></li>
-            <li><a href="zones.html">Zonas</a></li>
+            <li>
+                {{ link_to(action('AdminZonesController@index'), 'Zonas') }}
+            </li>
             <li class="divider"></li>
             <li><a href="categories.html">Categor&iacute;as</a></li>
             <li class="divider"></li>
@@ -69,16 +71,16 @@
                 <a href="#/home">Home&nbsp;<span class="fa fa-home"></span></a>
             </li>
             <li class="<?= $data['current'] == 'benefits' ? 'active':''; ?>">
-                <?php echo HTML::decode(HTML::link('admin/benefits', 'Beneficios&nbsp;<span class="fa fa-gift"></span>', array('escape' => false))); ?>
+                <?php echo HTML::decode(HTML::link(action('AdminBenefitsController@index'), 'Beneficios&nbsp;<span class="fa fa-gift"></span>', array('escape' => false))); ?>
             </li>
             <li class="<?= $data['current'] == 'comments' ? 'active':''; ?>">
                 <?php echo HTML::decode(HTML::link(action('AdminBenefitCommentsController@index'), 'Comentarios&nbsp;<span class="fa fa-comments"></span>', array('escape' => false))); ?>
             </li>
             <li class="<?= $data['current'] == 'events' ? 'active':''; ?>">
-                <?php echo HTML::decode(HTML::link('admin/events', 'Eventos&nbsp;<span class="fa fa-calendar"></span>', array('escape' => false))); ?>
+                <?php echo HTML::decode(HTML::link(action('AdminEventsController@index'), 'Eventos&nbsp;<span class="fa fa-calendar"></span>', array('escape' => false))); ?>
             </li>
             <li class="<?= $data['current'] == 'zones' ? 'active':''; ?>">
-                <a href="#/zones">Zonas&nbsp;<span class="fa fa-location-arrow"></span></a>
+                <?php echo HTML::decode(HTML::link(action('AdminZonesController@index'), 'Zonas&nbsp;<span class="fa fa-location-arrow"></span>', array('escape' => false))); ?>
             </li>
             <li class="<?= $data['current'] == 'categories' ? 'active':''; ?>">
                 <a href="#/categories">Categor&iacute;as&nbsp;<span class="fa fa-tag"></span></a>
@@ -97,7 +99,7 @@
                 <a href="#/status">Estado del Servicio&nbsp;<span class="fa fa-power-off"></span></a>
             </li>
             <li class="<?= $data['current'] == 'users' ? 'active':''; ?>">
-                <?php echo HTML::decode(HTML::link('admin/users', 'Usuarios&nbsp;<span class="fa fa-users"></span>', array('escape' => false))); ?>
+                <?php echo HTML::decode(HTML::link(action('AdminUsersController@index'), 'Usuarios&nbsp;<span class="fa fa-users"></span>', array('escape' => false))); ?>
             </li>
         </ul>
         <section class="entel-item">
