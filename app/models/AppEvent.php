@@ -125,22 +125,7 @@ class AppEvent extends LocationModel {
         $event->sms_texto = $data['sms_texto'];
         $event->sms_nro = $data['sms_nro'];
 
-        if ($data['icono'] && $data['icono']->move('public/img/events/', 'icono_1.png'))
-        {
-            $event->icono = 'img/events/icono_1.png';
-        }
-        if ($data['imagen_grande'] && $data['imagen_grande']->move('public/img/events/', 'imagen_grande_1.png'))
-        {
-            $event->imagen_grande = 'img/events/imagen_grande_1.png';
-        }
-        if ($data['imagen_chica'] && $data['imagen_chica']->move('public/img/events/', 'imagen_chica_1.png'))
-        {
-            $event->imagen_chica = 'img/events/imagen_chica_1.png';
-        }
-        if ($data['imagen_titulo'] && $data['imagen_titulo']->move('public/img/events/', 'imagen_titulo_1.png'))
-        {
-            $event->imagen_titulo = 'img/events/imagen_titulo_1.png';
-        }
+        $event = self::uploadImages($event, $data);
 
         $event_array = $event->toArray();
         $event_validator = Validator::make($event_array, self::$validation);
