@@ -234,7 +234,7 @@ class Benefit extends LocationModel {
         return $results;
     }
 
-    static public function findByLocation($user_id, $lat, $lng)
+    static public function findByLocation($user_id, $lat, $lng, $range = null, $limit = null)
     {
         $ignored_benefits = BenefitIgnore::where('usuario_id', $user_id)->get();
         $ignored_ids = array();
@@ -244,31 +244,51 @@ class Benefit extends LocationModel {
         }
 
         $models = array();
+        $query = self::with('sub_category', 'comments');
         if (!empty($ignored_ids))
         {
-            $benefits = self::with('sub_category', 'comments')->whereNotIn('id', $ignored_ids)->get();
+            $query = $query->whereNotIn('id', $ignored_ids);
+            $benefits = $query->get();
         }
         else
         {
-            $benefits = self::with('sub_category', 'comments')->get();
+            $benefits = $query->get();
         }
 
         foreach ($benefits as $model)
         {
             $distance = self::calculateDistance(array('lat' => $lat, 'lng' => $lng),
                 array('lat' => $model->lat, 'lng' => $model->lng));
-
-            $model->distancia = $distance;
-            $model->imagen_titulo = asset($model->imagen_titulo);
-            $model->imagen_grande = asset($model->imagen_grande);
-            $model->imagen_chica = asset($model->imagen_chica);
-            $model->icono = asset($model->icono);
-            array_push($models, $model->toArray());
+            if ($range)
+            {
+                if (is_numeric($range) && $distance <= $range)
+                {
+                    $model->distancia = $distance;
+                    $model->imagen_titulo = asset($model->imagen_titulo);
+                    $model->imagen_grande = asset($model->imagen_grande);
+                    $model->imagen_chica = asset($model->imagen_chica);
+                    $model->icono = asset($model->icono);
+                    array_push($models, $model->toArray());
+                }
+            }
+            else
+            {
+                $model->distancia = $distance;
+                $model->imagen_titulo = asset($model->imagen_titulo);
+                $model->imagen_grande = asset($model->imagen_grande);
+                $model->imagen_chica = asset($model->imagen_chica);
+                $model->icono = asset($model->icono);
+                array_push($models, $model->toArray());
+            }
         }
         $models = array_values(array_sort($models, function($value)
         {
             return $value['distancia'];
         }));
+        if ($limit && is_int($limit))
+        {
+            $models = array_slice($models, 0, $limit);
+        }
         return $models;
     }
 } 
