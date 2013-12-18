@@ -26,14 +26,14 @@ class BenefitCommentShare extends BaseModel {
         {
             $q->where('comentario_id', $comment_id);
             $q->where('usuario_id', $user_id);
-            $q->where('method', $method);
+            $q->where('metodo', $method);
         })->get();
         if (count($share_object) == 0)
         {
             $share_object = new self();
             $share_object->comentario_id = $comment_id;
             $share_object->usuario_id = $user_id;
-            $share_object->method = $method;
+            $share_object->metodo = $method;
             if ($share_object->save())
             {
                 return $share_object;

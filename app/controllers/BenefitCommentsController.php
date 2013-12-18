@@ -36,10 +36,10 @@ class BenefitCommentsController extends BaseController {
 
     public function share($id)
     {
-        $method = Input::get('method');
+        $method = Input::get('metodo');
         if (!$method)
         {
-            $this->setApiResponse(false, false, 'Datos faltantes: method');
+            $this->setApiResponse(false, false, 'Datos faltantes: metodo');
             return Response::json($this->api_response);
         }
         $share = BenefitCommentShare::saveShare($id, Auth::getUser()->id, $method);
