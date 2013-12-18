@@ -26,6 +26,7 @@ Route::group(array('prefix' => 'api', 'before' => 'auth'), function()
     {
         Route::get('', 'EventsController@index');
         Route::get('search', 'EventsController@search');
+        Route::get('category', 'EventsSubCategoriesController@index');
         Route::get('{id}', 'EventsController@show');
 
         Route::get('{id}/comments', 'EventCommentsController@show');
@@ -36,6 +37,8 @@ Route::group(array('prefix' => 'api', 'before' => 'auth'), function()
 
     Route::get('user_levels', 'UserLevelsController@index');
     Route::get('user_levels/{id}', 'UserLevelsController@show');
+
+    Route::get('puntos_zona', 'ZoneElementsController@index');
 
     Route::get('tests', 'TestsController@get');
     Route::post('tests', 'TestsController@post');

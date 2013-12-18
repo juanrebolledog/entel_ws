@@ -124,15 +124,16 @@ class Benefit extends LocationModel {
 
     static public function uploadImages($benefit, $data)
     {
+        $object_dir = 'benefits';
         $name_prefix = hash('sha1', $benefit->lat . ' - ' . $benefit->lng);
-        $dir = public_path() . '/' . 'img' . '/' . 'benefits' . '/';
+        $dir = public_path() . '/' . 'img' . '/' . $object_dir . '/';
 
         if ($data['icono'])
         {
             $ext = $data['icono']->getClientOriginalExtension();
             if ($data['icono']->move($dir, $name_prefix . '_icono.' . $ext))
             {
-                $benefit->icono = 'img/benefits/' . $name_prefix . '_icono.' . $ext;
+                $benefit->icono = 'img/' . $object_dir . '/' . $name_prefix . '_icono.' . $ext;
             }
         }
         if ($data['imagen_grande'])
@@ -140,7 +141,7 @@ class Benefit extends LocationModel {
             $ext = $data['imagen_grande']->getClientOriginalExtension();
             if ($data['imagen_grande']->move($dir, $name_prefix . '_grande.' . $ext))
             {
-                $benefit->imagen_grande = 'img/benefits/' . $name_prefix . '_grande.' . $ext;
+                $benefit->imagen_grande = 'img/' . $object_dir . '/' . $name_prefix . '_grande.' . $ext;
             }
         }
         if ($data['imagen_chica'])
@@ -148,7 +149,7 @@ class Benefit extends LocationModel {
             $ext = $data['imagen_chica']->getClientOriginalExtension();
             if ($data['imagen_chica']->move($dir, $name_prefix . '_chica.' . $ext))
             {
-                $benefit->imagen_chica = 'img/benefits/' . $name_prefix . '_chica.' . $ext;
+                $benefit->imagen_chica = 'img/' . $object_dir . '/' . $name_prefix . '_chica.' . $ext;
             }
         }
         if ($data['imagen_titulo'])
@@ -156,7 +157,7 @@ class Benefit extends LocationModel {
             $ext = $data['imagen_titulo']->getClientOriginalExtension();
             if ($data['imagen_titulo']->move($dir, $name_prefix . '_titulo.' . $ext))
             {
-                $benefit->imagen_titulo = 'img/benefits/' . $name_prefix . '_titulo.' . $ext;
+                $benefit->imagen_titulo = 'img/' . $object_dir . '/' . $name_prefix . '_titulo.' . $ext;
             }
         }
         return $benefit;

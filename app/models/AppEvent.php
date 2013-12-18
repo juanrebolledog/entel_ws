@@ -18,6 +18,37 @@ class AppEvent extends LocationModel {
         'imagen_chica' => 'required',
         'imagen_titulo' => 'required'
     );
+    
+    public function sub_category()
+    {
+        return $this->belongsTo('EventSubCategory', 'sub_categoria_id');
+    }
+
+    static public function getEvent($id)
+    {
+        $event = self::with('sub_category')->find($id);
+        if ($event && $event->exists)
+        {
+            $event->imagen_titulo = asset($event->imagen_titulo);
+            $event->imagen_grande = asset($event->imagen_grande);
+            $event->imagen_chica = asset($event->imagen_chica);
+            $event->icono = asset($event->icono);
+            return $event;
+        }
+        return false;
+    }
+    
+    public function prepareForWS()
+    {
+        if ($this->exists)
+        {
+            $this->imagen_titulo = asset($this->imagen_titulo);
+            $this->imagen_grande = asset($this->imagen_grande);
+            $this->imagen_chica = asset($this->imagen_chica);
+            $this->icono = asset($this->icono);
+        }
+        return true;
+    }
 
     static public function findByLocation($user_id, $lat, $lng)
     {
@@ -60,22 +91,7 @@ class AppEvent extends LocationModel {
         $event->sms_texto = $data['sms_texto'];
         $event->sms_nro = $data['sms_nro'];
 
-        if ($data['icono']->move('public/img/events/', 'icono_1.png'))
-        {
-            $event->icono = 'img/events/icono_1.png';
-        }
-        if ($data['imagen_grande']->move('public/img/events/', 'imagen_grande_1.png'))
-        {
-            $event->imagen_grande = 'img/events/imagen_grande_1.png';
-        }
-        if ($data['imagen_chica']->move('public/img/events/', 'imagen_chica_1.png'))
-        {
-            $event->imagen_chica = 'img/events/imagen_chica_1.png';
-        }
-        if ($data['imagen_titulo']->move('public/img/events/', 'imagen_titulo_1.png'))
-        {
-            $event->imagen_titulo = 'img/events/imagen_titulo_1.png';
-        }
+        $event = self::uploadImages($event, $data);
 
         $event_array = $event->toArray();
         $event_validator = Validator::make($event_array, self::$validation);
@@ -140,5 +156,46 @@ class AppEvent extends LocationModel {
                 return $event;
             }
         }
+    }
+
+    static public function uploadImages($event, $data)
+    {
+        $object_dir = 'events';
+        $name_prefix = hash('sha1', $event->lat . ' - ' . $event->lng);
+        $dir = public_path() . '/' . 'img' . '/' . $object_dir . '/';
+
+        if ($data['icono'])
+        {
+            $ext = $data['icono']->getClientOriginalExtension();
+            if ($data['icono']->move($dir, $name_prefix . '_icono.' . $ext))
+            {
+                $event->icono = 'img/' . $object_dir . '/' . $name_prefix . '_icono.' . $ext;
+            }
+        }
+        if ($data['imagen_grande'])
+        {
+            $ext = $data['imagen_grande']->getClientOriginalExtension();
+            if ($data['imagen_grande']->move($dir, $name_prefix . '_grande.' . $ext))
+            {
+                $event->imagen_grande = 'img/' . $object_dir . '/' . $name_prefix . '_grande.' . $ext;
+            }
+        }
+        if ($data['imagen_chica'])
+        {
+            $ext = $data['imagen_chica']->getClientOriginalExtension();
+            if ($data['imagen_chica']->move($dir, $name_prefix . '_chica.' . $ext))
+            {
+                $event->imagen_chica = 'img/' . $object_dir . '/' . $name_prefix . '_chica.' . $ext;
+            }
+        }
+        if ($data['imagen_titulo'])
+        {
+            $ext = $data['imagen_titulo']->getClientOriginalExtension();
+            if ($data['imagen_titulo']->move($dir, $name_prefix . '_titulo.' . $ext))
+            {
+                $event->imagen_titulo = 'img/' . $object_dir . '/' . $name_prefix . '_titulo.' . $ext;
+            }
+        }
+        return $event;
     }
 } 
