@@ -32,6 +32,12 @@ Route::group(array('prefix' => 'api', 'before' => 'auth'), function()
         Route::post('{id}/comments', 'EventCommentsController@store');
     });
 
+    Route::group(array('prefix' => 'zones'), function()
+    {
+        Route::get('', 'ZonesController@index');
+        Route::get('{id}', 'ZonesController@show');
+    });
+
     Route::get('users/level', 'UsersController@level');
     Route::get('user_levels', 'UserLevelsController@index');
     Route::get('user_levels/{id}', 'UserLevelsController@show');
