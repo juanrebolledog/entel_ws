@@ -16,7 +16,7 @@ class AdminEventsController extends AdminBaseController {
 
     public function show($id)
     {
-        $event = AppEvent::find($id);
+        $event = AppEvent::with('sub_category')->find($id);
         return $this->layout->content = View::make('admin_events.show')->with(array('event' => $event));
     }
 
