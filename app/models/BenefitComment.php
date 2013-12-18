@@ -8,4 +8,14 @@ class BenefitComment extends BaseModel {
     {
         return $this->belongsTo('User', 'usuario_id');
     }
+
+    public function benefit()
+    {
+        return $this->belongsTo('Benefit', 'beneficio_id');
+    }
+
+    public function shared()
+    {
+        return $this->hasMany('BenefitCommentShare', 'comentario_id');
+    }
 } 

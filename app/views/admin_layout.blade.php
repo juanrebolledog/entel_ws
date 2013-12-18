@@ -30,7 +30,9 @@
                 <?= link_to('admin/benefits', 'Beneficios'); ?>
             </li>
             <li class="divider"></li>
-            <li><a href="benefit_comments.html">Comentarios</a></li>
+            <li>
+                {{ link_to(action('AdminBenefitCommentsController@index'), 'Comentarios') }}
+            </li>
             <li class="divider"></li>
             <li>
                 <?= link_to('admin/events', 'Eventos'); ?>
@@ -70,7 +72,7 @@
                 <?php echo HTML::decode(HTML::link('admin/benefits', 'Beneficios&nbsp;<span class="fa fa-gift"></span>', array('escape' => false))); ?>
             </li>
             <li class="<?= $data['current'] == 'comments' ? 'active':''; ?>">
-                <a href="#/comments">Comentarios&nbsp;<span class="fa fa-comments"></span></a>
+                <?php echo HTML::decode(HTML::link(action('AdminBenefitCommentsController@index'), 'Comentarios&nbsp;<span class="fa fa-comments"></span>', array('escape' => false))); ?>
             </li>
             <li class="<?= $data['current'] == 'events' ? 'active':''; ?>">
                 <?php echo HTML::decode(HTML::link('admin/events', 'Eventos&nbsp;<span class="fa fa-calendar"></span>', array('escape' => false))); ?>

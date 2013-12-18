@@ -1,6 +1,8 @@
 <?php
 class AdminBenefitsController extends AdminBaseController {
+
     protected $layout = 'admin_layout';
+
     public function __construct()
     {
         $this->beforeFilter(function()
@@ -8,6 +10,7 @@ class AdminBenefitsController extends AdminBaseController {
             View::share('data', array('current' => 'benefits'));
         });
     }
+
     public function index()
     {
         $benefits = Benefit::with('sub_category')->where('caducado', false)->get();
