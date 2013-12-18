@@ -10,7 +10,7 @@ class AdminEventsController extends AdminBaseController {
     }
     public function index()
     {
-        $events = AppEvent::all();
+        $events = AppEvent::with('sub_category')->get();
         return $this->layout->content = View::make('admin_events.index')->with(array('events' => $events));
     }
 
