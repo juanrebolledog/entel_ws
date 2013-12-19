@@ -24,6 +24,19 @@ class AppEvent extends LocationModel {
         return $this->belongsTo('EventSubCategory', 'sub_categoria_id');
     }
 
+    public static function validate($input, $options = array())
+    {
+        if (!empty($options) && isset($options['except']))
+        {
+            foreach ($options['except'] as $ignored_field)
+            {
+                unset(self::$validation[$ignored_field]);
+            }
+        }
+        $validator = Validator::make($input, self::$validation);
+        return $validator;
+    }
+
     static public function getEvent($id)
     {
         $event = self::with('sub_category')->find($id);
@@ -93,20 +106,8 @@ class AppEvent extends LocationModel {
 
         $event = self::uploadImages($event, $data);
 
-        $event_array = $event->toArray();
-        $event_validator = Validator::make($event_array, self::$validation);
-        if ($event_validator->fails())
-        {
-            return $event;
-        }
-        else
-        {
-            if ($event->save())
-            {
-                $event->validator = $event_validator;
-                return $event;
-            }
-        }
+        $event->save();
+        return $event;
     }
 
     static public function updateEvent($id, $data)
@@ -183,4 +184,4 @@ class AppEvent extends LocationModel {
         }
         return $event;
     }
-} 
+}

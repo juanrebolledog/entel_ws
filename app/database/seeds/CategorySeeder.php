@@ -6,14 +6,20 @@ class CategorySeeder extends Seeder {
         DB::table('sub_categorias_beneficios')->delete();
 
         BenefitCategory::create(array(
-            'nombre' => 'Deportes',
+            'nombre' => 'Entretención',
             'banner' => '',
             'banner_link' => '',
             'icono' => ''
         ));
 
         $sub_category = new BenefitSubCategory(array(
-            'nombre' => 'Burger King',
+            'nombre' => 'Fútbol',
+            'banner' => '',
+            'banner_link' => ''
+        ));
+
+        $sub_category = new BenefitSubCategory(array(
+            'nombre' => 'Ski',
             'banner' => '',
             'banner_link' => ''
         ));

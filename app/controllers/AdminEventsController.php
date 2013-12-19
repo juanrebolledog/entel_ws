@@ -43,15 +43,20 @@ class AdminEventsController extends AdminBaseController {
     public function store()
     {
         $data = Input::all();
-        $event = AppEvent::createEvent($data);
-        if ($event->validator->fails())
+
+        $validator = AppEvent::validate($data);
+
+        if ($validator->fails())
         {
-            Session::flash('event_error', $data);
-            return Redirect::to('admin/events/create')->withErrors($event->validator);
+            return Redirect::to('admin/benefits/create')->withErrors($validator)->withInput();
         }
         else
         {
-            return Redirect::to('admin/events/' . $event->id);
+            $event = AppEvent::createEvent($data);
+            if ($event->exists)
+            {
+                return Redirect::to('admin/events/' . $event->id);
+            }
         }
     }
 
