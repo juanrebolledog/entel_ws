@@ -43,14 +43,14 @@ class AdminBenefitsController extends AdminBaseController {
 
         if ($benefit_validator->fails())
         {
-            return Redirect::to('admin/benefits/create')->withErrors($benefit_validator)->withInput();
+            return Redirect::to(action('AdminBenefitsController@create'))->withErrors($benefit_validator)->withInput();
         }
         else
         {
             $benefit = Benefit::createBenefit($data);
             if ($benefit->exists)
             {
-                return Redirect::to('admin/benefits/' . $benefit->id);
+                return Redirect::to(action('AdminBenefitsController@show', $benefit->id));
             }
         }
     }
@@ -75,14 +75,14 @@ class AdminBenefitsController extends AdminBaseController {
 
         if ($benefit_validator->fails())
         {
-            return Redirect::to('admin/benefits/' . $id . '/edit')->withErrors($benefit_validator)->withInput();
+            return Redirect::to(action('AdminBenefitsController@edit', $id))->withErrors($benefit_validator)->withInput();
         }
         else
         {
             $benefit = Benefit::updateBenefit($id, $data);
             if ($benefit->exists)
             {
-                return Redirect::to('admin/benefits/' . $benefit->id);
+                return Redirect::to(action('AdminBenefitsController@show', $benefit->id));
             }
         }
     }
@@ -90,6 +90,6 @@ class AdminBenefitsController extends AdminBaseController {
     public function disableToggle($id)
     {
         Benefit::disableBenefitToggle($id);
-        return Redirect::to('admin/benefits');
+        return Redirect::to(action('AdminBenefitsController@index'));
     }
 } 

@@ -48,14 +48,14 @@ class AdminEventsController extends AdminBaseController {
 
         if ($validator->fails())
         {
-            return Redirect::to('admin/benefits/create')->withErrors($validator)->withInput();
+            return Redirect::to(action('AdminEventsController@create'))->withErrors($validator)->withInput();
         }
         else
         {
             $event = AppEvent::createEvent($data);
             if ($event->exists)
             {
-                return Redirect::to('admin/events/' . $event->id);
+                return Redirect::to(action('AdminEventsController@show', $event->id));
             }
         }
     }
@@ -75,21 +75,26 @@ class AdminEventsController extends AdminBaseController {
     public function update($id)
     {
         $data = Input::all();
-        $event = AppEvent::updateEvent($id, $data);
-        if ($event->validator->fails())
+
+        $event_validator = AppEvent::validate($data, array('except' => array('imagen_titulo', 'imagen_grande', 'icono', 'imagen_chica')));
+
+        if ($event_validator->fails())
         {
-            Session::flash('event_error', $data);
-            return Redirect::to('admin/events/' . $id . '/edit')->withErrors($event->validator);
+            return Redirect::to(action('AdminEventsController@edit', $id))->withErrors($event_validator)->withInput();
         }
         else
         {
-            return Redirect::to('admin/events/' . $id);
+            $event = AppEvent::updateEvent($id, $data);
+            if ($event->exists)
+            {
+                return Redirect::to(action('AdminEventsController@show', $event->id));
+            }
         }
     }
 
     public function disableToggle($id)
     {
         AppEvent::disableEventToggle($id);
-        return Redirect::to('admin/events');
+        return Redirect::to(action('AdminEventsController@index'));
     }
 } 
