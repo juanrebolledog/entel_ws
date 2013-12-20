@@ -2,7 +2,19 @@
 
 class BenefitIgnore extends BaseModel {
     protected $table = 'beneficios_ignorados';
+
     public $timestamps = false;
+
+    public function benefit()
+    {
+        return $this->belongsTo('Benefit', 'beneficio_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('User', 'usuario_id');
+    }
+
     static public function saveIgnore($benefit_id, $user_id)
     {
         $benefit_query = BenefitIgnore::where('usuario_id', '=', $user_id);

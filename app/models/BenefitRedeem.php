@@ -1,7 +1,18 @@
 <?php
 class BenefitRedeem extends BaseModel {
     protected $table = 'beneficios_cobrados';
+
     public $timestamps = false;
+
+    public function benefit()
+    {
+        return $this->belongsTo('Benefit', 'beneficio_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('User', 'usuario_id');
+    }
 
     static public function redeem($id, $user_id)
     {
