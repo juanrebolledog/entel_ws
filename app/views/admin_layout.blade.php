@@ -73,17 +73,23 @@
             <li class="<?= $data['current'] == 'benefits' ? 'active':''; ?>">
                 <?php echo HTML::decode(HTML::link(action('AdminBenefitsController@index'), 'Beneficios&nbsp;<span class="fa fa-gift"></span>', array('escape' => false))); ?>
             </li>
+            <li class="<?= $data['current'] == 'benefit_categories' ? 'active':''; ?>">
+                <?php echo HTML::decode(HTML::link(action('AdminBenefitCategoriesController@index'), 'Categorías Beneficios&nbsp;<span class="fa fa-tag"></span>', array('escape' => false))); ?>
+            </li>
+            <li class="<?= $data['current'] == 'benefit_sub_categories' ? 'active':''; ?>">
+                <?php echo HTML::decode(HTML::link(action('AdminBenefitSubCategoriesController@index'), 'Sub Categorías Beneficios&nbsp;<span class="fa fa-tag"></span>', array('escape' => false))); ?>
+            </li>
             <li class="<?= $data['current'] == 'comments' ? 'active':''; ?>">
-                <?php echo HTML::decode(HTML::link(action('AdminBenefitCommentsController@index'), 'Comentarios&nbsp;<span class="fa fa-comments"></span>', array('escape' => false))); ?>
+                <?php echo HTML::decode(HTML::link(action('AdminBenefitCommentsController@index'), 'Comentarios Beneficios&nbsp;<span class="fa fa-comments"></span>', array('escape' => false))); ?>
             </li>
             <li class="<?= $data['current'] == 'events' ? 'active':''; ?>">
                 <?php echo HTML::decode(HTML::link(action('AdminEventsController@index'), 'Eventos&nbsp;<span class="fa fa-calendar"></span>', array('escape' => false))); ?>
             </li>
+            <li class="<?= $data['current'] == 'event_categories' ? 'active':''; ?>">
+                <a href="#/event_categories">Categorías Eventos&nbsp;<span class="fa fa-tag"></span></a>
+            </li>
             <li class="<?= $data['current'] == 'zones' ? 'active':''; ?>">
                 <?php echo HTML::decode(HTML::link(action('AdminZonesController@index'), 'Zonas&nbsp;<span class="fa fa-location-arrow"></span>', array('escape' => false))); ?>
-            </li>
-            <li class="<?= $data['current'] == 'categories' ? 'active':''; ?>">
-                <a href="#/categories">Categor&iacute;as&nbsp;<span class="fa fa-tag"></span></a>
             </li>
             <li class="<?= $data['current'] == 'ratings' ? 'active':''; ?>">
                 <a href="#/ratings">Notas&nbsp;<span class="fa fa-star"></span></a>

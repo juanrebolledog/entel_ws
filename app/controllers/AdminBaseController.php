@@ -2,6 +2,8 @@
 
 class AdminBaseController extends Controller {
 
+    protected $layout = 'admin_layout';
+
     /**
      * Setup the layout used by the controller.
      *

@@ -26,13 +26,8 @@ class AdminBenefitsController extends AdminBaseController {
     public function create()
     {
         $benefit = new Benefit();
-        $benefit_categories = BenefitSubCategory::all();
-        $categories = array();
-        foreach ($benefit_categories as $cat)
-        {
-            $categories[$cat->id] = $cat->nombre;
-        }
-        return $this->layout->content = View::make('admin_benefits.create', array('benefit' => $benefit, 'categories' => $categories));
+        $benefit_categories = BenefitSubCategory::lists('nombre', 'id');
+        return $this->layout->content = View::make('admin_benefits.create', array('benefit' => $benefit, 'categories' => $benefit_categories));
     }
 
     public function store()

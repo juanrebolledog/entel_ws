@@ -49,8 +49,8 @@ class Benefit extends LocationModel {
                 unset(self::$validation[$ignored_field]);
             }
         }
-        $benefit_validator = Validator::make($input, Benefit::$validation);
-        return $benefit_validator;
+        $validator = Validator::make($input, self::$validation);
+        return $validator;
     }
     
     static public function getBenefit($id)

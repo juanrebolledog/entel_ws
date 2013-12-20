@@ -16,9 +16,10 @@ class CreateCategoriasEventosTable extends Migration {
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('nombre', 45);
+            $table->string('nombre', 100);
             $table->string('banner', 100);
-            $table->string('banner_link', 100);
+            $table->string('banner_link', 200);
+            $table->string('icono', 100);
             $table->timestamps();
         });
     }

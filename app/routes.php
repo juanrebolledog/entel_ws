@@ -60,6 +60,26 @@ Route::group(array('prefix' => 'admin'), function()
 {
     Route::group(array('prefix' => 'benefits'), function()
     {
+        Route::group(array('prefix' => 'categories'), function()
+        {
+            Route::group(array('prefix' => 'children'), function()
+            {
+                Route::get('', 'AdminBenefitSubCategoriesController@index');
+                Route::get('create', 'AdminBenefitSubCategoriesController@create');
+                Route::post('store', 'AdminBenefitSubCategoriesController@store');
+                Route::get('{id}', 'AdminBenefitSubCategoriesController@show');
+                Route::get('{id}/edit', 'AdminBenefitSubCategoriesController@edit');
+                Route::put('{id}/update', 'AdminBenefitSubCategoriesController@update');
+            });
+
+            Route::get('', 'AdminBenefitCategoriesController@index');
+            Route::get('create', 'AdminBenefitCategoriesController@create');
+            Route::post('store', 'AdminBenefitCategoriesController@store');
+            Route::get('{id}', 'AdminBenefitCategoriesController@show');
+            Route::get('{id}/edit', 'AdminBenefitCategoriesController@edit');
+            Route::put('{id}/update', 'AdminBenefitCategoriesController@update');
+        });
+
         Route::get('create', 'AdminBenefitsController@create');
         Route::post('store', 'AdminBenefitsController@store');
         Route::get('comments', 'AdminBenefitCommentsController@index');
