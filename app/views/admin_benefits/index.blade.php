@@ -57,8 +57,8 @@
             </table>
         </div>
         <div class="large-3 medium-3 small-12 columns">
-            <section class="entel-item">
-                <header><span class="fa fa-circle-o entel-item-toggle"></span>&nbsp;&Uacute;ltimos Comentarios</header>
+            <section class="entel-item collapsable">
+                <header>&Uacute;ltimos Comentarios <i class="fa fa-angle-down right"></i></header>
                 <div class="entel-item-content">
                     <table>
                         <thead>
@@ -85,8 +85,8 @@
                     </table>
                 </div>
             </section>
-            <section class="entel-item">
-                <header><span class="fa fa-circle-o entel-item-toggle"></span>&nbsp;&Uacute;ltimas Valoraciones</header>
+            <section class="entel-item collapsable">
+                <header>&Uacute;ltimas Valoraciones <i class="fa fa-angle-down right"></i></header>
                 <div class="entel-item-content">
                     <table>
                         <thead>
@@ -132,4 +132,17 @@
     </div>
 
 </section>
+@stop
+
+@section('scripts')
+<script>
+    (function($) {
+        $('.entel-item.collapsable').on('click', 'header', function(e) {
+            e.preventDefault();
+            var $e = $(e.currentTarget);
+            $e.find('.fa').toggleClass('fa-angle-left').toggleClass('fa-angle-down');
+            $e.parent('.entel-item').toggleClass('closed');
+        });
+    })(jQuery);
+</script>
 @stop
