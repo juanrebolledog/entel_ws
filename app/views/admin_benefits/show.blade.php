@@ -19,7 +19,7 @@
         </ul>
     </header>
     <div class="row">
-        <div class="large-5 medium-6 small-12 columns">
+        <div class="large-6 medium-6 small-12 columns">
             <section class="entel-item">
                 <header>Ubicaci&oacute;n</header>
                 <div id='map-element'></div>
@@ -73,32 +73,32 @@
                 </div>
             </section>
         </div>
-        <div class="large-7 medium-6 small-12 columns">
-            <section class="entel-item">
+        <div class="large-6 medium-6 small-12 columns">
+            <section class="entel-item breakable">
                 <header>Im&aacute;genes</header>
                 <div class="entel-item-content">
                     <div class="entel-image">
                         <img src="<?= asset($benefit->imagen_grande); ?>" alt="">
                         <header>
-                            Grande / 800x200 / <?= asset($benefit->imagen_grande); ?>
+                            Grande / 800x200 <br/> <?= asset($benefit->imagen_grande); ?>
                         </header>
                     </div>
                     <div class="entel-image">
                         <img src="<?= asset($benefit->imagen_chica); ?>" alt="">
                         <header>
-                            Chica / 500x100 / <?= asset($benefit->imagen_chica); ?>
+                            Chica / 500x100 <br/> <?= asset($benefit->imagen_chica); ?>
                         </header>
                     </div>
                     <div class="entel-image">
                         <img src="<?= asset($benefit->icono); ?>" alt="">
                         <header>
-                            Icono / 256x256 / <?= asset($benefit->icono); ?>
+                            Icono / 256x256 <br/> <?= asset($benefit->icono); ?>
                         </header>
                     </div>
                     <div class="entel-image">
                         <img src="<?= asset($benefit->imagen_titulo); ?>" alt="">
                         <header>
-                            T&iacute;tulo / 800x50 / <?= asset($benefit->imagen_titulo); ?>
+                            T&iacute;tulo / 800x50 <br/> <?= asset($benefit->imagen_titulo); ?>
                         </header>
                     </div>
                 </div>

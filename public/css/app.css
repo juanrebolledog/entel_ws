@@ -8260,6 +8260,10 @@ input[type="checkbox"] {
   opacity: 1;
 }
 
+.entel-item.breakable .entel-item-content {
+    word-break: break-all;
+}
+
 .entel-item.closed .entel-item-content {
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
