@@ -38,9 +38,7 @@
             <section class="entel-item">
                 <header>Sub Categor&iacute;a</header>
                 <div class="entel-item-content">
-                    <a href="category.html">
-                        <?= $benefit->sub_category->nombre; ?>
-                    </a>
+                    {{ link_to(action('AdminBenefitSubCategoriesController@show', $benefit->sub_category->id), $benefit->sub_category->nombre) }}
                 </div>
             </section>
             <section class="entel-item">
@@ -69,48 +67,6 @@
                 </div>
             </section>
             <section class="entel-item">
-                <header>Valoraci&oacute;n</header>
-                <div class="entel-item-content">
-                    <div class="fa fa-star entel-element-rating"></div>
-                    <div class="fa fa-star entel-element-rating"></div>
-                    <div class="fa fa-star entel-element-rating"></div>
-                    <div class="fa fa-star entel-element-rating"></div>
-                    <div class="fa fa-star-half-empty entel-element-rating"></div>
-                    <small>
-                        (4.5/5)
-                    </small>
-                </div>
-                <br/>
-                <div class="entel-item-content">
-                    <a href="#" class="button secondary small">&raquo; ver &uacute;ltimas valoraciones</a>
-                </div>
-                <div class="entel-item-content entel-latest-ratings hide">
-                    <h4>&Uacute;ltimas valoraciones</h4>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Valoraci&oacute;n</th>
-                            <th>Fecha</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>5</td>
-                            <td>2013-11-22 01:10:34</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>2013-11-21 16:45:11</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>2013-11-19 10:23:01</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-            <section class="entel-item">
                 <header>Mas Info.</header>
                 <div class="entel-item-content">
                     <small>[vac&iacute;o]</small>
@@ -136,7 +92,7 @@
                     <div class="entel-image">
                         <img src="<?= asset($benefit->icono); ?>" alt="">
                         <header>
-                            &Iacute;cono / 256x256 / <?= asset($benefit->icono); ?>
+                            Icono / 256x256 / <?= asset($benefit->icono); ?>
                         </header>
                     </div>
                     <div class="entel-image">
@@ -147,10 +103,6 @@
                     </div>
                 </div>
             </section>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-12 medium-12 small-12">
             <section class="entel-item">
                 <header>Comentarios</header>
                 <div class="entel-item-content">
@@ -160,26 +112,38 @@
                             <th>Nombre Usuario</th>
                             <th>Mensaje</th>
                             <th>Fecha &#x21e3</th>
-                            <th class="hide-for-small">Compartir FB</th>
-                            <th class="hide-for-small">Compartir Tw</th>
                             <th>&nbsp;</th>
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach ($benefit->comments as $comment)
-                            <tr>
-                                <td>{{ link_to(action('AdminUsersController@show', $comment->usuario_id), $comment->user->nombres) }}</td>
-                                <td>{{ $comment->mensaje }}</td>
-                                <td>{{ $comment->created_at }}</td>
-                                <td>{{ $comment->compartido_fb ? 'Si':'No' }}</td>
-                                <td>{{ $comment->compartido_tw ? 'Si':'No' }}</td>
-                                <td>
-                                    {{ link_to(action('AdminBenefitCommentsController@show', $comment->id), 'Ver') }}
-                                </td>
-                            </tr>
-                            @endforeach
+                        @foreach ($benefit->comments as $comment)
+                        <tr>
+                            <td>{{ link_to(action('AdminUsersController@show', $comment->usuario_id), $comment->user->nombres) }}</td>
+                            <td>{{ $comment->mensaje }}</td>
+                            <td>{{ $comment->created_at }}</td>
+                            <td>
+                                {{ link_to(action('AdminBenefitCommentsController@show', $comment->id), 'Ver') }}
+                            </td>
+                        </tr>
+                        @endforeach
                         </tbody>
                     </table>
+                </div>
+            </section>
+
+            <section class="entel-item">
+                <header>Valoraci&oacute;n</header>
+                <div class="entel-item-content">
+                    <div class="fa fa-star entel-element-rating"></div>
+                    <div class="fa fa-star entel-element-rating"></div>
+                    <div class="fa fa-star entel-element-rating"></div>
+                    <div class="fa fa-star entel-element-rating"></div>
+                    <div class="fa fa-star-half-empty entel-element-rating"></div>
+                    <small>
+                        (4.5/5)
+                    </small>
+                    <br/><br/>
+                    <a href="#">Ver todas</a>
                 </div>
             </section>
         </div>
