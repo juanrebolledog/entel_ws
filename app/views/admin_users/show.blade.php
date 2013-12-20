@@ -8,9 +8,6 @@
         </h3>
         <ul>
             <li>
-                <a href="#map-element">Editar</a>
-            </li>
-            <li>
                 <a href="#">Desactivar</a>
             </li>
         </ul>
@@ -46,8 +43,8 @@
             </section>
         </div>
         <div class="large-4 medium-4 small-12 columns">
-            <section class="entel-item">
-                <header>&Uacute;ltimos Comentarios</header>
+            <section class="entel-item collapsable">
+                <header>&Uacute;ltimos Comentarios <i class="fa fa-angle-down right"></i></header>
                 <div class="entel-item-content">
                     <table class="entel-table">
                         <thead>
@@ -76,8 +73,8 @@
                 </div>
             </section>
 
-            <section class="entel-item">
-                <header>Valoraciones Recientes</header>
+            <section class="entel-item collapsable">
+                <header>Valoraciones Recientes <i class="fa fa-angle-down right"></i></header>
                 <div class="entel-item-content">
                     <table class="entel-table">
                         <thead>
@@ -106,8 +103,8 @@
                 </div>
             </section>
 
-            <section class="entel-item">
-                <header>Beneficios Ignorados</header>
+            <section class="entel-item collapsable">
+                <header>Beneficios Ignorados <i class="fa fa-angle-down right"></i></header>
                 <div class="entel-item-content">
                     <table class="entel-table">
                         <thead>
@@ -136,8 +133,8 @@
                 </div>
             </section>
 
-            <section class="entel-item">
-                <header>Beneficios Cobrados</header>
+            <section class="entel-item collapsable">
+                <header>Beneficios Cobrados <i class="fa fa-angle-down right"></i></header>
                 <div class="entel-item-content">
                     <table class="entel-table">
                         <thead>
@@ -169,4 +166,17 @@
     </div>
 
 </section>
+@stop
+
+@section('scripts')
+<script>
+    (function($) {
+        $('.entel-item.collapsable').on('click', 'header', function(e) {
+            e.preventDefault();
+            var $e = $(e.currentTarget);
+            $e.find('.fa').toggleClass('fa-angle-left').toggleClass('fa-angle-down');
+            $e.parent('.entel-item').toggleClass('closed');
+        });
+    })(jQuery);
+</script>
 @stop

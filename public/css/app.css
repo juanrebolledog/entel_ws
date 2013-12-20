@@ -8245,9 +8245,31 @@ input[type="checkbox"] {
   -o-transition: color 0.1s;
   transition: color 0.1s;
 }
+.entel-item.collapsable > header {
+    cursor: pointer;
+}
 /* line 91, ../../src/sass/app.scss */
 .entel-item .entel-item-content {
   padding: 10px;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+  height: auto;
+  opacity: 1;
+}
+
+.entel-item.closed .entel-item-content {
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0;
 }
 /* line 93, ../../src/sass/app.scss */
 .entel-item .entel-item-content ul {
