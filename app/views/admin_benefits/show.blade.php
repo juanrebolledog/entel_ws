@@ -166,7 +166,18 @@
                         </tr>
                         </thead>
                         <tbody>
-
+                            @foreach ($benefit->comments as $comment)
+                            <tr>
+                                <td>{{ link_to(action('AdminUsersController@show', $comment->usuario_id), $comment->user->nombres) }}</td>
+                                <td>{{ $comment->mensaje }}</td>
+                                <td>{{ $comment->created_at }}</td>
+                                <td>{{ $comment->compartido_fb ? 'Si':'No' }}</td>
+                                <td>{{ $comment->compartido_tw ? 'Si':'No' }}</td>
+                                <td>
+                                    {{ link_to(action('AdminBenefitCommentsController@show', $comment->id), 'Ver') }}
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
