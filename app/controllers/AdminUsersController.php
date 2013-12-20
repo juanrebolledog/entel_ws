@@ -17,7 +17,7 @@ class AdminUsersController extends AdminBaseController {
 
     public function show($id)
     {
-        $user = User::find($id);
+        $user = User::with('comments', 'ignored_benefits', 'benefits', 'votes', 'level')->find($id);
         return View::make('admin_users.show', array('user' => $user));
     }
 

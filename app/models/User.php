@@ -23,6 +23,36 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      */
     protected $table = 'usuarios';
 
+    public function comments()
+    {
+        return $this->hasMany('BenefitComment', 'usuario_id');
+    }
+
+    public function benefits()
+    {
+        return $this->hasMany('BenefitRedeem', 'usuario_id');
+    }
+
+    public function ignored_benefits()
+    {
+        return $this->hasMany('BenefitIgnore', 'usuario_id');
+    }
+
+    public function votes()
+    {
+        return $this->hasMany('BenefitVote', 'usuario_id');
+    }
+
+    public function events()
+    {
+
+    }
+
+    public function level()
+    {
+        return $this->belongsTo('UserLevel', 'nivel_id');
+    }
+
     /**
      * Get the unique identifier for the user.
      *

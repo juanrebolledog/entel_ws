@@ -8195,6 +8195,12 @@ input[type="checkbox"] {
   background-color: #F5F5F5;
   border-color: #E9E9E9;
 }
+
+.entel-item-light {
+    border: 0;
+    background-color: transparent;
+}
+
 /* line 48, ../../bower_components/foundation/scss/foundation/components/_panels.scss */
 .entel-item > :first-child {
   margin-top: 0;
