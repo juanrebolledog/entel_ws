@@ -69,6 +69,14 @@ class Benefit extends LocationModel {
         }
         return false;
     }
+    
+    public function prepareForWS()
+    {
+        $this->imagen_titulo = asset($this->imagen_titulo);
+        $this->imagen_grande = asset($this->imagen_grande);
+        $this->imagen_chica = asset($this->imagen_chica);
+        $this->icono = asset($this->icono);
+    }
 
     static public function createBenefit($data)
     {
