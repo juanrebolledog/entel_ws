@@ -91,6 +91,17 @@ class AppEvent extends LocationModel {
         }));
         return $models;
     }
+
+    static public function searchByKeyword($q = null)
+    {
+        $results = self::with('sub_category', 'comments')->where(function($query) use ($q)
+        {
+            $query->where('nombre', 'LIKE', '%' . $q . '%');
+            $query->orWhere('descripcion', 'LIKE', '%' . $q . '%');
+            $query->orWhere('tags', 'LIKE', '%' . $q . '%');
+        })->get();
+        return $results;
+    }
     
     static public function createEvent($data)
     {

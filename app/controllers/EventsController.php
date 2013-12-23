@@ -46,13 +46,10 @@ class EventsController extends BaseController {
     public function search()
     {
         $q = filter_var(Input::get('q'), FILTER_SANITIZE_STRING);
-        $events = AppEvent::orWhere(function($query) use ($q)
+        $results = AppEvent::searchByKeyword($q);
+        if ($results)
         {
-            $query->where('description', 'LIKE', '%' . $q . '%')->where('name', 'LIKE', '%' . $q . '%');
-        })->get();
-        if ($events)
-        {
-            $this->setApiResponse($events->toArray(), true);
+            $this->setApiResponse($results->toArray(), true);
         }
         else
         {
