@@ -143,7 +143,7 @@
                         (4.5/5)
                     </small>
                     <br/><br/>
-                    <a href="#">Ver todas</a>
+                    {{ link_to(action('AdminBenefitVotesController@show', $benefit->id), 'Ver todas') }}
                 </div>
             </section>
         </div>

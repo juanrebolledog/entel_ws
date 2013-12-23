@@ -36,4 +36,14 @@ class BenefitVote extends BaseModel {
         }
         return $vote;
     }
+
+    static public function getVotes($benefit_id = null)
+    {
+        $votes_query = BenefitVote::with('user', 'benefit');
+        if ($benefit_id)
+        {
+            $votes_query->where('beneficio_id', $benefit_id);
+        }
+        return $votes_query->get();
+    }
 } 

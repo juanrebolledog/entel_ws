@@ -94,7 +94,7 @@
                 <?php echo HTML::decode(HTML::link(action('AdminZonesController@index'), 'Zonas&nbsp;<span class="fa fa-location-arrow"></span>', array('escape' => false))); ?>
             </li>
             <li class="<?= $data['current'] == 'ratings' ? 'active':''; ?>">
-                <a href="#/ratings">Notas&nbsp;<span class="fa fa-star"></span></a>
+                <?php echo HTML::decode(HTML::link(action('AdminBenefitVotesController@index'), 'Notas&nbsp;<span class="fa fa-star"></span>', array('escape' => false))); ?>
             </li>
             <li class="divider"></li>
             <li class="<?= $data['current'] == 'stats' ? 'active':''; ?>">

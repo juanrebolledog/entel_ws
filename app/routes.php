@@ -82,11 +82,14 @@ Route::group(array('prefix' => 'admin'), function()
 
         Route::get('create', 'AdminBenefitsController@create');
         Route::post('store', 'AdminBenefitsController@store');
+        Route::get('votes', 'AdminBenefitVotesController@index');
+
         Route::get('comments', 'AdminBenefitCommentsController@index');
         Route::get('comments/{id}', 'AdminBenefitCommentsController@show');
         Route::get('', 'AdminBenefitsController@index');
         Route::get('{id}', 'AdminBenefitsController@show');
         Route::get('{id}/edit', 'AdminBenefitsController@edit');
+        Route::get('{id}/votes', 'AdminBenefitVotesController@show');
         Route::put('{id}/update', 'AdminBenefitsController@update');
     });
     
