@@ -15,7 +15,7 @@ class BenefitsController extends BaseController {
         $range = (float)filter_var(Input::get('range'), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         $user_id = Auth::getUser()->id;
         if (is_float($lat) && is_float($lng)) {
-            $benefits = Benefit::findByLocation($user_id, $lat, $lng, $range, $limit);
+            $benefits = Benefit::findByLocation($lat, $lng, $user_id, $range, $limit);
         } else {
             $benefits = Benefit::with('sub_category', 'comments')->get();
             $benefits = $benefits->toArray();

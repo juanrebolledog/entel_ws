@@ -250,7 +250,7 @@ class Benefit extends LocationModel {
         return $results;
     }
 
-    static public function findByLocation($user_id, $lat, $lng, $range = null, $limit = null)
+    static public function findByLocation($lat, $lng, $user_id, $range = null, $limit = null)
     {
         $ignored_benefits = BenefitIgnore::where('usuario_id', $user_id)->get();
         $ignored_ids = array();
