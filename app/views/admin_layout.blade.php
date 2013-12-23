@@ -67,9 +67,11 @@
 <section id="content">
     <div class="large-2 hide-for-medium hide-for-small columns" id="app-sidebar">
         <ul class="entel-side-nav">
+            <!--
             <li class="<?= $data['current'] == 'home' ? 'active':''; ?>">
                 <a href="#/home">Home&nbsp;<span class="fa fa-home"></span></a>
             </li>
+            -->
             <li class="<?= $data['current'] == 'benefits' ? 'active':''; ?>">
                 <?php echo HTML::decode(HTML::link(action('AdminBenefitsController@index'), 'Beneficios&nbsp;<span class="fa fa-gift"></span>', array('escape' => false))); ?>
             </li>
@@ -95,26 +97,19 @@
                 <a href="#/ratings">Notas&nbsp;<span class="fa fa-star"></span></a>
             </li>
             <li class="divider"></li>
-            <li class="<?= $data['current'] == 'configuration' ? 'active':''; ?>">
-                <a href="#/configuration">Configuraci&oacute;n&nbsp;<span class="fa fa-cogs"></span></a>
-            </li>
             <li class="<?= $data['current'] == 'stats' ? 'active':''; ?>">
                 <a href="#/stats">Estad&iacute;sticas&nbsp;<span class="fa fa-bar-chart-o"></span></a>
             </li>
-            <li class="<?= $data['current'] == 'status' ? 'active':''; ?>">
-                <a href="#/status">Estado del Servicio&nbsp;<span class="fa fa-power-off"></span></a>
-            </li>
+            <!--
             <li class="<?= $data['current'] == 'users' ? 'active':''; ?>">
                 <?php echo HTML::decode(HTML::link(action('AdminUsersController@index'), 'Usuarios&nbsp;<span class="fa fa-users"></span>', array('escape' => false))); ?>
             </li>
+            -->
         </ul>
         <section class="entel-item">
-            <header><span class="fa fa-question-circle"></span>&nbsp;¿Necesitas Ayuda?</header>
+            <header><span class="fa fa-question-circle right"></span>&nbsp;¿Necesitas Ayuda?</header>
             <div class="entel-item-content">
                 <ul>
-                    <li>
-                        <a href="#">Wiki del Sitio</a>
-                    </li>
                     <li>
                         <a href="#">Soporte</a>
                     </li>
@@ -130,7 +125,7 @@
         <footer class="item">
             <div class="entel-item-content">
                 <div class="text-center">
-                    <a href="#">Entel</a> | <a href="#">Wiki</a> | <a href="#">Soporte</a>
+                    <a href="#">Entel</a> | <a href="#">Soporte</a>
                 </div>
             </div>
         </footer>
