@@ -2,6 +2,10 @@
 class AppEvent extends LocationModel {
     protected $table = 'eventos';
 
+    protected $hidden = array(
+        'created_at', 'updated_at'
+    );
+
     static protected $validation = array(
         'nombre' => 'required',
         'descripcion' => 'required',
@@ -24,6 +28,11 @@ class AppEvent extends LocationModel {
         return $this->belongsTo('EventSubCategory', 'sub_categoria_id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('EventComment', 'evento_id');
+    }
+
     public static function validate($input, $options = array())
     {
         if (!empty($options) && isset($options['except']))
@@ -39,7 +48,7 @@ class AppEvent extends LocationModel {
 
     static public function getEvent($id)
     {
-        $event = self::with('sub_category')->find($id);
+        $event = self::with('sub_category', 'comments')->find($id);
         if ($event && $event->exists)
         {
             $event->imagen_titulo = asset($event->imagen_titulo);
@@ -63,7 +72,7 @@ class AppEvent extends LocationModel {
         return true;
     }
 
-    static public function findByLocation($user_id, $lat, $lng)
+    static public function findByLocation($lat, $lng)
     {
         $models = array();
 
@@ -71,15 +80,10 @@ class AppEvent extends LocationModel {
         {
             $distance = self::calculateDistance(array('lat' => $lat, 'lng' => $lng),
                 array('lat' => $model->lat, 'lng' => $model->lng));
-
-            array_push($models, array(
-                'id' => $model->id,
-                'nombre' => $model->name,
-                'descripcion' => $model->description,
-                'lat' => $model->lat,
-                'lng' => $model->lng,
-                'distancia' => $distance
-            ));
+            $model->prepareForWS();
+            $model = $model->toArray();
+            $model['distancia'] = $distance;
+            array_push($models, $model);
         }
         $models = array_values(array_sort($models, function($value)
         {

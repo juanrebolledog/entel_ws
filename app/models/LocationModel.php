@@ -14,7 +14,7 @@ class LocationModel extends \BaseModel {
         return $d;
     }
 
-    static public function findByLocation($user_id, $lat, $lng)
+    static public function findByLocation($lat, $lng)
     {
         $models = array();
 
