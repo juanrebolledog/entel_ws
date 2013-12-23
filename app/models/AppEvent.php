@@ -76,7 +76,7 @@ class AppEvent extends LocationModel {
     {
         $models = array();
 
-        foreach (self::all() as $model)
+        foreach (self::with('comments', 'sub_category')->get() as $model)
         {
             $distance = self::calculateDistance(array('lat' => $lat, 'lng' => $lng),
                 array('lat' => $model->lat, 'lng' => $model->lng));
