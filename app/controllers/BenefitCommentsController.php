@@ -42,7 +42,7 @@ class BenefitCommentsController extends BaseController {
             $this->setApiResponse(false, false, 'Datos faltantes: metodo');
             return Response::json($this->api_response);
         }
-        $share = BenefitCommentShare::saveShare($id, Auth::getUser()->id, $method);
+        $share = BenefitComment::saveShare($id, Auth::getUser()->id, $method);
         if ($share)
         {
             $this->setApiResponse($share->toArray(), true);
