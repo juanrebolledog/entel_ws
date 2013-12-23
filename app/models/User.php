@@ -133,4 +133,41 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return false;
     }
 
+    public function recalculateLevel()
+    {
+        $redeemed_benefit_count = BenefitRedeem::where('usuario_id', $this->id)->count();
+        $comments = BenefitComment::where('usuario_id', $this->id)->get();
+        $comment_count = $fb_share_count = $tw_share_count = 0;
+        foreach ($comments as $comment)
+        {
+            $comment_count++;
+            if ($comment->compartido_fb)
+            {
+                $fb_share_count++;
+            }
+
+            if ($comment->compartido_tw)
+            {
+                $tw_share_count++;
+            }
+        }
+        $share_count = $fb_share_count + $tw_share_count;
+        $levels = UserLevel::orWhere(function($query) use ($redeemed_benefit_count, $comment_count, $share_count)
+        {
+            $query->where('beneficios', '<=', $redeemed_benefit_count);
+            $query->where('comentarios', '<=', $comment_count);
+            $query->where('compartir', '<=', $share_count);
+        })->get();
+
+        if ($levels)
+        {
+            $this->nivel_id = $levels->last()->id;
+            if ($this->save())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

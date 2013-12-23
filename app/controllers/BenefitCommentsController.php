@@ -26,6 +26,7 @@ class BenefitCommentsController extends BaseController {
             $comment->mensaje = $data['mensaje'];
             if ($comment->save())
             {
+                Auth::getUser()->recalculateLevel();
                 $this->setApiResponse($comment->toArray(), true);
                 return Response::json($this->api_response);
             }

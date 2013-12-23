@@ -25,6 +25,7 @@ class BenefitRedeem extends BaseModel {
             $redeemed->created_at = date('Y-m-d H:i:s');
             if ($redeemed->save())
             {
+                Auth::getUser()->recalculateLevel();
                 return true;
             }
         }

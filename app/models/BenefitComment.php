@@ -45,6 +45,7 @@ class BenefitComment extends BaseModel {
 
             if ($comment->save())
             {
+                Auth::getUser()->recalculateLevel();
                 return $comment;
             }
         }
