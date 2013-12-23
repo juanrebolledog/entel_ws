@@ -5,7 +5,7 @@ class EventCommentsController extends BaseController {
         $event = AppEvent::find($event_id);
         if ($event)
         {
-            $comments = EventComment::where('evento_id', $event->id)->get();
+            $comments = EventComment::with('user')->where('evento_id', $event->id)->get();
             $this->setApiResponse($comments->toArray(), true);
             return Response::json($this->api_response);
         }
