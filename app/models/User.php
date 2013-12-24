@@ -136,9 +136,24 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     public function recalculateLevel()
     {
         $redeemed_benefit_count = BenefitRedeem::where('usuario_id', $this->id)->count();
-        $comments = BenefitComment::where('usuario_id', $this->id)->get();
+        $b_comments = BenefitComment::where('usuario_id', $this->id)->get();
+        $e_comments = EventComment::where('usuario_id', $this->id)->get();
         $comment_count = $fb_share_count = $tw_share_count = 0;
-        foreach ($comments as $comment)
+        foreach ($b_comments as $comment)
+        {
+            $comment_count++;
+            if ($comment->compartido_fb)
+            {
+                $fb_share_count++;
+            }
+
+            if ($comment->compartido_tw)
+            {
+                $tw_share_count++;
+            }
+        }
+
+        foreach ($e_comments as $comment)
         {
             $comment_count++;
             if ($comment->compartido_fb)
@@ -152,7 +167,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             }
         }
         $share_count = $fb_share_count + $tw_share_count;
-        $levels = UserLevel::orWhere(function($query) use ($redeemed_benefit_count, $comment_count, $share_count)
+
+        Log::info(json_encode(array(
+            'benefits' => $redeemed_benefit_count,
+            'comments' => $comment_count,
+            'shares' => $share_count
+        )));
+
+        $levels = UserLevel::where(function($query) use ($redeemed_benefit_count, $comment_count, $share_count)
         {
             $query->where('beneficios', '<=', $redeemed_benefit_count);
             $query->where('comentarios', '<=', $comment_count);
@@ -161,6 +183,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
         if ($levels)
         {
+            Log::info(json_encode($levels->toArray()));
             $this->nivel_id = $levels->last()->id;
             if ($this->save())
             {
