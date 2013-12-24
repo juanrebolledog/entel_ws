@@ -13,8 +13,8 @@
         </ul>
     </header>
     <div class="row">
-        <div class="large-6 medium-6 small-12 columns">
-            <section class="entel-item">
+        <div class="large-12 medium-12 small-12 columns">
+            <section class="entel-item entel-item-light">
                 <header>{{ 'Comentario' }}</header>
                 <div class="entel-item-content">
                     <dl>
@@ -30,6 +30,14 @@
                         <dd>
                             {{ $comment->mensaje }}
                         </dd>
+                        <dt>{{ 'Compartido en Facebook' }}</dt>
+                        <dd>
+                            {{ $comment->compartido_fb ? 'Si':'No' }}
+                        </dd>
+                        <dt>{{ 'Compartido en Twitter' }}</dt>
+                        <dd>
+                            {{ $comment->compartido_tw ? 'Si':'No' }}
+                        </dd>
                         <dt>{{ 'Creado en' }}</dt>
                         <dd>
                             {{ $comment->created_at }}
@@ -38,29 +46,7 @@
                 </div>
             </section>
         </div>
-        <div class="large-6 medium-6 small-12 columns">
-            <section class="entel-item">
-                <header>{{ 'Compartido por' }}</header>
-                <div class="entel-item-content">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>{{ 'Usuario' }}</th>
-                            <th>{{ 'Método' }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($comment->shared as $share)
-                        <tr>
-                            <td>{{ link_to(action('AdminUsersController@show', $share->usuario_id), $share->user->nombres) }}</td>
-                            <td>{{ $share->metodo }}</td>
-                        </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </div>
+
     </div>
 </section>
 @stop

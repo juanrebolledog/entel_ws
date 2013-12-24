@@ -20,7 +20,7 @@ class AdminBenefitCommentsController extends AdminBaseController {
 
     public function show($id)
     {
-        $comment = BenefitComment::with('user', 'benefit', 'shared')->find($id);
+        $comment = BenefitComment::with('user', 'benefit')->find($id);
         return $this->layout->content = View::make('admin_comments.show')->with(array('comment' => $comment));
     }
 
