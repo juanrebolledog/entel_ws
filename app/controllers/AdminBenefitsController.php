@@ -34,11 +34,11 @@ class AdminBenefitsController extends AdminBaseController {
     {
         $data = Input::all();
 
-        $benefit_validator = Benefit::validate($data);
+        $validator = Benefit::validate($data);
 
-        if ($benefit_validator->fails())
+        if ($validator->fails())
         {
-            return Redirect::to(action('AdminBenefitsController@create'))->withErrors($benefit_validator)->withInput();
+            return Redirect::to(action('AdminBenefitsController@create'))->withErrors($validator)->withInput();
         }
         else
         {
@@ -66,11 +66,11 @@ class AdminBenefitsController extends AdminBaseController {
     {
         $data = Input::all();
 
-        $benefit_validator = Benefit::validate($data, array('except' => array('imagen_titulo', 'imagen_grande', 'icono', 'imagen_chica')));
+        $validator = Benefit::validate($data, array('except' => array('imagen_titulo', 'imagen_grande', 'icono', 'imagen_chica')));
 
-        if ($benefit_validator->fails())
+        if ($validator->fails())
         {
-            return Redirect::to(action('AdminBenefitsController@edit', $id))->withErrors($benefit_validator)->withInput();
+            return Redirect::to(action('AdminBenefitsController@edit', $id))->withErrors($validator)->withInput();
         }
         else
         {

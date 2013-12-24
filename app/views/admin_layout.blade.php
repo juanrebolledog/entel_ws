@@ -88,7 +88,7 @@
                 <?php echo HTML::decode(HTML::link(action('AdminEventsController@index'), 'Eventos&nbsp;<span class="fa fa-calendar"></span>', array('escape' => false))); ?>
             </li>
             <li class="<?= $data['current'] == 'event_categories' ? 'active':''; ?>">
-                <a href="#/event_categories">Categorías Eventos&nbsp;<span class="fa fa-tag"></span></a>
+                <?php echo HTML::decode(HTML::link(action('AdminEventCategoriesController@index'), 'Categorías Eventos&nbsp;<span class="fa fa-tag"></span>', array('escape' => false))); ?>
             </li>
             <li class="<?= $data['current'] == 'zones' ? 'active':''; ?>">
                 <?php echo HTML::decode(HTML::link(action('AdminZonesController@index'), 'Zonas&nbsp;<span class="fa fa-location-arrow"></span>', array('escape' => false))); ?>

@@ -95,6 +95,17 @@ Route::group(array('prefix' => 'admin'), function()
     
     Route::group(array('prefix' => 'events'), function()
     {
+        Route::group(array('prefix' => 'categories'), function()
+        {
+            Route::get('edit', 'AdminEventCategoriesController@edit');
+            Route::put('update', 'AdminEventCategoriesController@update');
+            Route::get('sub/create', 'AdminEventCategoriesController@create_sub');
+            Route::get('', 'AdminEventCategoriesController@index');
+            Route::get('sub/{id}', 'AdminEventCategoriesController@show_sub');
+            Route::get('sub/{id}/edit', 'AdminEventCategoriesController@edit_sub');
+            Route::put('sub/{id}/update', 'AdminEventCategoriesController@update_sub');
+            Route::post('sub/store', 'AdminEventCategoriesController@store_sub');
+        });
         Route::get('create', 'AdminEventsController@create');
         Route::get('', 'AdminEventsController@index');
         Route::get('{id}', 'AdminEventsController@show');
