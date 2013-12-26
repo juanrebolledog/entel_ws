@@ -74,9 +74,8 @@ class BenefitSubCategory extends BaseModel {
             {
                 $scat->prepareForWS();
             }
-            return $scat;
         }
-        return false;
+        return $categories;
     }
 
     static public function createCategory($data)
@@ -137,5 +136,12 @@ class BenefitSubCategory extends BaseModel {
     {
         $this->banner = asset($this->banner);
         $this->icono = asset($this->icono);
+        if (isset($this->benefits))
+        {
+            foreach ($this->benefits as $benefit)
+            {
+                $benefit->prepareForWS();
+            }
+        }
     }
 } 
