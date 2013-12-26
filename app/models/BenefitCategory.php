@@ -31,11 +31,14 @@ class BenefitCategory extends BaseModel {
 
     static public function getCategory($id)
     {
-        $category = self::with('sub_categories')->find($id);
-        if ($category && $category->exists)
+        $category = self::find($id);
+        if ($category)
         {
             $category->banner = asset($category->banner);
             $category->icono = asset($category->icono);
+
+            $sub_categories = BenefitSubCategory::getSubCategories($id);
+            $category->sub_categories = $sub_categories->toArray();
             return $category;
         }
         return false;
@@ -100,5 +103,11 @@ class BenefitCategory extends BaseModel {
             }
         }
         return $category;
+    }
+
+    public function prepareForWS()
+    {
+        $this->banner = asset($this->banner);
+        $this->icono = asset($this->icono);
     }
 } 

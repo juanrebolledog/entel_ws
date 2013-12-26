@@ -37,14 +37,44 @@ class BenefitSubCategory extends BaseModel {
         return $validator;
     }
 
-    static public function getCategory($id)
+    static public function getSubCategory($id = null)
     {
-        $category = self::with('category', 'benefits')->find($id);
-        if ($category && $category->exists)
+        $category_query = self::with('category', 'benefits');
+        if ($id)
+        {
+            $category = $category_query->find($id);
+        }
+        else
+        {
+            $category = $category_query->get();
+        }
+        if ($category)
         {
             $category->banner = asset($category->banner);
             $category->icono = asset($category->icono);
             return $category;
+        }
+        return false;
+    }
+
+    static public function getSubCategories($category_id = null)
+    {
+        $category_query = self::with('benefits');
+        if ($category_id)
+        {
+            $categories = $category_query->where('categoria_id', $category_id)->get();
+        }
+        else
+        {
+            $categories = $category_query->get();
+        }
+        if ($categories)
+        {
+            foreach ($categories as $scat)
+            {
+                $scat->prepareForWS();
+            }
+            return $scat;
         }
         return false;
     }
@@ -101,5 +131,11 @@ class BenefitSubCategory extends BaseModel {
             }
         }
         return $category;
+    }
+
+    public function prepareForWS()
+    {
+        $this->banner = asset($this->banner);
+        $this->icono = asset($this->icono);
     }
 } 
