@@ -246,7 +246,10 @@ class Benefit extends LocationModel {
             $query->where('nombre', 'LIKE', '%' . $q . '%');
             $query->orWhere('descripcion', 'LIKE', '%' . $q . '%');
             $query->orWhere('tags', 'LIKE', '%' . $q . '%');
-        })->get();
+        })->get()->each(function($benefit)
+            {
+                $benefit->prepareForWS();
+            });
         return $results;
     }
 
