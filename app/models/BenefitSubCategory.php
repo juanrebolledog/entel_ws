@@ -50,7 +50,6 @@ class BenefitSubCategory extends BaseModel {
         if ($category)
         {
             $category->banner = asset($category->banner);
-            $category->icono = asset($category->icono);
             return $category;
         }
         return false;
