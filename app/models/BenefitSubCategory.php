@@ -10,7 +10,6 @@ class BenefitSubCategory extends BaseModel {
         'nombre' => 'required',
         'banner' => 'required',
         'banner_link' => 'required',
-        'icono' => 'required',
         'categoria_id' => 'required'
     );
 
