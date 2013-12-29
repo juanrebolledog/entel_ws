@@ -27,6 +27,7 @@ Route::group(array('prefix' => 'api', 'before' => 'auth'), function()
         Route::get('', 'EventsController@index');
         Route::get('search', 'EventsController@search');
         Route::get('category', 'EventsSubCategoriesController@index');
+        Route::post('comments/{id}/share', 'EventCommentsController@share');
         Route::get('{id}', 'EventsController@show');
         Route::get('{id}/comments', 'EventCommentsController@show');
         Route::post('{id}/comments', 'EventCommentsController@store');

@@ -40,4 +40,24 @@ class EventCommentsController extends BaseController {
         $this->setApiResponse(false, false);
         return Response::json($this->api_response);
     }
+
+    public function share($id)
+    {
+        $method = Input::get('metodo');
+        if (!$method)
+        {
+            $this->setApiResponse(false, false, 'Datos faltantes: metodo');
+            return Response::json($this->api_response);
+        }
+        $share = EventComment::saveShare($id, Auth::getUser()->id, $method);
+        if ($share)
+        {
+            $this->setApiResponse($share->toArray(), true);
+        }
+        else
+        {
+            $this->setApiResponse(array(), false);
+        }
+        return Response::json($this->api_response);
+    }
 } 

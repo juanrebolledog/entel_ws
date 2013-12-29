@@ -122,4 +122,69 @@ class EventApiTest extends TestCase {
         $this->assertEquals($content->message, 'Faltan datos');
     }
 
+    public function testEventCommentShare()
+    {
+        $event = AppEvent::take(1)->first();
+        $data = array(
+            'mensaje' => 'Test comment'
+        );
+        $this->setRequestData($data);
+        $request = $this->request('POST', '/api/events/' . $event->id . '/comments');
+        $content = json_decode($request->getContent());
+        $this->assertTrue($content->status);
+        $this->assertEquals($content->data->evento_id, $event->id);
+        $this->assertEquals($content->data->mensaje, $data['mensaje']);
+
+        $share_data = array(
+            'metodo' => 'twitter'
+        );
+        $this->setRequestData($share_data);
+        $share_request = $this->request('POST', '/api/events/comments/' . $content->data->id . '/share');
+        $share_content = json_decode($share_request->getContent());
+        $this->assertTrue($share_content->status);
+        $this->assertEquals($share_content->data->compartido_tw, 1);
+    }
+
+    public function testEventCommentShareMalformedData()
+    {
+        $event = AppEvent::take(1)->first();
+        $data = array(
+            'mensaje' => 'Test comment'
+        );
+        $this->setRequestData($data);
+        $request = $this->request('POST', '/api/events/' . $event->id . '/comments');
+        $content = json_decode($request->getContent());
+        $this->assertTrue($content->status);
+        $this->assertEquals($content->data->evento_id, $event->id);
+        $this->assertEquals($content->data->mensaje, $data['mensaje']);
+
+        $share_data = array(
+            'metodo' => 'malformed'
+        );
+        $this->setRequestData($share_data);
+        $share_request = $this->request('POST', '/api/events/comments/' . $content->data->id . '/share');
+        $share_content = json_decode($share_request->getContent());
+        $this->assertFalse($share_content->status);
+        $this->assertTrue(empty($share_content->data));
+    }
+
+    public function testEventCommentShareNoData()
+    {
+        $event = AppEvent::take(1)->first();
+        $data = array(
+            'mensaje' => 'Test comment'
+        );
+        $this->setRequestData($data);
+        $request = $this->request('POST', '/api/events/' . $event->id . '/comments');
+        $content = json_decode($request->getContent());
+        $this->assertTrue($content->status);
+        $this->assertEquals($content->data->evento_id, $event->id);
+        $this->assertEquals($content->data->mensaje, $data['mensaje']);
+
+        $share_request = $this->request('POST', '/api/events/comments/' . $content->data->id . '/share');
+        $share_content = json_decode($share_request->getContent());
+        $this->assertFalse($share_content->status);
+        $this->assertTrue(empty($share_content->data));
+    }
+
 }
