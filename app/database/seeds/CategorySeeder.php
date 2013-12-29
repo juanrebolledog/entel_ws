@@ -62,5 +62,39 @@ class CategorySeeder extends Seeder {
             'created_at' => '2013-12-25 00:00:00',
             'updated_at' => '2013-12-25 00:00:00'
         ));
+
+        DB::table('categorias_eventos')->delete();
+        DB::table('sub_categorias_eventos')->delete();
+
+        EventCategory::create(array(
+            'nombre' => 'Entel en Vivo',
+            'banner' => '',
+            'banner_link' => '',
+            'icono' => '',
+            'created_at' => '2013-12-25 00:00:00',
+            'updated_at' => '2013-12-25 00:00:00'
+        ));
+
+        $sub_category = new EventSubCategory(array(
+            'nombre' => 'Música',
+            'banner' => '',
+            'banner_link' => '',
+            'icono' => '',
+            'created_at' => '2013-12-25 00:00:00',
+            'updated_at' => '2013-12-25 00:00:00'
+        ));
+
+        EventCategory::where('nombre', 'Entel en Vivo')->first()->sub_categories()->save($sub_category);
+
+        $sub_category = new EventSubCategory(array(
+            'nombre' => 'Fiestas',
+            'banner' => '',
+            'banner_link' => '',
+            'icono' => '',
+            'created_at' => '2013-12-25 00:00:00',
+            'updated_at' => '2013-12-25 00:00:00'
+        ));
+
+        EventCategory::where('nombre', 'Entel en Vivo')->first()->sub_categories()->save($sub_category);
     }
 } 

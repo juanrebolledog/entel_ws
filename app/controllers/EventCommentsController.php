@@ -19,13 +19,21 @@ class EventCommentsController extends BaseController {
         $data = Input::all();
         if ($event)
         {
-            $comment = new EventComment();
-            $comment->evento_id = $event_id;
-            $comment->usuario_id = Auth::getUser()->id;
-            $comment->mensaje = $data['mensaje'];
-            if ($comment->save())
+            if (!empty($data))
             {
-                $this->setApiResponse($comment->toArray(), true);
+                $comment = new EventComment();
+                $comment->evento_id = $event_id;
+                $comment->usuario_id = Auth::getUser()->id;
+                $comment->mensaje = $data['mensaje'];
+                if ($comment->save())
+                {
+                    $this->setApiResponse($comment->toArray(), true);
+                    return Response::json($this->api_response);
+                }
+            }
+            else
+            {
+                $this->setApiResponse(false, false, 'Faltan datos');
                 return Response::json($this->api_response);
             }
         }

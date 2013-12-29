@@ -25,7 +25,15 @@ class EventsController extends BaseController {
     public function show($id)
     {
         $event = AppEvent::getEvent($id);
-        $this->setApiResponse($event->toArray(), true);
+        if ($event)
+        {
+            $this->setApiResponse($event->toArray(), true);
+        }
+        else
+        {
+            $this->setApiResponse(array(), false);
+        }
+
         return Response::json($this->api_response);
     }
 
