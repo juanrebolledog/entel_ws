@@ -10,7 +10,7 @@ class BenefitApiTest extends TestCase {
     {
         $request = $this->request('GET', '/api/benefits');
         $content = json_decode($request->getContent());
-        $this->assertTrue(!empty($content));
+        $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
     }
 
@@ -73,6 +73,14 @@ class BenefitApiTest extends TestCase {
         $this->assertTrue($content->status);
     }
 
+    public function testBenefitSearchNoResults()
+    {
+        $request = $this->request('GET', '/api/benefits/search?q=fijksdoifjiojfis');
+        $content = json_decode($request->getContent());
+        $this->assertTrue(empty($content->data));
+        $this->assertTrue($content->status);
+    }
+
     public function testBenefitRanking()
     {
         $request = $this->request('GET', '/api/benefits/ranking');
@@ -97,6 +105,17 @@ class BenefitApiTest extends TestCase {
         $this->assertTrue(!empty($content->data));
         $this->assertEquals($content->data, (object)$expected);
         $this->assertTrue($content->status);
+
+        $ranking_request = $this->request('GET', '/api/benefits/ranking');
+        $ranking_content = json_decode($ranking_request->getContent());
+
+        foreach ($ranking_content->data as $rbenefit)
+        {
+            if ($benefit->id == $rbenefit->id)
+            {
+                $this->assertEquals($rbenefit->rating, $data['vote']);
+            }
+        }
     }
 
     public function testBenefitIgnore()
@@ -106,6 +125,36 @@ class BenefitApiTest extends TestCase {
         $content = json_decode($request->getContent());
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
+
+        $index_request = $this->request('GET', '/api/benefits');
+        $index_content = json_decode($index_request->getContent());
+
+        foreach ($index_content->data as $rbenefit)
+        {
+            if ($benefit->id == $rbenefit->id)
+            {
+                // if this fails then the search result contained the ignored benefit.
+                $this->assertFalse($rbenefit->id);
+            }
+        }
+    }
+
+    public function testBenefitComments()
+    {
+        $benefit = Benefit::take(1)->first();
+        $request = $this->request('GET', '/api/benefits/' . $benefit->id . '/comments');
+        $content = json_decode($request->getContent());
+        $this->assertTrue(empty($content->data));
+        $this->assertTrue($content->status);
+
+        $data = array(
+            'mensaje' => 'Test comment'
+        );
+        $this->setRequestData($data);
+        $request = $this->request('POST', '/api/benefits/' . $benefit->id . '/comments');
+        $content = json_decode($request->getContent());
+        $this->assertEquals($content->data->beneficio_id, $benefit->id);
+        $this->assertEquals($content->data->mensaje, $data['mensaje']);
     }
 
     public function testBenefitComment()
@@ -119,6 +168,16 @@ class BenefitApiTest extends TestCase {
         $content = json_decode($request->getContent());
         $this->assertTrue($content->status);
         $this->assertEquals($content->data->beneficio_id, $benefit->id);
+        $this->assertEquals($content->data->mensaje, $data['mensaje']);
+    }
+
+    public function testBenefitCommentNoData()
+    {
+        $benefit = Benefit::take(1)->first();
+        $request = $this->request('POST', '/api/benefits/' . $benefit->id . '/comments');
+        $content = json_decode($request->getContent());
+        $this->assertFalse($content->status);
+        $this->assertEquals($content->message, 'Faltan datos');
     }
 
 }

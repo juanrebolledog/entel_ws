@@ -20,14 +20,22 @@ class BenefitCommentsController extends BaseController {
         $data = Input::all();
         if ($benefit)
         {
-            $comment = new BenefitComment();
-            $comment->beneficio_id = $benefit_id;
-            $comment->usuario_id = Auth::getUser()->id;
-            $comment->mensaje = $data['mensaje'];
-            if ($comment->save())
+            if (!empty($data))
             {
-                Auth::getUser()->recalculateLevel();
-                $this->setApiResponse($comment->toArray(), true);
+                $comment = new BenefitComment();
+                $comment->beneficio_id = $benefit_id;
+                $comment->usuario_id = Auth::getUser()->id;
+                $comment->mensaje = $data['mensaje'];
+                if ($comment->save())
+                {
+                    Auth::getUser()->recalculateLevel();
+                    $this->setApiResponse($comment->toArray(), true);
+                    return Response::json($this->api_response);
+                }
+            }
+            else
+            {
+                $this->setApiResponse(false, false, 'Faltan datos');
                 return Response::json($this->api_response);
             }
         }
