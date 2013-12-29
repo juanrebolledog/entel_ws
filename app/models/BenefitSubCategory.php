@@ -133,7 +133,6 @@ class BenefitSubCategory extends BaseModel {
     public function prepareForWS()
     {
         $this->banner = asset($this->banner);
-        $this->icono = asset($this->icono);
         if (isset($this->benefits))
         {
             foreach ($this->benefits as $benefit)

@@ -9,35 +9,58 @@ class CategorySeeder extends Seeder {
             'nombre' => 'Entretención',
             'banner' => '',
             'banner_link' => '',
-            'icono' => ''
+            'icono' => '',
+            'created_at' => '2013-12-25 00:00:00',
+            'updated_at' => '2013-12-25 00:00:00'
+        ));
+
+        BenefitCategory::create(array(
+            'nombre' => 'Deporte',
+            'banner' => '',
+            'banner_link' => '',
+            'icono' => '',
+            'created_at' => '2013-12-25 00:00:00',
+            'updated_at' => '2013-12-25 00:00:00'
         ));
 
         $sub_category = new BenefitSubCategory(array(
             'nombre' => 'Fútbol',
             'banner' => '',
-            'banner_link' => ''
+            'banner_link' => '',
+            'icono' => '',
+            'created_at' => '2013-12-25 00:00:00',
+            'updated_at' => '2013-12-25 00:00:00'
         ));
+
+        BenefitCategory::where('nombre', 'Deporte')->first()->sub_categories()->save($sub_category);
 
         $sub_category = new BenefitSubCategory(array(
             'nombre' => 'Ski',
             'banner' => '',
-            'banner_link' => ''
+            'banner_link' => '',
+            'icono' => '',
+            'created_at' => '2013-12-25 00:00:00',
+            'updated_at' => '2013-12-25 00:00:00'
         ));
+
+        BenefitCategory::where('nombre', 'Deporte')->first()->sub_categories()->save($sub_category);
 
         BenefitCategory::create(array(
             'nombre' => 'Gastronomía',
             'banner' => '',
             'banner_link' => '',
-            'icono' => ''
+            'icono' => '',
+            'created_at' => '2013-12-25 00:00:00',
+            'updated_at' => '2013-12-25 00:00:00'
         ));
 
         BenefitCategory::create(array(
             'nombre' => 'Otros',
             'banner' => '',
             'banner_link' => '',
-            'icono' => ''
+            'icono' => '',
+            'created_at' => '2013-12-25 00:00:00',
+            'updated_at' => '2013-12-25 00:00:00'
         ));
-
-        BenefitCategory::where('nombre', 'Gastronomía')->first()->sub_categories()->save($sub_category);
     }
 } 

@@ -97,7 +97,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             $user->email = $data['email'];
             $user->fb_id = isset($data['fb_id']) ? $data['fb_id'] : null;
             $user->api_key = hash('sha256', $user->cellphone_number . $user->rut . time());
-            $user->password = hash('sha256', $user->api_key . Request::header('ENTEL-ACCESS-KEY'));
+            $user->password = hash('sha256', $user->api_key);
 
             $user_array = $user->toArray();
             $user_validator = Validator::make($user_array, self::$validation);

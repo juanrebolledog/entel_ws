@@ -20,7 +20,9 @@ class BenefitSeeder extends Seeder {
             'sms_texto' => '',
             'sms_nro' => '',
             'lat' => 10.1010,
-            'lng' => -69.1234
+            'lng' => -69.1234,
+            'rating' => 0,
+            'legal' => 'Legal test'
         ));
 
         Benefit::create(array(
@@ -37,7 +39,9 @@ class BenefitSeeder extends Seeder {
             'sms_texto' => '',
             'sms_nro' => '',
             'lat' => 10.2020,
-            'lng' => -69.666
+            'lng' => -69.666,
+            'rating' => 0,
+            'legal' => 'Legal test'
         ));
 
         Benefit::create(array(
@@ -54,7 +58,9 @@ class BenefitSeeder extends Seeder {
             'sms_texto' => '',
             'sms_nro' => '',
             'lat' => 11.1010,
-            'lng' => -79.1234
+            'lng' => -79.1234,
+            'rating' => 0,
+            'legal' => 'Legal test'
         ));
     }
 } 

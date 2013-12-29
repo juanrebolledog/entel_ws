@@ -8,15 +8,22 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
     private function prepareForTests()
     {
+        Artisan::call('migrate');
         Route::enableFilters();
         Eloquent::unguard();
+        $this->seed('UserLevelSeeder');
+        $this->seed('UserSeeder');
         $this->seed('CategorySeeder');
         $this->seed('BenefitSeeder');
         Mail::pretend(true);
+
+        $user = User::first();
+
         $headers = array(
             'HTTP_ENTEL-ACCESS-KEY' => Config::get('app.access_keys')['ios'],
-            'HTTP_ENTEL-API-KEY' => 'dd4bbd802d0c72fe3a14b0fc365379ee1939600245705ae1ce551f5967216290'
+            'HTTP_ENTEL-API-KEY' => $user->api_key
         );
+
         $this->setRequestHeaders($headers);
         $this->origin = array(
             'lat' => 10.1010,

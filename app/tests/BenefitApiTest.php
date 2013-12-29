@@ -32,7 +32,8 @@ class BenefitApiTest extends TestCase {
         $distances = array();
         foreach ($content->data as $dobj)
         {
-            $this->assertTrue(isset($dobj->distancia) && is_float($dobj->distancia));
+            $this->assertTrue(isset($dobj->distancia));
+            $this->assertTrue(is_numeric($dobj->distancia) || is_float($dobj->distancia));
             array_push($distances, $dobj->distancia);
         }
 
