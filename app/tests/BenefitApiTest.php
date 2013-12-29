@@ -180,4 +180,69 @@ class BenefitApiTest extends TestCase {
         $this->assertEquals($content->message, 'Faltan datos');
     }
 
+    public function testBenefitCommentShare()
+    {
+        $benefit = Benefit::take(1)->first();
+        $data = array(
+            'mensaje' => 'Test comment'
+        );
+        $this->setRequestData($data);
+        $request = $this->request('POST', '/api/benefits/' . $benefit->id . '/comments');
+        $content = json_decode($request->getContent());
+        $this->assertTrue($content->status);
+        $this->assertEquals($content->data->beneficio_id, $benefit->id);
+        $this->assertEquals($content->data->mensaje, $data['mensaje']);
+
+        $share_data = array(
+            'metodo' => 'twitter'
+        );
+        $this->setRequestData($share_data);
+        $share_request = $this->request('POST', '/api/benefits/comments/' . $content->data->id . '/share');
+        $share_content = json_decode($share_request->getContent());
+        $this->assertTrue($share_content->status);
+        $this->assertEquals($share_content->data->compartido_tw, 1);
+    }
+
+    public function testBenefitCommentShareMalformedData()
+    {
+        $benefit = Benefit::take(1)->first();
+        $data = array(
+            'mensaje' => 'Test comment'
+        );
+        $this->setRequestData($data);
+        $request = $this->request('POST', '/api/benefits/' . $benefit->id . '/comments');
+        $content = json_decode($request->getContent());
+        $this->assertTrue($content->status);
+        $this->assertEquals($content->data->beneficio_id, $benefit->id);
+        $this->assertEquals($content->data->mensaje, $data['mensaje']);
+
+        $share_data = array(
+            'metodo' => 'malformed'
+        );
+        $this->setRequestData($share_data);
+        $share_request = $this->request('POST', '/api/benefits/comments/' . $content->data->id . '/share');
+        $share_content = json_decode($share_request->getContent());
+        $this->assertFalse($share_content->status);
+        $this->assertTrue(empty($share_content->data));
+    }
+
+    public function testBenefitCommentShareNoData()
+    {
+        $benefit = Benefit::take(1)->first();
+        $data = array(
+            'mensaje' => 'Test comment'
+        );
+        $this->setRequestData($data);
+        $request = $this->request('POST', '/api/benefits/' . $benefit->id . '/comments');
+        $content = json_decode($request->getContent());
+        $this->assertTrue($content->status);
+        $this->assertEquals($content->data->beneficio_id, $benefit->id);
+        $this->assertEquals($content->data->mensaje, $data['mensaje']);
+
+        $share_request = $this->request('POST', '/api/benefits/comments/' . $content->data->id . '/share');
+        $share_content = json_decode($share_request->getContent());
+        $this->assertFalse($share_content->status);
+        $this->assertTrue(empty($share_content->data));
+    }
+
 }
