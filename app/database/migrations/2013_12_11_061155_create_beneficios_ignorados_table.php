@@ -18,7 +18,7 @@ class CreateBeneficiosIgnoradosTable extends Migration {
             $table->increments('id');
             $table->integer('beneficio_id')->unsigned()->nullable();
             $table->integer('usuario_id')->unsigned()->nullable();
-            $table->timestamps();
+            $table->dateTime('created_at');
         });
     }
 

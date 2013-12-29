@@ -81,7 +81,7 @@ class BenefitApiTest extends TestCase {
         $this->assertTrue($content->status);
     }
 
-    public function BenefitVote()
+    public function testBenefitVote()
     {
         $benefit = Benefit::take(1)->first();
         $data = array(
@@ -99,13 +99,26 @@ class BenefitApiTest extends TestCase {
         $this->assertTrue($content->status);
     }
 
-    public function BenefitIgnore()
+    public function testBenefitIgnore()
     {
         $benefit = Benefit::take(1)->first();
         $request = $this->request('POST', '/api/benefits/' . $benefit->id . '/ignore');
         $content = json_decode($request->getContent());
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
+    }
+
+    public function testBenefitComment()
+    {
+        $benefit = Benefit::take(1)->first();
+        $data = array(
+            'mensaje' => 'Test comment'
+        );
+        $this->setRequestData($data);
+        $request = $this->request('POST', '/api/benefits/' . $benefit->id . '/comments');
+        $content = json_decode($request->getContent());
+        $this->assertTrue($content->status);
+        $this->assertEquals($content->data->beneficio_id, $benefit->id);
     }
 
 }
