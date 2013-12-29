@@ -50,11 +50,13 @@ Route::filter('auth', function()
             $user = User::where('api_key', $api_key)->first();
             if ($user->exists)
             {
+                /*
                 $password = hash('sha256', $api_key);
                 if ($password !== $user->password || $api_key !== $user->api_key)
                 {
                     return Response::make(array('message' => 'You are not authorized to access this resource.'), 403);
                 }
+                */
                 Auth::login($user);
             }
         }
