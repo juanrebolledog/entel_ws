@@ -9,7 +9,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         'created_at', 'updated_at', 'api_key', 'password', 'fb_access_token'
     );
 
-    static protected $validation = array(
+    static protected $rules = array(
         'nombres' => 'required',
         'rut' => 'required',
         'telefono_movil' => 'required',
@@ -83,6 +83,19 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->email;
     }
 
+    public static function validate($input, $options = array())
+    {
+        if (!empty($options) && isset($options['except']))
+        {
+            foreach ($options['except'] as $ignored_field)
+            {
+                unset(self::$rules[$ignored_field]);
+            }
+        }
+        $validator = Validator::make($input, self::$rules);
+        return $validator;
+    }
+
     static public function createUser($data)
     {
         $user = User::where('rut', $data['rut'])->first();
@@ -100,7 +113,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             $user->password = hash('sha256', $user->api_key);
 
             $user_array = $user->toArray();
-            $user_validator = Validator::make($user_array, self::$validation);
+            $user_validator = Validator::make($user_array, self::$rules);
             if (!$user_validator->fails())
             {
                 unset($user->hidden[2]);
@@ -120,7 +133,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             $user->password = hash('sha256', $user->api_key . Request::header('ENTEL-ACCESS-KEY'));
 
             $user_array = $user->toArray();
-            $user_validator = Validator::make($user_array, self::$validation);
+            $user_validator = Validator::make($user_array, self::$rules);
             if (!$user_validator->fails())
             {
                 unset($user->hidden[2]);
