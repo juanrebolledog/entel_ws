@@ -43,7 +43,7 @@ class EventApiTest extends TestCase {
             {
                 break;
             }
-            $this->assertTrue(($distances[$k + 1] - $distances[$k]) > 0);
+            $this->assertTrue(($distances[$k + 1] - $distances[$k]) >= 0);
         }
     }
 
@@ -59,7 +59,7 @@ class EventApiTest extends TestCase {
 
     public function testEventSearch()
     {
-        $request = $this->request('GET', '/api/events/search?q=sad');
+        $request = $this->request('GET', '/api/events/search?q=feeling');
         $content = json_decode($request->getContent());
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
