@@ -18,14 +18,23 @@ class UsersController extends BaseController {
     public function store()
     {
         $data = Input::all();
+        $validator = User::validate($data);
 
-        if ($user = User::createUser($data))
+        if ($validator->passes())
         {
-            $this->setApiResponse($user->toArray(), true);
+            if ($user = User::createUser($data))
+            {
+                $this->setApiResponse($user->toArray(), true);
+            }
+            else
+            {
+                // serio problema entonces, avísale a alguien.
+                $this->setApiResponse(false, false, 'Error desconocido');
+            }
         }
         else
         {
-            $this->setApiResponse(array(), false, 'User invalid or already exists');
+            $this->setApiResponse($validator->messages()->toArray(), false, 'Usuario inválido o no existe. Errores en "data".');
         }
         return Response::json($this->api_response);
     }
