@@ -7,13 +7,13 @@ class EventSeeder extends Seeder {
         $cat = EventSubCategory::first();
 
         AppEvent::create(array(
-            'nombre' => 'Test Benefit',
-            'descripcion' => 'Test Benefit is for those who are feeling lonely',
+            'nombre' => 'Test Event',
+            'descripcion' => 'Test Event is for those who are feeling lonely',
             'sub_categoria_id' => $cat->id,
-            'icono' => '',
-            'imagen_grande' => '',
-            'imagen_chica' => '',
-            'imagen_titulo' => '',
+            'icono' => 'img/events/default/icono.png',
+            'imagen_grande' => 'img/events/default/grande.png',
+            'imagen_chica' => 'img/events/default/chica.png',
+            'imagen_titulo' => 'img/events/default/titulo.png',
             'fecha' => '',
             'lugar' => '',
             'tags' => '',
@@ -25,13 +25,13 @@ class EventSeeder extends Seeder {
         ));
 
         AppEvent::create(array(
-            'nombre' => 'Test Benefit 2',
-            'descripcion' => 'Test Benefit is for those who are feeling sad',
+            'nombre' => 'Test Event 2',
+            'descripcion' => 'Test Event is for those who are feeling sad',
             'sub_categoria_id' => $cat->id,
-            'icono' => '',
-            'imagen_grande' => '',
-            'imagen_chica' => '',
-            'imagen_titulo' => '',
+            'icono' => 'img/events/default/icono.png',
+            'imagen_grande' => 'img/events/default/grande.png',
+            'imagen_chica' => 'img/events/default/chica.png',
+            'imagen_titulo' => 'img/events/default/titulo.png',
             'fecha' => '',
             'lugar' => '',
             'tags' => '',
@@ -43,13 +43,13 @@ class EventSeeder extends Seeder {
         ));
 
         AppEvent::create(array(
-            'nombre' => 'Super Test Benefit Turbo 2',
-            'descripcion' => 'Test Benefit is for those who are feeling violent',
+            'nombre' => 'Super Test Event Turbo 2',
+            'descripcion' => 'Test Event is for those who are feeling violent',
             'sub_categoria_id' => $cat->id,
-            'icono' => '',
-            'imagen_grande' => '',
-            'imagen_chica' => '',
-            'imagen_titulo' => '',
+            'icono' => 'img/events/default/icono.png',
+            'imagen_grande' => 'img/events/default/grande.png',
+            'imagen_chica' => 'img/events/default/chica.png',
+            'imagen_titulo' => 'img/events/default/titulo.png',
             'fecha' => '',
             'lugar' => '',
             'tags' => '',
