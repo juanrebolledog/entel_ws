@@ -54,9 +54,13 @@
 
         <ul class="right">
             <li class="divider"></li>
-            <li><a href="#">Perfil (admin)</a></li>
+            <li>
+                {{ link_to(action('SuperAdminUsersController@show', Auth::getUser()->id), Auth::getUser()->email) }}
+            </li>
             <li class="divider"></li>
-            <li><a href="#">Salir</a></li>
+            <li>
+                {{ link_to(action('SuperAdminUsersController@logout'), 'Salir') }}
+            </li>
             <li class="divider"></li>
         </ul>
 

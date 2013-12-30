@@ -57,7 +57,7 @@ Route::group(array('prefix' => 'tests'), function()
     Route::get('RESTClient', 'TestsController@restClient');
 });
 
-Route::group(array('prefix' => 'admin'), function()
+Route::group(array('prefix' => 'admin', 'before' => 'admin_auth'), function()
 {
     Route::group(array('prefix' => 'benefits'), function()
     {
@@ -144,4 +144,12 @@ Route::group(array('prefix' => 'admin'), function()
     });
 });
 
-Route::get('login', array('as' => 'login', function () { }))->before('guest');
+Route::group(array('before' => 'guest', 'prefix' => 'admin'), function()
+{
+    Route::get('login', 'SuperAdminUsersController@login_form');
+    Route::post('login', 'SuperAdminUsersController@login');
+
+    // GET for now. Must be changed to POST ASAP.
+    Route::get('logout', 'SuperAdminUsersController@logout');
+});
+

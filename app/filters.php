@@ -85,7 +85,7 @@ Route::filter('public', function()
 Route::filter('admin_auth', function()
 {
     if (Auth::guest())
-        return Redirect::route('login')
+        return Redirect::to(action('SuperAdminUsersController@login_form'))
             ->with('flash_error', 'You must be logged in to view this page!');
 });
 

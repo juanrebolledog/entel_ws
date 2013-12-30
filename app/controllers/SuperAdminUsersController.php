@@ -9,6 +9,38 @@ class SuperAdminUsersController extends AdminBaseController {
         });
     }
 
+    public function login_form()
+    {
+        $this->layout = View::make('login_layout');
+        $this->layout->content = View::make('super_admin_users.login');
+    }
+
+    public function login()
+    {
+        $data = Input::all();
+        if (!empty($data))
+        {
+            Log::info(json_encode($data));
+            if (Auth::attempt(array('email' => $data['email'], 'password' => $data['password'])))
+            {
+                return Redirect::intended(action('AdminBenefitsController@index'));
+            }
+            else
+            {
+                return Redirect::to(action('SuperAdminUsersController@login_form'))
+                    ->with('flash_error', 'La combinación de correo y contraseña es incorrecta.');
+            }
+        }
+    }
+
+    public function logout()
+    {
+        if (Auth::logout())
+        {
+            return Redirect::to(action('SuperAdminUsersController@login_form'));
+        }
+    }
+
     public function profile()
     {
         $user = AdminUser::first();
