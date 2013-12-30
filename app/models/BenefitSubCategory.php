@@ -81,12 +81,20 @@ class BenefitSubCategory extends BaseModel {
         }
         if ($categories)
         {
-            foreach ($categories as $scat)
+            if (get_class($categories) != 'Illuminate\Database\Eloquent\Collection')
             {
-                $scat->prepareForWS();
+                $categories->prepareForWS();
             }
+            else
+            {
+                foreach ($categories as $cat)
+                {
+                    $cat->prepareForWS();
+                }
+            }
+            return $categories;
         }
-        return $categories;
+        return false;
     }
 
     static public function createCategory($data)
