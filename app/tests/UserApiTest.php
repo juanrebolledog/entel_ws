@@ -61,4 +61,50 @@ class UserApiTest extends TestCase {
         $this->assertTrue(!empty($content->data));
         $this->assertFalse($content->status);
     }
+
+    public function testUserLevel()
+    {
+        $resp = $this->request('GET', '/api/users/level');
+        $content = json_decode($resp->getContent());
+        $this->assertTrue(!empty($content->data));
+        $this->assertTrue($content->status);
+    }
+
+    public function testUserLevelEscalation()
+    {
+        $resp = $this->request('GET', '/api/users/level');
+        $content = json_decode($resp->getContent());
+        $this->assertTrue(!empty($content->data));
+        $this->assertEquals($content->data->id, 1);
+        $this->assertTrue($content->status);
+
+        $benefit = Benefit::first();
+
+        foreach (array(1, 2, 3) as $k)
+        {
+            $resp_redeem = $this->request('POST', '/api/benefits/' . $benefit->id . '/redeem');
+            $redeem_content = json_decode($resp_redeem->getContent());
+            $this->assertTrue(!empty($redeem_content->data));
+            $this->assertTrue($redeem_content->status);
+
+            $comment = array(
+                'mensaje' => 'Esta es una prueba'
+            );
+            $this->setRequestData($comment);
+            $resp_comment = $this->request('POST', '/api/benefits/' . $benefit->id . '/comments');
+            $comment_content = json_decode($resp_comment->getContent());
+
+            $share = array(
+                'metodo' => 'twitter'
+            );
+            $this->setRequestData($share);
+            $resp_share_comment = $this->request('POST', '/api/benefits/comments/' . $comment_content->data->id . '/share');
+        }
+
+        $resp = $this->request('GET', '/api/users/level');
+        $content = json_decode($resp->getContent());
+        $this->assertTrue(!empty($content->data));
+        $this->assertEquals(3, $content->data->id);
+        $this->assertTrue($content->status);
+    }
 }
