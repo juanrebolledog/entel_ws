@@ -9,8 +9,11 @@ class UserLevelsController extends \BaseController {
      */
     public function index()
     {
-        $levels = UserLevel::all();
-        $this->setApiResponse($levels->toArray(), true);
+        $levels = UserLevel::getLevels();
+        if ($levels)
+        {
+            $this->setApiResponse($levels->toArray(), true);
+        }
         return Response::json($this->api_response);
     }
 
@@ -22,8 +25,11 @@ class UserLevelsController extends \BaseController {
      */
     public function show($id)
     {
-        $level = UserLevel::find($id);
-        $this->setApiResponse($level->toArray(), true);
+        $level = UserLevel::getLevel($id);
+        if ($level)
+        {
+            $this->setApiResponse($level->toArray(), true);
+        }
         return Response::json($this->api_response);
     }
 

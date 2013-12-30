@@ -2,7 +2,7 @@
 class BenefitSearchTest extends TestCase {
     public function testBenefitSearch()
     {
-        $q = 'sad';
+        $q = 'feeling';
         $results = Benefit::searchByKeyword($q);
         $this->assertNotEquals(count($results), 0);
     }

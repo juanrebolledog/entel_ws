@@ -4,63 +4,47 @@ class BenefitSeeder extends Seeder {
     {
         DB::table('beneficios')->delete();
 
-        $cat = BenefitSubCategory::first();
+        $categories = BenefitSubCategory::all();
 
-        Benefit::create(array(
-            'nombre' => 'Test Benefit',
-            'descripcion' => 'Test Benefit is for those who are feeling lonely',
-            'sub_categoria_id' => $cat->id,
-            'icono' => '',
-            'imagen_grande' => '',
-            'imagen_chica' => '',
-            'imagen_titulo' => '',
-            'fecha' => '',
-            'lugar' => '',
-            'tags' => '',
-            'sms_texto' => '',
-            'sms_nro' => '',
-            'lat' => 10.1010,
-            'lng' => -69.1234,
-            'rating' => 0,
-            'legal' => 'Legal test'
-        ));
+        foreach ($categories as $cat)
+        {
+            Benefit::create(array(
+                'nombre' => 'Super Test Benefit ' . $cat->nombre,
+                'descripcion' => 'Test Benefit is for those who are feeling good',
+                'sub_categoria_id' => $cat->id,
+                'icono' => 'img/benefits/default/icono.png',
+                'imagen_grande' => 'img/benefits/default/grande.png',
+                'imagen_chica' => 'img/benefits/default/chica.png',
+                'imagen_titulo' => 'img/benefits/default/titulo.png',
+                'fecha' => 'Diciembre 2013',
+                'lugar' => 'Estadio Municipal',
+                'tags' => 'beneficio, prueba, ejemplo',
+                'sms_texto' => 'TEXT',
+                'sms_nro' => '0000',
+                'lat' => 10.8053905,
+                'lng' => -69.8457396,
+                'rating' => 0,
+                'legal' => 'Legal test'
+            ));
 
-        Benefit::create(array(
-            'nombre' => 'Test Benefit 2',
-            'descripcion' => 'Test Benefit is for those who are feeling sad',
-            'sub_categoria_id' => $cat->id,
-            'icono' => '',
-            'imagen_grande' => '',
-            'imagen_chica' => '',
-            'imagen_titulo' => '',
-            'fecha' => '',
-            'lugar' => '',
-            'tags' => '',
-            'sms_texto' => '',
-            'sms_nro' => '',
-            'lat' => 10.2020,
-            'lng' => -69.666,
-            'rating' => 0,
-            'legal' => 'Legal test'
-        ));
-
-        Benefit::create(array(
-            'nombre' => 'Super Test Benefit Turbo 2',
-            'descripcion' => 'Test Benefit is for those who are feeling violent',
-            'sub_categoria_id' => $cat->id,
-            'icono' => '',
-            'imagen_grande' => '',
-            'imagen_chica' => '',
-            'imagen_titulo' => '',
-            'fecha' => '',
-            'lugar' => '',
-            'tags' => '',
-            'sms_texto' => '',
-            'sms_nro' => '',
-            'lat' => 11.1010,
-            'lng' => -79.1234,
-            'rating' => 0,
-            'legal' => 'Legal test'
-        ));
+            Benefit::create(array(
+                'nombre' => 'Super Test Benefit ' . $cat->nombre,
+                'descripcion' => 'Test Benefit is for those who are feeling ok',
+                'sub_categoria_id' => $cat->id,
+                'icono' => 'img/benefits/default/icono.png',
+                'imagen_grande' => 'img/benefits/default/grande.png',
+                'imagen_chica' => 'img/benefits/default/chica.png',
+                'imagen_titulo' => 'img/benefits/default/titulo.png',
+                'fecha' => 'Diciembre 2013',
+                'lugar' => 'Estadio Municipal',
+                'tags' => 'beneficio, prueba, ejemplo',
+                'sms_texto' => 'TEXT',
+                'sms_nro' => '0000',
+                'lat' => 10.0495843095,
+                'lng' => -68.9845097396,
+                'rating' => 0,
+                'legal' => 'Legal test'
+            ));
+        }
     }
 } 

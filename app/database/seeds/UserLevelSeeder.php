@@ -9,8 +9,8 @@ class UserLevelSeeder extends Seeder {
             'beneficios' => 0,
             'comentarios' => 0,
             'compartir' => 0,
-            'imagen_on' => '',
-            'imagen_off' => ''
+            'imagen_on' => 'img/levels/default/1_on.png',
+            'imagen_off' => 'img/levels/default/1_off.png'
         ));
 
         UserLevel::create(array(
@@ -18,8 +18,8 @@ class UserLevelSeeder extends Seeder {
             'beneficios' => 1,
             'comentarios' => 1,
             'compartir' => 1,
-            'imagen_on' => '',
-            'imagen_off' => ''
+            'imagen_on' => 'img/levels/default/2_on.png',
+            'imagen_off' => 'img/levels/default/2_off.png'
         ));
 
         UserLevel::create(array(
@@ -27,8 +27,8 @@ class UserLevelSeeder extends Seeder {
             'beneficios' => 3,
             'comentarios' => 3,
             'compartir' => 3,
-            'imagen_on' => '',
-            'imagen_off' => ''
+            'imagen_on' => 'img/levels/default/3_on.png',
+            'imagen_off' => 'img/levels/default/3_off.png'
         ));
 
         UserLevel::create(array(
@@ -36,8 +36,8 @@ class UserLevelSeeder extends Seeder {
             'beneficios' => 5,
             'comentarios' => 5,
             'compartir' => 5,
-            'imagen_on' => '',
-            'imagen_off' => ''
+            'imagen_on' => 'img/levels/default/4_on.png',
+            'imagen_off' => 'img/levels/default/4_off.png'
         ));
 
         UserLevel::create(array(
@@ -45,8 +45,8 @@ class UserLevelSeeder extends Seeder {
             'beneficios' => 7,
             'comentarios' => 7,
             'compartir' => 7,
-            'imagen_on' => '',
-            'imagen_off' => ''
+            'imagen_on' => 'img/levels/default/5_on.png',
+            'imagen_off' => 'img/levels/default/5_off.png'
         ));
 
         UserLevel::create(array(
@@ -54,8 +54,8 @@ class UserLevelSeeder extends Seeder {
             'beneficios' => 9,
             'comentarios' => 9,
             'compartir' => 9,
-            'imagen_on' => '',
-            'imagen_off' => ''
+            'imagen_on' => 'img/levels/default/6_on.png',
+            'imagen_off' => 'img/levels/default/6_off.png'
         ));
 
         UserLevel::create(array(
@@ -63,8 +63,8 @@ class UserLevelSeeder extends Seeder {
             'beneficios' => 11,
             'comentarios' => 11,
             'compartir' => 11,
-            'imagen_on' => '',
-            'imagen_off' => ''
+            'imagen_on' => 'img/levels/default/7_on.png',
+            'imagen_off' => 'img/levels/default/7_off.png'
         ));
 
         UserLevel::create(array(
@@ -72,8 +72,8 @@ class UserLevelSeeder extends Seeder {
             'beneficios' => 13,
             'comentarios' => 13,
             'compartir' => 13,
-            'imagen_on' => '',
-            'imagen_off' => ''
+            'imagen_on' => 'img/levels/default/8_on.png',
+            'imagen_off' => 'img/levels/default/8_off.png'
         ));
 
         UserLevel::create(array(
@@ -81,8 +81,8 @@ class UserLevelSeeder extends Seeder {
             'beneficios' => 15,
             'comentarios' => 15,
             'compartir' => 15,
-            'imagen_on' => '',
-            'imagen_off' => ''
+            'imagen_on' => 'img/levels/default/9_on.png',
+            'imagen_off' => 'img/levels/default/9_off.png'
         ));
 
         UserLevel::create(array(
@@ -90,8 +90,8 @@ class UserLevelSeeder extends Seeder {
             'beneficios' => 17,
             'comentarios' => 17,
             'compartir' => 17,
-            'imagen_on' => '',
-            'imagen_off' => ''
+            'imagen_on' => 'img/levels/default/10_on.png',
+            'imagen_off' => 'img/levels/default/10_off.png'
         ));
     }
 }

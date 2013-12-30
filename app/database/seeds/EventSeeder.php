@@ -4,60 +4,45 @@ class EventSeeder extends Seeder {
     {
         DB::table('eventos')->delete();
 
-        $cat = EventSubCategory::first();
+        $categories = EventSubCategory::all();
 
-        AppEvent::create(array(
-            'nombre' => 'Test Benefit',
-            'descripcion' => 'Test Benefit is for those who are feeling lonely',
-            'sub_categoria_id' => $cat->id,
-            'icono' => '',
-            'imagen_grande' => '',
-            'imagen_chica' => '',
-            'imagen_titulo' => '',
-            'fecha' => '',
-            'lugar' => '',
-            'tags' => '',
-            'sms_texto' => '',
-            'sms_nro' => '',
-            'lat' => 10.1010,
-            'lng' => -69.1234,
-            'legal' => 'Legal test'
-        ));
+        foreach ($categories as $k=>$cat)
+        {
+            AppEvent::create(array(
+                'nombre' => 'Test Event 1 ' . $cat->nombre,
+                'descripcion' => 'Test Event is for those who are feeling good',
+                'sub_categoria_id' => $cat->id,
+                'icono' => 'img/events/default/icono.png',
+                'imagen_grande' => 'img/events/default/grande.png',
+                'imagen_chica' => 'img/events/default/chica.png',
+                'imagen_titulo' => 'img/events/default/titulo.png',
+                'fecha' => 'Diciembre ' . (int)date('Y') + $k,
+                'lugar' => 'Estadio Municipal',
+                'tags' => 'evento, prueba, ejemplo',
+                'sms_texto' => 'TEXT',
+                'sms_nro' => '0000',
+                'lat' => 10.8053905,
+                'lng' => -69.8053905,
+                'legal' => 'Legal test'
+            ));
 
-        AppEvent::create(array(
-            'nombre' => 'Test Benefit 2',
-            'descripcion' => 'Test Benefit is for those who are feeling sad',
-            'sub_categoria_id' => $cat->id,
-            'icono' => '',
-            'imagen_grande' => '',
-            'imagen_chica' => '',
-            'imagen_titulo' => '',
-            'fecha' => '',
-            'lugar' => '',
-            'tags' => '',
-            'sms_texto' => '',
-            'sms_nro' => '',
-            'lat' => 10.2020,
-            'lng' => -69.666,
-            'legal' => 'Legal test'
-        ));
-
-        AppEvent::create(array(
-            'nombre' => 'Super Test Benefit Turbo 2',
-            'descripcion' => 'Test Benefit is for those who are feeling violent',
-            'sub_categoria_id' => $cat->id,
-            'icono' => '',
-            'imagen_grande' => '',
-            'imagen_chica' => '',
-            'imagen_titulo' => '',
-            'fecha' => '',
-            'lugar' => '',
-            'tags' => '',
-            'sms_texto' => '',
-            'sms_nro' => '',
-            'lat' => 11.1010,
-            'lng' => -79.1234,
-            'legal' => 'Legal test'
-        ));
+            AppEvent::create(array(
+                'nombre' => 'Test Event 2 ' . $cat->nombre,
+                'descripcion' => 'Test Event is for those who are feeling ok',
+                'sub_categoria_id' => $cat->id,
+                'icono' => 'img/events/default/icono.png',
+                'imagen_grande' => 'img/events/default/grande.png',
+                'imagen_chica' => 'img/events/default/chica.png',
+                'imagen_titulo' => 'img/events/default/titulo.png',
+                'fecha' => 'Diciembre ' . (int)date('Y') + $k,
+                'lugar' => 'Estadio Municipal',
+                'tags' => 'evento, prueba, ejemplo',
+                'sms_texto' => 'TEXT',
+                'sms_nro' => '0000',
+                'lat' => 10.9053905,
+                'lng' => -69.9053905,
+                'legal' => 'Legal test'
+            ));
+        }
     }
 } 

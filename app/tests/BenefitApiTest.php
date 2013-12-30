@@ -28,7 +28,6 @@ class BenefitApiTest extends TestCase {
         $content = json_decode($request->getContent());
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
-
         $distances = array();
         foreach ($content->data as $dobj)
         {
@@ -43,7 +42,7 @@ class BenefitApiTest extends TestCase {
             {
                 break;
             }
-            $this->assertTrue(($distances[$k + 1] - $distances[$k]) > 0);
+            $this->assertTrue(($distances[$k + 1] - $distances[$k]) >= 0);
         }
     }
 
@@ -58,13 +57,13 @@ class BenefitApiTest extends TestCase {
 
     public function testBenefitIndexWithRange()
     {
-        $request = $this->request('GET', '/api/benefits?lat=' . $this->origin['lat'] . '&lng=' . $this->origin['lng'] . '&range=2000');
+        $request = $this->request('GET', '/api/benefits?lat=' . $this->origin['lat'] . '&lng=' . $this->origin['lng'] . '&range=20000');
         $content = json_decode($request->getContent());
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
         foreach ($content->data as $benefit)
         {
-            $this->assertTrue($benefit->distancia <= 2000);
+            $this->assertTrue($benefit->distancia <= 20000);
         }
     }
 
@@ -165,7 +164,7 @@ class BenefitApiTest extends TestCase {
 
     public function testBenefitSearch()
     {
-        $request = $this->request('GET', '/api/benefits/search?q=sad');
+        $request = $this->request('GET', '/api/benefits/search?q=feeling');
         $content = json_decode($request->getContent());
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);

@@ -7,27 +7,27 @@ class CategorySeeder extends Seeder {
 
         BenefitCategory::create(array(
             'nombre' => 'Entretención',
-            'banner' => '',
+            'banner' => 'img/benefit_categories/default/banner.png',
+            'icono' => 'img/benefit_categories/default/icono.png',
             'banner_link' => '',
-            'icono' => '',
             'created_at' => '2013-12-25 00:00:00',
             'updated_at' => '2013-12-25 00:00:00'
         ));
 
         BenefitCategory::create(array(
             'nombre' => 'Deporte',
-            'banner' => '',
+            'banner' => 'img/benefit_categories/default/banner.png',
+            'icono' => 'img/benefit_categories/default/icono.png',
             'banner_link' => '',
-            'icono' => '',
             'created_at' => '2013-12-25 00:00:00',
             'updated_at' => '2013-12-25 00:00:00'
         ));
 
         $sub_category = new BenefitSubCategory(array(
             'nombre' => 'Fútbol',
-            'banner' => '',
+            'banner' => 'img/benefit_sub_categories/default/banner.png',
+            'icono' => 'img/benefit_sub_categories/default/icono.png',
             'banner_link' => '',
-            'icono' => '',
             'created_at' => '2013-12-25 00:00:00',
             'updated_at' => '2013-12-25 00:00:00'
         ));
@@ -36,9 +36,9 @@ class CategorySeeder extends Seeder {
 
         $sub_category = new BenefitSubCategory(array(
             'nombre' => 'Ski',
-            'banner' => '',
+            'banner' => 'img/benefit_sub_categories/default/banner.png',
+            'icono' => 'img/benefit_sub_categories/default/icono.png',
             'banner_link' => '',
-            'icono' => '',
             'created_at' => '2013-12-25 00:00:00',
             'updated_at' => '2013-12-25 00:00:00'
         ));
@@ -47,18 +47,18 @@ class CategorySeeder extends Seeder {
 
         BenefitCategory::create(array(
             'nombre' => 'Gastronomía',
-            'banner' => '',
+            'banner' => 'img/benefit_categories/default/banner.png',
+            'icono' => 'img/benefit_categories/default/icono.png',
             'banner_link' => '',
-            'icono' => '',
             'created_at' => '2013-12-25 00:00:00',
             'updated_at' => '2013-12-25 00:00:00'
         ));
 
         BenefitCategory::create(array(
             'nombre' => 'Otros',
-            'banner' => '',
+            'banner' => 'img/benefit_categories/default/banner.png',
+            'icono' => 'img/benefit_categories/default/icono.png',
             'banner_link' => '',
-            'icono' => '',
             'created_at' => '2013-12-25 00:00:00',
             'updated_at' => '2013-12-25 00:00:00'
         ));
@@ -68,18 +68,18 @@ class CategorySeeder extends Seeder {
 
         EventCategory::create(array(
             'nombre' => 'Entel en Vivo',
-            'banner' => '',
+            'banner' => 'img/event_categories/default/banner.png',
+            'icono' => 'img/event_categories/default/icono.png',
             'banner_link' => '',
-            'icono' => '',
             'created_at' => '2013-12-25 00:00:00',
             'updated_at' => '2013-12-25 00:00:00'
         ));
 
         $sub_category = new EventSubCategory(array(
             'nombre' => 'Música',
-            'banner' => '',
+            'banner' => 'img/event_sub_categories/default/banner.png',
+            'icono' => 'img/event_sub_categories/default/icono.png',
             'banner_link' => '',
-            'icono' => '',
             'created_at' => '2013-12-25 00:00:00',
             'updated_at' => '2013-12-25 00:00:00'
         ));
@@ -88,9 +88,9 @@ class CategorySeeder extends Seeder {
 
         $sub_category = new EventSubCategory(array(
             'nombre' => 'Fiestas',
-            'banner' => '',
+            'banner' => 'img/event_sub_categories/default/banner.png',
+            'icono' => 'img/event_sub_categories/default/icono.png',
             'banner_link' => '',
-            'icono' => '',
             'created_at' => '2013-12-25 00:00:00',
             'updated_at' => '2013-12-25 00:00:00'
         ));
