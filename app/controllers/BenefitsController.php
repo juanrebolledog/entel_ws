@@ -48,13 +48,17 @@ class BenefitsController extends BaseController {
     {
         $input = Input::all();
         $user_id = Auth::getUser()->id;
-        if (BenefitVote::saveVote($id, $user_id, $input['vote']))
+        if (!empty($input) && isset($input['vote']) && is_numeric($input['vote']))
         {
-            $resp = array(
-                'vote' => $input['vote'],
-                'id' => $id
-            );
-            $this->setApiResponse($resp, true);
+            $vote = BenefitVote::saveVote($id, $user_id, $input['vote']);
+            if ($vote)
+            {
+                $resp = array(
+                    'vote' => $vote->votacion,
+                    'id' => $vote->id
+                );
+                $this->setApiResponse($resp, true);
+            }
         }
         return Response::json($this->api_response);
     }
