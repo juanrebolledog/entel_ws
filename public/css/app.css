@@ -462,6 +462,8 @@ meta.foundation-mq-xxlarge {
 html,
 body {
   font-size: 100%;
+  min-height: 90%;
+    height: 90%;
 }
 
 /* line 325, ../../bower_components/foundation/scss/foundation/components/_global.scss */
@@ -476,6 +478,9 @@ body {
   line-height: 1;
   position: relative;
   cursor: default;
+  min-height: 100%;
+  float: left;
+  width: 100%;
 }
 
 /* line 338, ../../bower_components/foundation/scss/foundation/components/_global.scss */
@@ -8335,6 +8340,14 @@ table thead th {
   color: #333333 !important;
 }
 
+#content {
+    float: left;
+    width: 100%;
+    position: relative;
+    min-height: 100%;
+    margin-bottom: 0;
+}
+
 /* line 143, ../../src/sass/app.scss */
 #app-content {
   padding: 15px;
@@ -8406,13 +8419,17 @@ section .row .columns:last-child {
   padding-right: 0;
 }
 
+.entel-table {
+    width: 100%;
+}
+
 /* line 202, ../../src/sass/app.scss */
 footer {
   height: 50px;
   width: 100%;
   background-color: #333333;
-  position: absolute;
-  top: 50px;
+  position: relative;
+  float: left;
 }
 /* line 208, ../../src/sass/app.scss */
 footer .entel-item-content {

@@ -57,7 +57,7 @@ Route::group(array('prefix' => 'tests'), function()
     Route::get('RESTClient', 'TestsController@restClient');
 });
 
-Route::group(array('prefix' => 'admin'), function()
+Route::group(array('prefix' => 'admin', 'before' => 'admin_auth'), function()
 {
     Route::group(array('prefix' => 'benefits'), function()
     {
@@ -121,6 +121,17 @@ Route::group(array('prefix' => 'admin'), function()
         Route::get('{id}', 'AdminUsersController@show');
     });
 
+    Route::group(array('prefix' => 'super_users'), function()
+    {
+        Route::get('profile', 'SuperAdminUsersController@profile');
+        Route::get('create', 'SuperAdminUsersController@create');
+        Route::post('store', 'SuperAdminUsersController@store');
+        Route::get('', 'SuperAdminUsersController@index');
+        Route::get('{id}', 'SuperAdminUsersController@show');
+        Route::get('{id}/edit', 'SuperAdminUsersController@edit');
+        Route::put('{id}/update', 'SuperAdminUsersController@update');
+    });
+
     Route::group(array('prefix' => 'zones'), function()
     {
         Route::get('create', 'AdminZonesController@create');
@@ -132,3 +143,13 @@ Route::group(array('prefix' => 'admin'), function()
         Route::post('store', 'AdminZonesController@store');
     });
 });
+
+Route::group(array('before' => 'guest', 'prefix' => 'admin'), function()
+{
+    Route::get('login', 'SuperAdminUsersController@login_form');
+    Route::post('login', 'SuperAdminUsersController@login');
+
+    // GET for now. Must be changed to POST ASAP.
+    Route::get('logout', 'SuperAdminUsersController@logout');
+});
+

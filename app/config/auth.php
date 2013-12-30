@@ -28,7 +28,7 @@ return array(
     |
     */
 
-    'model' => 'User',
+    'model' => 'AdminUser',
 
     /*
     |--------------------------------------------------------------------------
@@ -41,7 +41,7 @@ return array(
     |
     */
 
-    'table' => 'users',
+    'table' => 'admin_users',
 
     /*
     |--------------------------------------------------------------------------
@@ -67,6 +67,6 @@ return array(
         'expire' => 60,
 
     ),
-    'username' => 'api_key'
+    'username' => 'email'
 
 );
