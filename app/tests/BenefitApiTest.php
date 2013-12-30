@@ -245,4 +245,18 @@ class BenefitApiTest extends TestCase {
         $this->assertTrue(empty($share_content->data));
     }
 
+    public function testBenefitRedeem()
+    {
+        $benefit = Benefit::take(1)->first();
+        $req = $this->request('POST', '/api/benefits/' . $benefit->id . '/redeem');
+        $cont = json_decode($req->getContent());
+        $this->assertTrue($cont->status);
+    }
+
+    public function testBenefitRedeemUnknown()
+    {
+        $req = $this->request('POST', '/api/benefits/9001/redeem');
+        $cont = json_decode($req->getContent());
+        $this->assertFalse($cont->status);
+    }
 }
