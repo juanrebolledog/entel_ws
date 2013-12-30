@@ -17,7 +17,7 @@ class BenefitsController extends BaseController {
         if (is_float($lat) && is_float($lng)) {
             $benefits = Benefit::findByLocation($lat, $lng, $user_id, $range, $limit);
         } else {
-            $benefits = Benefit::with('sub_category', 'comments')->get();
+            $benefits = Benefit::getBenefits();
             $benefits = $benefits->toArray();
         }
         $this->setApiResponse($benefits, true);

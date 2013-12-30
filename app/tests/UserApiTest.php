@@ -70,6 +70,18 @@ class UserApiTest extends TestCase {
         $this->assertTrue($content->status);
     }
 
+    public function testUserLevelResourcesAreUrls()
+    {
+        $resp = $this->request('GET', '/api/users/level');
+        $content = json_decode($resp->getContent());
+        $this->assertTrue(!empty($content->data));
+        $this->assertTrue($content->status);
+        $level = $content->data;
+
+        $this->assertEquals(1, preg_match('/^http|https*/', $level->imagen_on));
+        $this->assertEquals(1, preg_match('/^http|https*/', $level->imagen_off));
+    }
+
     public function testUserLevelEscalation()
     {
         $resp = $this->request('GET', '/api/users/level');

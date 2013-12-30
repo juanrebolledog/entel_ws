@@ -23,8 +23,8 @@ class UserLevelsApiTest extends TestCase {
         
         foreach ($content->data as $level)
         {
-            $this->assertEquals(1, preg_match('/^(http|https)*/', $level->imagen_on));
-            $this->assertEquals(1, preg_match('/^(http|https)*/', $level->imagen_off));
+            $this->assertEquals(1, preg_match('/^http|https*/', $level->imagen_on));
+            $this->assertEquals(1, preg_match('/^http|https*/', $level->imagen_off));
         }
     }
 

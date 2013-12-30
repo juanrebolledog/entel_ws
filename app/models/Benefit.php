@@ -61,13 +61,24 @@ class Benefit extends LocationModel {
             }, 'comments', 'sub_category'))->find($id);
         if ($benefit && $benefit->exists)
         {
-            $benefit->imagen_titulo = asset($benefit->imagen_titulo);
-            $benefit->imagen_grande = asset($benefit->imagen_grande);
-            $benefit->imagen_chica = asset($benefit->imagen_chica);
-            $benefit->icono = asset($benefit->icono);
+            $benefit->prepareForWS();
+            $benefit->sub_category->prepareForWS();
             return $benefit;
         }
         return false;
+    }
+
+    static public function getBenefits()
+    {
+        $benefits = self::with(array('votes' => function($query)
+            {
+                $query->where('usuario_id', Auth::getUser()->id);
+            }, 'comments', 'sub_category'))->get()->each(function($benefit)
+            {
+                $benefit->prepareForWS();
+                $benefit->sub_category->prepareForWS();
+            });
+        return $benefits;
     }
     
     public function prepareForWS()
@@ -283,20 +294,16 @@ class Benefit extends LocationModel {
                 if (is_numeric($range) && $distance <= $range)
                 {
                     $model->distancia = $distance;
-                    $model->imagen_titulo = asset($model->imagen_titulo);
-                    $model->imagen_grande = asset($model->imagen_grande);
-                    $model->imagen_chica = asset($model->imagen_chica);
-                    $model->icono = asset($model->icono);
+                    $model->prepareForWS();
+                    $model->sub_category->prepareForWS();
                     array_push($models, $model->toArray());
                 }
             }
             else
             {
                 $model->distancia = $distance;
-                $model->imagen_titulo = asset($model->imagen_titulo);
-                $model->imagen_grande = asset($model->imagen_grande);
-                $model->imagen_chica = asset($model->imagen_chica);
-                $model->icono = asset($model->icono);
+                $model->prepareForWS();
+                $model->sub_category->prepareForWS();
                 array_push($models, $model->toArray());
             }
         }

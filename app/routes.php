@@ -43,18 +43,11 @@ Route::group(array('prefix' => 'api', 'before' => 'auth'), function()
     Route::get('user_levels', 'UserLevelsController@index');
     Route::get('user_levels/{id}', 'UserLevelsController@show');
     Route::get('puntos_zona', 'ZoneElementsController@index');
-    Route::get('tests', 'TestsController@get');
-    Route::post('tests', 'TestsController@post');
 });
 
 Route::group(array('prefix' => 'api', 'before' => 'public'), function()
 {
     Route::post('users', 'UsersController@store');
-});
-
-Route::group(array('prefix' => 'tests'), function()
-{
-    Route::get('RESTClient', 'TestsController@restClient');
 });
 
 Route::group(array('prefix' => 'admin', 'before' => 'admin_auth'), function()

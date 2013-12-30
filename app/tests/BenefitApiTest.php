@@ -113,13 +113,13 @@ class BenefitApiTest extends TestCase {
         $this->assertTrue($content->status);
         foreach ($content->data as $benefit)
         {
-            $this->assertEquals(1, preg_match('/^(http|https)*/', $benefit->imagen_grande));
-            $this->assertEquals(1, preg_match('/^(http|https)*/', $benefit->imagen_chica));
-            $this->assertEquals(1, preg_match('/^(http|https)*/', $benefit->imagen_titulo));
-            $this->assertEquals(1, preg_match('/^(http|https)*/', $benefit->icono));
+            $this->assertEquals(1, preg_match('/^http|https*/', $benefit->imagen_grande));
+            $this->assertEquals(1, preg_match('/^http|https*/', $benefit->imagen_chica));
+            $this->assertEquals(1, preg_match('/^http|https*/', $benefit->imagen_titulo));
+            $this->assertEquals(1, preg_match('/^http|https*/', $benefit->icono));
 
-            $this->assertEquals(1, preg_match('/^(http|https)*/', $benefit->sub_category->banner));
-            $this->assertEquals(1, preg_match('/^(http|https)*/', $benefit->sub_category->icono));
+            $this->assertEquals(1, preg_match('/^http|https*/', $benefit->sub_category->banner));
+            $this->assertEquals(1, preg_match('/^http|https*/', $benefit->sub_category->icono));
         }
     }
 
@@ -153,13 +153,13 @@ class BenefitApiTest extends TestCase {
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
         $this->assertEquals($benefit->id, $content->data->id);
-        $this->assertEquals(1, preg_match('/^(http|https)*/', $content->data->imagen_grande));
-        $this->assertEquals(1, preg_match('/^(http|https)*/', $content->data->imagen_chica));
-        $this->assertEquals(1, preg_match('/^(http|https)*/', $content->data->imagen_titulo));
-        $this->assertEquals(1, preg_match('/^(http|https)*/', $content->data->icono));
+        $this->assertEquals(1, preg_match('/^http|https*/', $content->data->imagen_grande));
+        $this->assertEquals(1, preg_match('/^http|https*/', $content->data->imagen_chica));
+        $this->assertEquals(1, preg_match('/^http|https*/', $content->data->imagen_titulo));
+        $this->assertEquals(1, preg_match('/^http|https*/', $content->data->icono));
 
-        $this->assertEquals(1, preg_match('/^(http|https)*/', $content->data->sub_category->banner));
-        $this->assertEquals(1, preg_match('/^(http|https)*/', $content->data->sub_category->icono));
+        $this->assertEquals(1, preg_match('/^http|https*/', $content->data->sub_category->banner));
+        $this->assertEquals(1, preg_match('/^http|https*/', $content->data->sub_category->icono));
     }
 
     public function testBenefitSearch()
