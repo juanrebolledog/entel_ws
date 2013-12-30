@@ -48,7 +48,7 @@ Route::filter('auth', function()
         if ($api_key)
         {
             $user = User::where('api_key', $api_key)->first();
-            if ($user->exists)
+            if ($user)
             {
                 /*
                 $password = hash('sha256', $api_key);

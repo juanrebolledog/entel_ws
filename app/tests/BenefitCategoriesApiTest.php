@@ -31,6 +31,14 @@ class BenefitCategoriesApiTest extends TestCase {
         }
     }
 
+    public function testBenefitCategoriesShowNonExistant()
+    {
+        $cat_req = $this->request('GET', '/api/benefits/categories/' . 99999);
+        $cat_content = json_decode($cat_req->getContent());
+        $this->assertTrue(empty($cat_content->data));
+        $this->assertFalse($cat_content->status);
+    }
+
     public function testBenefitSubCategoriesIndex()
     {
         $request = $this->request('GET', '/api/benefits/sub_categories');

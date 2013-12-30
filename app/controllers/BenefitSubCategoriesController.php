@@ -9,7 +9,7 @@ class BenefitSubCategoriesController extends \BaseController {
      */
     public function index()
     {
-        $sub_categories = BenefitSubCategory::with('benefits')->get();
+        $sub_categories = BenefitSubCategory::getSubCategory();
         $this->setApiResponse($sub_categories->toArray(), true);
         return Response::json($this->api_response);
     }

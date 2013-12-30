@@ -47,11 +47,24 @@ class BenefitSubCategory extends BaseModel {
         {
             $category = $category_query->get();
         }
+
         if ($category)
         {
-            $category->banner = asset($category->banner);
+            if (get_class($category) != 'Illuminate\Database\Eloquent\Collection')
+            {
+                $category->prepareForWS();
+            }
+            else
+            {
+                foreach ($category as $cat)
+                {
+                    $cat->prepareForWS();
+                }
+            }
+
             return $category;
         }
+
         return false;
     }
 
