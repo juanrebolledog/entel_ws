@@ -100,11 +100,12 @@
             <li class="<?= $data['current'] == 'stats' ? 'active':''; ?>">
                 <a href="#/stats">Estad&iacute;sticas&nbsp;<span class="fa fa-bar-chart-o"></span></a>
             </li>
-            <!--
             <li class="<?= $data['current'] == 'users' ? 'active':''; ?>">
-                <?php echo HTML::decode(HTML::link(action('AdminUsersController@index'), 'Usuarios&nbsp;<span class="fa fa-users"></span>', array('escape' => false))); ?>
+                <?php echo HTML::decode(HTML::link(action('AdminUsersController@index'), 'Usuarios WS&nbsp;<span class="fa fa-users"></span>', array('escape' => false))); ?>
             </li>
-            -->
+            <li class="<?= $data['current'] == 'super_users' ? 'active':''; ?>">
+                <?php echo HTML::decode(HTML::link(action('SuperAdminUsersController@index'), 'Usuarios Admin&nbsp;<span class="fa fa-users"></span>', array('escape' => false))); ?>
+            </li>
         </ul>
         <section class="entel-item">
             <header><span class="fa fa-question-circle right"></span>&nbsp;¿Necesitas Ayuda?</header>
@@ -121,16 +122,16 @@
     <div class="large-10 medium-12 small-12 columns" id="app-content">
         @yield('content')
     </div>
-    <div class="large-12 medium-12 small-12 columns" style="padding: 0; margin: 0;">
-        <footer class="item">
-            <div class="entel-item-content">
-                <div class="text-center">
-                    <a href="#">Entel</a> | <a href="#">Soporte</a>
-                </div>
-            </div>
-        </footer>
-    </div>
+
 </section>
+
+<footer class="item">
+    <div class="entel-item-content">
+        <div class="text-center">
+            <a href="#">Entel</a> | <a href="#">Soporte</a>
+        </div>
+    </div>
+</footer>
 
 <script src="<?= asset('js/vendor/jquery.js'); ?>"></script>
 <script src="<?= asset('js/vendor/foundation/foundation.js'); ?>"></script>
