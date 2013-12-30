@@ -47,11 +47,24 @@ class BenefitSubCategory extends BaseModel {
         {
             $category = $category_query->get();
         }
+
         if ($category)
         {
-            $category->banner = asset($category->banner);
+            if (get_class($category) != 'Illuminate\Database\Eloquent\Collection')
+            {
+                $category->prepareForWS();
+            }
+            else
+            {
+                foreach ($category as $cat)
+                {
+                    $cat->prepareForWS();
+                }
+            }
+
             return $category;
         }
+
         return false;
     }
 
@@ -68,12 +81,20 @@ class BenefitSubCategory extends BaseModel {
         }
         if ($categories)
         {
-            foreach ($categories as $scat)
+            if (get_class($categories) != 'Illuminate\Database\Eloquent\Collection')
             {
-                $scat->prepareForWS();
+                $categories->prepareForWS();
             }
+            else
+            {
+                foreach ($categories as $cat)
+                {
+                    $cat->prepareForWS();
+                }
+            }
+            return $categories;
         }
-        return $categories;
+        return false;
     }
 
     static public function createCategory($data)

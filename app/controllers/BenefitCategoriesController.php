@@ -1,6 +1,6 @@
 <?php
 
-class BenefitCategoriesController extends \BaseController {
+class BenefitCategoriesController extends BaseController {
 
     /**
      * Display a listing of the resource.
@@ -9,8 +9,16 @@ class BenefitCategoriesController extends \BaseController {
      */
     public function index()
     {
-        $categories = BenefitCategory::with('sub_categories')->get();
-        $this->setApiResponse($categories->toArray(), true);
+        $categories = BenefitCategory::getCategories();
+        if ($categories)
+        {
+            $this->setApiResponse($categories->toArray(), true);
+        }
+        else
+        {
+            $this->setApiResponse(false, false);
+        }
+
         return Response::json($this->api_response);
     }
 
@@ -23,7 +31,15 @@ class BenefitCategoriesController extends \BaseController {
     public function show($id)
     {
         $category = BenefitCategory::getCategory($id);
-        $this->setApiResponse($category->toArray(), true);
+        if ($category)
+        {
+            $this->setApiResponse($category->toArray(), true);
+        }
+        else
+        {
+            $this->setApiResponse(false, false, 'No encontrado');
+        }
+
         return Response::json($this->api_response);
     }
 

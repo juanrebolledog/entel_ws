@@ -44,6 +44,19 @@ class BenefitCategory extends BaseModel {
         return false;
     }
 
+    static public function getCategories()
+    {
+        $categories = self::all()->each(function($category)
+        {
+            $category->prepareForWS();
+
+            $sub_categories = BenefitSubCategory::getSubCategories($category->id);
+            $category->sub_categories = $sub_categories->toArray();
+        });
+
+        return $categories;
+    }
+
     static public function createCategory($data)
     {
         $category = new BenefitCategory();

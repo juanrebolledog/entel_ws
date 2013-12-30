@@ -9,6 +9,7 @@ class EventsSubCategoriesController extends \BaseController {
         $category = EventCategory::first();
         if ($category)
         {
+            $category->prepareForWS();
             $category = $category->toArray();
             $sub_categories = EventSubCategory::with('events')->where('categoria_id', $category['id'])->get();
             if ($sub_categories)

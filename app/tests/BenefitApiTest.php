@@ -47,6 +47,95 @@ class BenefitApiTest extends TestCase {
         }
     }
 
+    public function testBenefitIndexWithLimit()
+    {
+        $request = $this->request('GET', '/api/benefits?lat=' . $this->origin['lat'] . '&lng=' . $this->origin['lng'] . '&limit=1');
+        $content = json_decode($request->getContent());
+        $this->assertTrue(!empty($content->data));
+        $this->assertTrue($content->status);
+        $this->assertEquals(count($content->data), 1);
+    }
+
+    public function testBenefitIndexWithRange()
+    {
+        $request = $this->request('GET', '/api/benefits?lat=' . $this->origin['lat'] . '&lng=' . $this->origin['lng'] . '&range=2000');
+        $content = json_decode($request->getContent());
+        $this->assertTrue(!empty($content->data));
+        $this->assertTrue($content->status);
+        foreach ($content->data as $benefit)
+        {
+            $this->assertTrue($benefit->distancia <= 2000);
+        }
+    }
+
+    public function testBenefitIndexBenefitsHaveSubCategory()
+    {
+        $request = $this->request('GET', '/api/benefits?lat=' . $this->origin['lat'] . '&lng=' . $this->origin['lng'] . '');
+        $content = json_decode($request->getContent());
+        $this->assertTrue(!empty($content->data));
+        $this->assertTrue($content->status);
+        foreach ($content->data as $benefit)
+        {
+            $this->assertTrue(isset($benefit->sub_category));
+            $this->assertTrue(!empty($benefit->sub_category));
+        }
+    }
+
+    public function testBenefitIndexWithoutParamsBenefitsHaveSubCategory()
+    {
+        $request = $this->request('GET', '/api/benefits');
+        $content = json_decode($request->getContent());
+        $this->assertTrue(!empty($content->data));
+        $this->assertTrue($content->status);
+        foreach ($content->data as $benefit)
+        {
+            $this->assertTrue(isset($benefit->sub_category));
+            $this->assertTrue(!empty($benefit->sub_category));
+        }
+    }
+
+    public function testBenefitIndexBenefitsHaveCommentsKey()
+    {
+        $request = $this->request('GET', '/api/benefits?lat=' . $this->origin['lat'] . '&lng=' . $this->origin['lng'] . '');
+        $content = json_decode($request->getContent());
+        $this->assertTrue(!empty($content->data));
+        $this->assertTrue($content->status);
+        foreach ($content->data as $benefit)
+        {
+            $this->assertTrue(isset($benefit->comments));
+        }
+    }
+
+    public function testBenefitIndexBenefitsResourcesAreUrls()
+    {
+        $request = $this->request('GET', '/api/benefits?lat=' . $this->origin['lat'] . '&lng=' . $this->origin['lng'] . '');
+        $content = json_decode($request->getContent());
+        $this->assertTrue(!empty($content->data));
+        $this->assertTrue($content->status);
+        foreach ($content->data as $benefit)
+        {
+            $this->assertEquals(1, preg_match('/^(http|https)*/', $benefit->imagen_grande));
+            $this->assertEquals(1, preg_match('/^(http|https)*/', $benefit->imagen_chica));
+            $this->assertEquals(1, preg_match('/^(http|https)*/', $benefit->imagen_titulo));
+            $this->assertEquals(1, preg_match('/^(http|https)*/', $benefit->icono));
+
+            $this->assertEquals(1, preg_match('/^(http|https)*/', $benefit->sub_category->banner));
+            $this->assertEquals(1, preg_match('/^(http|https)*/', $benefit->sub_category->icono));
+        }
+    }
+
+    public function testBenefitIndexWithoutParamsBenefitsHaveCommentsKey()
+    {
+        $request = $this->request('GET', '/api/benefits');
+        $content = json_decode($request->getContent());
+        $this->assertTrue(!empty($content->data));
+        $this->assertTrue($content->status);
+        foreach ($content->data as $benefit)
+        {
+            $this->assertTrue(isset($benefit->comments));
+        }
+    }
+
     public function testBenefitShow()
     {
         $last = Benefit::take(1)->first();
@@ -55,6 +144,23 @@ class BenefitApiTest extends TestCase {
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
         $this->assertTrue($content->data->id == $last->id);
+    }
+
+    public function testBenefitShowResourcesAreUrls()
+    {
+        $benefit = Benefit::take(1)->first();
+        $request = $this->request('GET', '/api/benefits/' . $benefit->id);
+        $content = json_decode($request->getContent());
+        $this->assertTrue(!empty($content->data));
+        $this->assertTrue($content->status);
+        $this->assertEquals($benefit->id, $content->data->id);
+        $this->assertEquals(1, preg_match('/^(http|https)*/', $content->data->imagen_grande));
+        $this->assertEquals(1, preg_match('/^(http|https)*/', $content->data->imagen_chica));
+        $this->assertEquals(1, preg_match('/^(http|https)*/', $content->data->imagen_titulo));
+        $this->assertEquals(1, preg_match('/^(http|https)*/', $content->data->icono));
+
+        $this->assertEquals(1, preg_match('/^(http|https)*/', $content->data->sub_category->banner));
+        $this->assertEquals(1, preg_match('/^(http|https)*/', $content->data->sub_category->icono));
     }
 
     public function testBenefitSearch()
@@ -93,10 +199,10 @@ class BenefitApiTest extends TestCase {
     {
         $benefit = Benefit::take(1)->first();
         $data = array(
-            'vote' => 10
+            'vote' => 5
         );
         $expected = array(
-            'vote' => 10,
+            'vote' => 5,
             'id' => $benefit->id
         );
         $this->setRequestData($data);
@@ -116,6 +222,69 @@ class BenefitApiTest extends TestCase {
                 $this->assertEquals($rbenefit->rating, $data['vote']);
             }
         }
+    }
+
+    public function testBenefitVoteNoData()
+    {
+        $benefit = Benefit::take(1)->first();
+        $request = $this->request('POST', '/api/benefits/' . $benefit->id . '/vote');
+        $content = json_decode($request->getContent());
+        $this->assertTrue(empty($content->data));
+        $this->assertFalse($content->status);
+    }
+
+    public function testBenefitVoteWrongDataKeys()
+    {
+        $data = array(
+            'value' => 5
+        );
+        $this->setRequestData($data);
+        $benefit = Benefit::take(1)->first();
+        $request = $this->request('POST', '/api/benefits/' . $benefit->id . '/vote');
+        $content = json_decode($request->getContent());
+        $this->assertTrue(empty($content->data));
+        $this->assertFalse($content->status);
+    }
+
+    public function testBenefitVoteWrongVoteValue()
+    {
+        $data = array(
+            'vote' => 'nope'
+        );
+        $this->setRequestData($data);
+        $benefit = Benefit::take(1)->first();
+        $request = $this->request('POST', '/api/benefits/' . $benefit->id . '/vote');
+        $content = json_decode($request->getContent());
+        $this->assertTrue(empty($content->data));
+        $this->assertFalse($content->status);
+    }
+
+    public function testBenefitVoteMoreThanMax()
+    {
+        $data = array(
+            'vote' => 6
+        );
+        $this->setRequestData($data);
+        $benefit = Benefit::take(1)->first();
+        $request = $this->request('POST', '/api/benefits/' . $benefit->id . '/vote');
+        $content = json_decode($request->getContent());
+        $this->assertTrue(!empty($content->data));
+        $this->assertEquals(5, $content->data->vote);
+        $this->assertTrue($content->status);
+    }
+
+    public function testBenefitVoteLessThanMin()
+    {
+        $data = array(
+            'vote' => 0
+        );
+        $this->setRequestData($data);
+        $benefit = Benefit::take(1)->first();
+        $request = $this->request('POST', '/api/benefits/' . $benefit->id . '/vote');
+        $content = json_decode($request->getContent());
+        $this->assertTrue(!empty($content->data));
+        $this->assertEquals(1, $content->data->vote);
+        $this->assertTrue($content->status);
     }
 
     public function testBenefitIgnore()
@@ -245,4 +414,33 @@ class BenefitApiTest extends TestCase {
         $this->assertTrue(empty($share_content->data));
     }
 
+    public function testBenefitRedeem()
+    {
+        $benefit = Benefit::take(1)->first();
+        $req = $this->request('POST', '/api/benefits/' . $benefit->id . '/redeem');
+        $cont = json_decode($req->getContent());
+        $this->assertTrue($cont->status);
+        $this->assertTrue($cont->data->redeemed);
+    }
+
+    public function testBenefitRedeemUnknown()
+    {
+        $req = $this->request('POST', '/api/benefits/9001/redeem');
+        $cont = json_decode($req->getContent());
+        $this->assertFalse($cont->status);
+    }
+
+    public function testBenefitRedeemTwice()
+    {
+        $benefit = Benefit::take(1)->first();
+        $req = $this->request('POST', '/api/benefits/' . $benefit->id . '/redeem');
+        $cont = json_decode($req->getContent());
+        $this->assertTrue($cont->status);
+        $this->assertTrue($cont->data->redeemed);
+
+        $req = $this->request('POST', '/api/benefits/' . $benefit->id . '/redeem');
+        $cont = json_decode($req->getContent());
+        $this->assertTrue($cont->status);
+        $this->assertTrue($cont->data->redeemed);
+    }
 }

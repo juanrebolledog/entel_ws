@@ -4,6 +4,10 @@ class BenefitVote extends BaseModel {
 
     protected $table = 'notas';
 
+    static protected $max_vote_value = 5;
+
+    static protected $min_vote_value = 1;
+
     public function benefit()
     {
         return $this->belongsTo('Benefit', 'beneficio_id');
@@ -22,6 +26,17 @@ class BenefitVote extends BaseModel {
             $vote = new BenefitVote();
             $vote->usuario_id = $user_id;
             $vote->beneficio_id = $benefit_id;
+
+            if ($vote_value > self::$max_vote_value)
+            {
+                $vote_value = self::$max_vote_value;
+            }
+
+            if ($vote_value < self::$min_vote_value)
+            {
+                $vote_value = self::$min_vote_value;
+            }
+
             $vote->votacion = $vote_value;
             if ($vote->save())
             {
