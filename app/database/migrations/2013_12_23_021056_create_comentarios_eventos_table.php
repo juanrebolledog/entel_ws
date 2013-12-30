@@ -15,10 +15,10 @@ class CreateComentariosEventosTable extends Migration {
         Schema::create('comentarios_eventos', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('evento_id');
+            $table->integer('evento_id')->unsigned();
             $table->foreign('evento_id')->references('id')->on('eventos')
                 ->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('usuario_id');
+            $table->integer('usuario_id')->unsigned();
             $table->foreign('usuario_id')->references('id')->on('usuarios')
                 ->onDelete('cascade')->onUpdate('cascade');
             $table->string('mensaje', 300);
