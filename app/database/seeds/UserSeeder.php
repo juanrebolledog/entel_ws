@@ -12,5 +12,12 @@ class UserSeeder extends Seeder {
             'created_at' => '2013-12-25 00:00:00',
             'updated_at' => '2013-12-25 00:00:00'
         ));
+
+        DB::table('admin_users')->delete();
+
+        AdminUser::createUser(array(
+            'email' => 'test@tests.org',
+            'password' => '12345678'
+        ));
     }
 } 
