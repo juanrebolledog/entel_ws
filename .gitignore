@@ -8,3 +8,4 @@ Thumbs.db
 app/config/database.php
 app/config/testing/database.php
 public/img/**
+*.pyc
