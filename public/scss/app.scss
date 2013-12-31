@@ -4,16 +4,9 @@
 
 @import "foundation";
 
-$fg-color: #333333;
-$light-color: #d1d1d1;
-$anchor-light-color: #EFEFEF;
-$anchor-color: #0073AE;
-$font-size: $base-font-size;
-$padding-large: 15px;
-$padding-medium: 10px;
-$padding-small: 5px;
-
-$animation-time: 0.2s;
+html, body {
+  height: 100%;
+}
 
 input[type="checkbox"] {
   margin: 0;
@@ -111,6 +104,10 @@ input[type="checkbox"] {
   }
 }
 
+.entel-table {
+  width: 100%;
+}
+
 .entel-image {
   margin-bottom: $padding-large;
   color: darken($anchor-light-color, 50%);
@@ -199,13 +196,19 @@ section {
   }
 }
 
+#content {
+  float: left;
+  width: 100%;
+  margin-bottom: 0;
+}
+
 footer {
-  height: 50px;
   width: 100%;
   background-color: $fg-color;
   position: relative;
   float: left;
-  top: 50px;
+  height: 40px;
+
   .entel-item-content {
     padding: $padding-large;
     font-size: $font-size - 30%;

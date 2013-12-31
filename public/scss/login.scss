@@ -1,0 +1,47 @@
+@import "settings";
+
+#app-content {
+  width: 30%;
+  margin: 0 auto;
+  float: none;
+}
+#login-form {
+  border: 1px solid lighten($fg-color, 50%);
+  -webkit-box-shadow: 0 2px 1px lighten($fg-color, 50%);
+  -moz-box-shadow: 0 2px 1px lighten($fg-color, 50%);
+  box-shadow: 0 2px 1px lighten($fg-color, 50%);
+
+  #login-form-header {
+    margin: 0;
+    padding: 20px;
+    padding-bottom: 5px;
+    padding-top: 10px;
+    background-color: $fg-color;
+    color: $bg-color;
+
+    h3 {
+      color: $bg-color;
+      margin: 0;
+    }
+  }
+
+  #login-form-content {
+    padding: 20px;
+    margin: 0;
+
+    .button {
+      margin-bottom: 0;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  #app-content {
+    width: 80%;
+  }
+}
+@media (max-width: 600px) {
+  #app-content {
+    width: 100%;
+  }
+}

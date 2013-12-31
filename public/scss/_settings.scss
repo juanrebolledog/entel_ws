@@ -1333,3 +1333,14 @@ $topbar-media-query: "only screen and (min-width: #{$topbar-breakpoint})";
 
 $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $font-smoothing: antialiased;
+
+$bg-color: #FFFFFF;
+$fg-color: #333333;
+$light-color: #d1d1d1;
+$anchor-light-color: #EFEFEF;
+$anchor-color: #0073AE;
+$font-size: $base-font-size;
+$padding-large: 15px;
+$padding-medium: 10px;
+$padding-small: 5px;
+$animation-time: 0.2s;

@@ -1,0 +1,50 @@
+/* line 3, ../scss/login.scss */
+#app-content {
+  width: 30%;
+  margin: 0 auto;
+  float: none;
+}
+
+/* line 8, ../scss/login.scss */
+#login-form {
+  border: 1px solid #b3b3b3;
+  -webkit-box-shadow: 0 2px 1px #b3b3b3;
+  -moz-box-shadow: 0 2px 1px #b3b3b3;
+  box-shadow: 0 2px 1px #b3b3b3;
+}
+/* line 14, ../scss/login.scss */
+#login-form #login-form-header {
+  margin: 0;
+  padding: 20px;
+  padding-bottom: 5px;
+  padding-top: 10px;
+  background-color: #333333;
+  color: white;
+}
+/* line 22, ../scss/login.scss */
+#login-form #login-form-header h3 {
+  color: white;
+  margin: 0;
+}
+/* line 28, ../scss/login.scss */
+#login-form #login-form-content {
+  padding: 20px;
+  margin: 0;
+}
+/* line 32, ../scss/login.scss */
+#login-form #login-form-content .button {
+  margin-bottom: 0;
+}
+
+@media (max-width: 800px) {
+  /* line 39, ../scss/login.scss */
+  #app-content {
+    width: 80%;
+  }
+}
+@media (max-width: 600px) {
+  /* line 44, ../scss/login.scss */
+  #app-content {
+    width: 100%;
+  }
+}
