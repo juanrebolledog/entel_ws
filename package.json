@@ -1,0 +1,20 @@
+{
+  "name": "entel-ws-admin",
+  "version": "0.0.0",
+  "description": "Zona Entel WS/Admin Interface",
+  "main": "",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/freelanceops/entel.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Juan Francisco Rebolledo Gómez <juanrebolledog@gmail.com>",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-compass": "~0.6.0"
+  }
+}
