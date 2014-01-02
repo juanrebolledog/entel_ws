@@ -104,12 +104,23 @@ class BenefitsController extends BaseController {
     public function redeem($id)
     {
         $user_id = Auth::getUser()->id;
-        if (BenefitRedeem::redeem($id, $user_id))
+        $data = Input::all();
+        if ($data && !empty($data))
         {
-            $this->setApiResponse(array(
-                'id' => $id,
-                'redeemed' => true
-            ), true);
+            if ( (isset($data['lat']) && is_numeric($data['lat'])) && (isset($data['lng']) && is_numeric($data['lng'])) )
+            {
+                if (BenefitRedeem::redeem($id, $user_id, $data['lat'], $data['lng']))
+                {
+                    $this->setApiResponse(array(
+                        'id' => $id,
+                        'redeemed' => true
+                    ), true);
+                }
+            }
+            else
+            {
+                $this->setApiResponse(false, false, 'Faltan los datos de ubicación: `lat` y `lng`');
+            }
         }
         return Response::json($this->api_response);
     }

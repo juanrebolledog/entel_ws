@@ -28,7 +28,7 @@ class UserApiTest extends TestCase {
         $data = array(
             'nombres' => 'Test User Name Jr.',
             'rut' => '11333444-9',
-            'telefono_movil' => '5550198',
+            'telefono_movil' => '4144055232',
             'email' => 'testjr@tests.org'
         );
         $this->setRequestData($data);
@@ -42,7 +42,7 @@ class UserApiTest extends TestCase {
         $data = array(
             'nombres' => 'Test User Name Jr.',
             'rut' => '11333444-9',
-            'telefono_movil' => '5550198',
+            'telefono_movil' => '4144055232',
             'email' => 'testjr@tests.org'
         );
         $this->setRequestData($data);
@@ -94,6 +94,11 @@ class UserApiTest extends TestCase {
 
         foreach (array(1, 2, 3) as $k)
         {
+            $data = array(
+                'lat' => $benefit->lat,
+                'lng' => $benefit->lng
+            );
+            $this->setRequestData($data);
             $resp_redeem = $this->request('POST', '/api/benefits/' . $benefit->id . '/redeem');
             $redeem_content = json_decode($resp_redeem->getContent());
             $this->assertTrue(!empty($redeem_content->data));

@@ -1,5 +1,5 @@
 <?php
-class BenefitRedeem extends BaseModel {
+class BenefitRedeem extends LocationModel {
     protected $table = 'beneficios_cobrados';
 
     public function benefit()
@@ -12,10 +12,11 @@ class BenefitRedeem extends BaseModel {
         return $this->belongsTo('User', 'usuario_id');
     }
 
-    static public function redeem($id, $user_id)
+    static public function redeem($id, $user_id, $lat, $lng)
     {
         $benefit = Benefit::find($id);
-        if ($benefit)
+        $distance_to_target = self::calculateDistance(array('lat' => $lat, 'lng' => $lng), array('lat' => $benefit->lat, 'lng' => $benefit->lng));
+        if ($benefit && $distance_to_target <= 20 && $distance_to_target >= 0)
         {
             $redeemed = new BenefitRedeem();
             $redeemed->beneficio_id = $id;

@@ -416,10 +416,62 @@ class BenefitApiTest extends TestCase {
     public function testBenefitRedeem()
     {
         $benefit = Benefit::take(1)->first();
+        $data = array(
+            'lat' => $benefit->lat,
+            'lng' => $benefit->lng
+        );
+        $this->setRequestData($data);
         $req = $this->request('POST', '/api/benefits/' . $benefit->id . '/redeem');
         $cont = json_decode($req->getContent());
         $this->assertTrue($cont->status);
         $this->assertTrue($cont->data->redeemed);
+    }
+
+    public function testBenefitRedeemTooFar()
+    {
+        $benefit = Benefit::take(1)->first();
+        $data = array(
+            'lat' => 0,
+            'lng' => 0
+        );
+        $this->setRequestData($data);
+        $req = $this->request('POST', '/api/benefits/' . $benefit->id . '/redeem');
+        $cont = json_decode($req->getContent());
+        $this->assertFalse($cont->status);
+    }
+
+    public function testBenefitRedeemMalformedData()
+    {
+        $benefit = Benefit::take(1)->first();
+        $data = array(
+            'lat' => 'lat',
+            'lng' => 'lng'
+        );
+        $this->setRequestData($data);
+        $req = $this->request('POST', '/api/benefits/' . $benefit->id . '/redeem');
+        $cont = json_decode($req->getContent());
+        $this->assertFalse($cont->status);
+    }
+
+    public function testBenefitRedeemMalformedKeys()
+    {
+        $benefit = Benefit::take(1)->first();
+        $data = array(
+            'lt' => 0,
+            'lg' => 0
+        );
+        $this->setRequestData($data);
+        $req = $this->request('POST', '/api/benefits/' . $benefit->id . '/redeem');
+        $cont = json_decode($req->getContent());
+        $this->assertFalse($cont->status);
+    }
+
+    public function testBenefitRedeemNoData()
+    {
+        $benefit = Benefit::take(1)->first();
+        $req = $this->request('POST', '/api/benefits/' . $benefit->id . '/redeem');
+        $cont = json_decode($req->getContent());
+        $this->assertFalse($cont->status);
     }
 
     public function testBenefitRedeemUnknown()
@@ -432,11 +484,21 @@ class BenefitApiTest extends TestCase {
     public function testBenefitRedeemTwice()
     {
         $benefit = Benefit::take(1)->first();
+        $data = array(
+            'lat' => $benefit->lat,
+            'lng' => $benefit->lng
+        );
+        $this->setRequestData($data);
         $req = $this->request('POST', '/api/benefits/' . $benefit->id . '/redeem');
         $cont = json_decode($req->getContent());
         $this->assertTrue($cont->status);
         $this->assertTrue($cont->data->redeemed);
 
+        $data = array(
+            'lat' => $benefit->lat,
+            'lng' => $benefit->lng
+        );
+        $this->setRequestData($data);
         $req = $this->request('POST', '/api/benefits/' . $benefit->id . '/redeem');
         $cont = json_decode($req->getContent());
         $this->assertTrue($cont->status);
