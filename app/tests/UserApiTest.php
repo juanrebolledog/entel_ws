@@ -37,13 +37,14 @@ class UserApiTest extends TestCase {
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
         $this->assertEquals($content->data->email, $data['email']);
+        $this->assertEquals($content->data->nombres, $data['nombres']);
         $this->assertTrue(isset($content->data->api_key));
 
         $data = array(
-            'nombres' => 'Test User Name Jr.',
+            'nombres' => 'New Name',
             'rut' => '11333444-9',
             'telefono_movil' => '4144055232',
-            'email' => 'testjr@tests.org'
+            'email' => 'new@email.org'
         );
         $this->setRequestData($data);
         $request = $this->request('POST', '/api/users');
@@ -51,6 +52,7 @@ class UserApiTest extends TestCase {
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
         $this->assertEquals($content->data->email, $data['email']);
+        $this->assertEquals($content->data->nombres, $data['nombres']);
         $this->assertTrue(isset($content->data->api_key));
     }
 
