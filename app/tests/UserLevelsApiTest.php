@@ -28,6 +28,19 @@ class UserLevelsApiTest extends TestCase {
         }
     }
 
+    public function testUserLevelIndexLevelsHaveDescription()
+    {
+        $resp = $this->request('GET', '/api/user_levels');
+        $content = json_decode($resp->getContent());
+        $this->assertTrue(!empty($content->data));
+        $this->assertTrue($content->status);
+
+        foreach ($content->data as $level)
+        {
+            $this->assertTrue(isset($level->descripcion));
+        }
+    }
+
     public function testUserLevelDetail()
     {
         $level = UserLevel::first();
@@ -47,6 +60,16 @@ class UserLevelsApiTest extends TestCase {
         $level = $content->data;
         $this->assertEquals(1, preg_match('/^(http|https)*/', $level->imagen_on));
         $this->assertEquals(1, preg_match('/^(http|https)*/', $level->imagen_off));
+    }
+
+    public function testUserLevelDetailHasDescription()
+    {
+        $level = UserLevel::first();
+        $resp = $this->request('GET', '/api/user_levels/' . $level->id);
+        $content = json_decode($resp->getContent());
+        $this->assertTrue(!empty($content->data));
+        $this->assertTrue($content->status);
+        $this->assertTrue(isset($content->data->descripcion));
     }
 
     public function testUserLevelDetailUnknown()
