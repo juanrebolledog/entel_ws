@@ -16,6 +16,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
         $this->seed('CategorySeeder');
         $this->seed('BenefitSeeder');
         $this->seed('EventSeeder');
+        $this->seed('ZoneSeeder');
         Mail::pretend(true);
 
         $user = User::first();
