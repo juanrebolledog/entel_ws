@@ -29,5 +29,13 @@ class ZonesApiTest extends TestCase {
             $this->assertEquals(1, preg_match('/^http|https*/', $s_content->data->imagen));
         }
     }
+
+    public function testZonesShowUnknown()
+    {
+        $s_req = $this->request('GET', '/api/zones/99');
+        $s_content = json_decode($s_req->getContent());
+        $this->assertFalse($s_content->status);
+        $this->assertTrue(empty($s_content->data));
+    }
 }
  

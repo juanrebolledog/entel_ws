@@ -6,6 +6,6 @@ class UtilsApiTest extends TestCase {
         $expected = 90676.690536432;
         $distance = LocationModel::calculateDistance($this->origin, $this->dest);
         $this->assertTrue(is_float($distance));
-        $this->assertTrue(round($expected) == round($distance));
+        $this->assertEquals(round($expected), round($distance));
     }
 } 
