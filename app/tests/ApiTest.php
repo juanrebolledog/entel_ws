@@ -17,7 +17,7 @@ class ApiTest extends TestCase {
         $this->assertEquals(200, $req->getStatusCode());
     }
 
-    public function testResponseForbidden()
+    public function testResponseForbiddenWhenUnknownApiKey()
     {
         $headers = array(
             'HTTP_ENTEL-ACCESS-KEY' => Config::get('app.access_keys')['ios'],
@@ -25,6 +25,24 @@ class ApiTest extends TestCase {
         );
 
         $this->setRequestHeaders($headers);
+        $req = $this->request('GET', '/api/benefits');
+        $this->assertEquals(403, $req->getStatusCode());
+    }
+
+    public function testResponseForbiddenWhenMissingApiKey()
+    {
+        $headers = array(
+            'HTTP_ENTEL-ACCESS-KEY' => Config::get('app.access_keys')['ios']
+        );
+
+        $this->setRequestHeaders($headers);
+        $req = $this->request('GET', '/api/benefits');
+        $this->assertEquals(403, $req->getStatusCode());
+    }
+
+    public function testResponseForbiddenWhenMissingHeaders()
+    {
+        $this->setRequestHeaders(array());
         $req = $this->request('GET', '/api/benefits');
         $this->assertEquals(403, $req->getStatusCode());
     }
