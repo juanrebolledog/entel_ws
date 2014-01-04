@@ -9,6 +9,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('BenefitSeeder');
         $this->call('EventSeeder');
         $this->call('UserSeeder');
+        $this->call('ZoneSeeder');
     }
 
 }

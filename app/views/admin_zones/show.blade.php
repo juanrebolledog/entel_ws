@@ -40,6 +40,14 @@
                                 {{ $zone->imagen }}
                             </small>
                         </dd>
+                        <dt>{{ 'Imágen Web' }}</dt>
+                        <dd>
+                            <img src="{{ asset($zone->imagen_web) }}" alt="{{ $zone->imagen_web }}"/>
+                            <br/>
+                            <small>
+                                {{ $zone->imagen_web }}
+                            </small>
+                        </dd>
                     </dl>
                 </div>
             </section>

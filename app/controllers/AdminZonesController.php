@@ -14,7 +14,7 @@ class AdminZonesController extends AdminBaseController {
 
     public function index()
     {
-        $zones = Zone::getZone();
+        $zones = Zone::getZones();
         return $this->layout->content = View::make('admin_zones.index')->with(array('zones' => $zones));
     }
 
@@ -60,7 +60,7 @@ class AdminZonesController extends AdminBaseController {
     {
         $data = Input::all();
 
-        $zone_validator = Zone::validate($data, array('except' => array('imagen')));
+        $zone_validator = Zone::validate($data, array('except' => array('imagen', 'imagen_web')));
 
         if ($zone_validator->fails())
         {

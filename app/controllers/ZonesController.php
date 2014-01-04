@@ -9,7 +9,7 @@ class ZonesController extends BaseController {
      */
     public function index()
     {
-        $zones = Zone::getZone();
+        $zones = Zone::getZones();
         $this->setApiResponse($zones->toArray(), true);
         return Response::json($this->api_response);
     }

@@ -12,7 +12,8 @@ class Zone extends BaseModel {
     static public $validation = array(
         'nombre' => 'required',
         'url' => 'required',
-        'imagen' => 'required'
+        'imagen' => 'required',
+        'imagen_web' => 'required'
     );
 
     public static function validate($input, $options = array())
@@ -27,28 +28,30 @@ class Zone extends BaseModel {
         $validator = Validator::make($input, self::$validation);
         return $validator;
     }
-    
-    static public function getZone($id = null)
+
+    static public function getZone($id)
     {
         if ($id)
         {
             $zone = self::find($id);
             if ($zone && $zone->exists)
             {
-                $zone->imagen = asset($zone->imagen);
+                $zone->prepareForWS();
                 return $zone;
             }
         }
-        else
-        {
-            $zones = self::all();
-            foreach ($zones as $zone)
-            {
-                $zone->prepareForWS();
-            }
-            return $zones;
-        }
         return false;
+    }
+    
+    static public function getZones()
+    {
+
+        $zones = self::all();
+        foreach ($zones as $zone)
+        {
+            $zone->prepareForWS();
+        }
+        return $zones;
     }
 
     static public function createZone($data)
@@ -101,11 +104,21 @@ class Zone extends BaseModel {
                 $zone->imagen = 'img/' . $object_dir . '/' . $name_prefix . '_imagen.' . $ext;
             }
         }
+
+        if ($data['imagen_web'])
+        {
+            $ext = $data['imagen_web']->getClientOriginalExtension();
+            if ($data['imagen_web']->move($dir, $name_prefix . '_imagen_web.' . $ext))
+            {
+                $zone->imagen_web = 'img/' . $object_dir . '/' . $name_prefix . '_imagen_web.' . $ext;
+            }
+        }
         return $zone;
     }
 
     public function prepareForWS()
     {
         $this->imagen = asset($this->imagen);
+        $this->imagen_web = asset($this->imagen_web);
     }
 } 

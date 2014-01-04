@@ -11,6 +11,11 @@ class ZonesApiTest extends TestCase {
         $content = json_decode($req->getContent());
         $this->assertTrue($content->status);
         $this->assertTrue(!empty($content->data));
+        foreach ($content->data as $zone)
+        {
+            $this->assertEquals(1, preg_match('/^http|https*/', $zone->imagen));
+            $this->assertEquals(1, preg_match('/^http|https*/', $zone->imagen_web));
+        }
     }
 
     public function testZonesShow()
@@ -27,6 +32,7 @@ class ZonesApiTest extends TestCase {
             $this->assertTrue($s_content->status);
             $this->assertTrue(!empty($s_content->data));
             $this->assertEquals(1, preg_match('/^http|https*/', $s_content->data->imagen));
+            $this->assertEquals(1, preg_match('/^http|https*/', $s_content->data->imagen_web));
         }
     }
 

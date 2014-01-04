@@ -35,6 +35,15 @@
             <?php if ($errors->has('imagen')): ?>
                 <small class="error"><?php echo $errors->first('imagen'); ?></small>
             <?php endif; ?>
+
+            <?php
+            echo Form::label('imagen_web', 'Imágen Web');
+            echo Form::file('imagen_web');
+            ?>
+            <?php if ($errors->has('imagen_web')): ?>
+                <small class="error"><?php echo $errors->first('imagen_web'); ?></small>
+            <?php endif; ?>
+
         </fieldset>
         <?= Form::submit('Guardar', array('class' => 'button')); ?>
         <?= link_to('admin/zones', 'Cancelar', array('class' => 'button secondary')); ?>
