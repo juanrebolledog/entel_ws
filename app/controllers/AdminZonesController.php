@@ -27,7 +27,8 @@ class AdminZonesController extends AdminBaseController {
     public function create()
     {
         $zone = new Zone();
-        return $this->layout->content = View::make('admin_zones.create', array('zone' => $zone));
+        $categories = ZoneCategory::lists('nombre', 'id');
+        return $this->layout->content = View::make('admin_zones.create', array('zone' => $zone, 'categories' => $categories));
     }
 
     public function store()
@@ -53,7 +54,8 @@ class AdminZonesController extends AdminBaseController {
     public function edit($id)
     {
         $zone = Zone::find($id);
-        return $this->layout->content = View::make('admin_zones.edit', array('zone' => $zone));
+        $categories = ZoneCategory::lists('nombre', 'id');
+        return $this->layout->content = View::make('admin_zones.edit', array('zone' => $zone, 'categories' => $categories));
     }
 
     public function update($id)

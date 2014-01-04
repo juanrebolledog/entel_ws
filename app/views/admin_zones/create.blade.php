@@ -21,6 +21,14 @@
             </div>
 
             <?php
+            echo Form::label('categoria_id', 'Categoría');
+            echo Form::select('categoria_id', $categories);
+            ?>
+            <?php if ($errors->has('categoria_id')): ?>
+                <small class="error"><?php echo $errors->first('categoria_id'); ?></small>
+            <?php endif; ?>
+
+            <?php
             echo Form::label('url', 'URL');
             echo Form::text('url');
             ?>

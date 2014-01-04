@@ -1,24 +1,19 @@
 <?php
-class Zone extends BaseModel {
+class ZoneCategory extends BaseModel {
 
-    protected $table = 'puntos_zonas';
-
-    public $timestamps = false;
+    protected $table = 'puntos_zonas_categorias';
 
     protected $hidden = array(
         'created_at', 'updated_at'
     );
 
     static public $validation = array(
-        'nombre' => 'required',
-        'url' => 'required',
-        'imagen' => 'required',
-        'imagen_web' => 'required'
+        'nombre' => 'required'
     );
 
-    public function category()
+    public function zones()
     {
-        return $this->belongsTo('ZoneCategory', 'categoria_id');
+        return $this->hasMany('Zone', 'categoria_id');
     }
 
     public static function validate($input, $options = array())
@@ -34,29 +29,22 @@ class Zone extends BaseModel {
         return $validator;
     }
 
-    static public function getZone($id)
+    static public function getCategory($id)
     {
         if ($id)
         {
-            $zone = self::with('category')->find($id);
-            if ($zone && $zone->exists)
+            $category = self::find($id);
+            if ($category && $category->exists)
             {
-                $zone->prepareForWS();
-                return $zone;
+                return $category;
             }
         }
         return false;
     }
     
-    static public function getZones()
+    static public function getCategories()
     {
-
-        $zones = self::with('category')->get();
-        foreach ($zones as $zone)
-        {
-            $zone->prepareForWS();
-        }
-        return $zones;
+        return self::all();
     }
 
     static public function createZone($data)
@@ -64,7 +52,6 @@ class Zone extends BaseModel {
         $zone = new Zone();
         $zone->nombre = $data['nombre'];
         $zone->url = $data['url'];
-        $zone->categoria_id = $data['categoria_id'];
 
         $zone = self::uploadImages($zone, $data);
 
@@ -77,7 +64,6 @@ class Zone extends BaseModel {
         $zone = Zone::find($id);
         $zone->nombre = $data['nombre'];
         $zone->url = $data['url'];
-        $zone->categoria_id = $data['categoria_id'];
 
         $zone = self::uploadImages($zone, $data);
 

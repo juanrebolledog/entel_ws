@@ -28,6 +28,10 @@
                         <dd>
                             {{ $zone->nombre }}
                         </dd>
+                        <dt>{{ 'Categoría' }}</dt>
+                        <dd>
+                            {{ $zone->category->nombre }}
+                        </dd>
                         <dt>{{ 'URL' }}</dt>
                         <dd>
                             {{ $zone->url }}

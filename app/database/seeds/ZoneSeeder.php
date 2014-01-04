@@ -2,27 +2,71 @@
 class ZoneSeeder extends Seeder {
     public function run()
     {
+        DB::table('puntos_zonas_categorias')->delete();
         DB::table('puntos_zonas')->delete();
 
-        Zone::create(array(
-            'nombre' => 'Punto Zona 1',
-            'url' => 'https://www.google.com/',
-            'imagen' => 'img/zones/default/imagen.png',
-            'imagen_web' => 'img/zones/default/imagen_web.png'
+        ZoneCategory::create(array(
+            'nombre' => 'Entretención'
         ));
 
-        Zone::create(array(
-            'nombre' => 'Punto Zona 2',
-            'url' => 'https://www.google.com/',
-            'imagen' => 'img/zones/default/imagen.png',
-            'imagen_web' => 'img/zones/default/imagen_web.png'
+        foreach (array(1, 2, 3, 4, 5, 6) as $k)
+        {
+            $zone = new Zone(array(
+                'nombre' => 'Punto Zona ' . $k,
+                'url' => 'https://www.google.com/',
+                'imagen' => 'img/zones/default/imagen.png',
+                'imagen_web' => 'img/zones/default/imagen_web.png'
+            ));
+
+            ZoneCategory::where('nombre', 'Entretención')->first()->zones()->save($zone);
+        }
+
+        ZoneCategory::create(array(
+            'nombre' => 'Bolsas'
         ));
 
-        Zone::create(array(
-            'nombre' => 'Punto Zona 3',
-            'url' => 'https://www.google.com/',
-            'imagen' => 'img/zones/default/imagen.png',
-            'imagen_web' => 'img/zones/default/imagen_web.png'
+        foreach (array(1, 2, 3, 4, 5, 6) as $k)
+        {
+            $zone = new Zone(array(
+                'nombre' => 'Punto Zona ' . $k,
+                'url' => 'https://www.google.com/',
+                'imagen' => 'img/zones/default/imagen.png',
+                'imagen_web' => 'img/zones/default/imagen_web.png'
+            ));
+
+            ZoneCategory::where('nombre', 'Bolsas')->first()->zones()->save($zone);
+        }
+
+        ZoneCategory::create(array(
+            'nombre' => 'Recarga'
         ));
+
+        foreach (array(1, 2, 3, 4, 5, 6) as $k)
+        {
+            $zone = new Zone(array(
+                'nombre' => 'Punto Zona ' . $k,
+                'url' => 'https://www.google.com/',
+                'imagen' => 'img/zones/default/imagen.png',
+                'imagen_web' => 'img/zones/default/imagen_web.png'
+            ));
+
+            ZoneCategory::where('nombre', 'Recarga')->first()->zones()->save($zone);
+        }
+
+        ZoneCategory::create(array(
+            'nombre' => 'Televisión'
+        ));
+
+        foreach (array(1, 2, 3, 4, 5, 6) as $k)
+        {
+            $zone = new Zone(array(
+                'nombre' => 'Punto Zona ' . $k,
+                'url' => 'https://www.google.com/',
+                'imagen' => 'img/zones/default/imagen.png',
+                'imagen_web' => 'img/zones/default/imagen_web.png'
+            ));
+
+            ZoneCategory::where('nombre', 'Televisión')->first()->zones()->save($zone);
+        }
     }
 } 
