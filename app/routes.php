@@ -1,5 +1,15 @@
 <?php
 
+Route::group(array('prefix' => 'web'), function()
+{
+    Route::get('home', 'WebApiController@home');
+    Route::get('zones', 'WebApiController@zones');
+    Route::get('events', 'WebApiController@events');
+    Route::get('benefits', 'WebApiController@benefits');
+    Route::get('contests', 'WebApiController@contests');
+    Route::get('socials', 'WebApiController@zones');
+});
+
 Route::group(array('prefix' => 'api', 'before' => 'auth'), function()
 {
     Route::group(array('prefix' => 'benefits'), function()

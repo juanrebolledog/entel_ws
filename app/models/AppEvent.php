@@ -68,6 +68,7 @@ class AppEvent extends LocationModel {
             $this->imagen_grande = asset($this->imagen_grande);
             $this->imagen_chica = asset($this->imagen_chica);
             $this->icono = asset($this->icono);
+            $this->imagen_grande_web = asset($this->imagen_grande_web);
         }
         return true;
     }

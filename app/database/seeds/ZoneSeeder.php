@@ -11,12 +11,11 @@ class ZoneSeeder extends Seeder {
 
         foreach (array(1, 2, 3, 4, 5, 6) as $k)
         {
-            $zone = new Zone(array(
-                'nombre' => 'Punto Zona ' . $k,
-                'url' => 'https://www.google.com/',
-                'imagen' => 'img/zones/default/imagen.png',
-                'imagen_web' => 'img/zones/default/imagen_web.png'
-            ));
+            $zone = new Zone();
+            $zone->nombre = 'Punto Zona ' . $k;
+            $zone->url = 'https://www.google.com/';
+            $zone->imagen = 'img/zones/default/imagen.png';
+            $zone->imagen_web = 'img/zones/default/imagen_web.png';
 
             ZoneCategory::where('nombre', 'Entretención')->first()->zones()->save($zone);
         }
@@ -27,12 +26,11 @@ class ZoneSeeder extends Seeder {
 
         foreach (array(1, 2, 3, 4, 5, 6) as $k)
         {
-            $zone = new Zone(array(
-                'nombre' => 'Punto Zona ' . $k,
-                'url' => 'https://www.google.com/',
-                'imagen' => 'img/zones/default/imagen.png',
-                'imagen_web' => 'img/zones/default/imagen_web.png'
-            ));
+            $zone = new Zone();
+            $zone->nombre = 'Punto Zona ' . $k;
+            $zone->url = 'https://www.google.com/';
+            $zone->imagen = 'img/zones/default/imagen.png';
+            $zone->imagen_web = 'img/zones/default/imagen_web.png';
 
             ZoneCategory::where('nombre', 'Bolsas')->first()->zones()->save($zone);
         }
@@ -43,12 +41,11 @@ class ZoneSeeder extends Seeder {
 
         foreach (array(1, 2, 3, 4, 5, 6) as $k)
         {
-            $zone = new Zone(array(
-                'nombre' => 'Punto Zona ' . $k,
-                'url' => 'https://www.google.com/',
-                'imagen' => 'img/zones/default/imagen.png',
-                'imagen_web' => 'img/zones/default/imagen_web.png'
-            ));
+            $zone = new Zone();
+            $zone->nombre = 'Punto Zona ' . $k;
+            $zone->url = 'https://www.google.com/';
+            $zone->imagen = 'img/zones/default/imagen.png';
+            $zone->imagen_web = 'img/zones/default/imagen_web.png';
 
             ZoneCategory::where('nombre', 'Recarga')->first()->zones()->save($zone);
         }
@@ -59,12 +56,11 @@ class ZoneSeeder extends Seeder {
 
         foreach (array(1, 2, 3, 4, 5, 6) as $k)
         {
-            $zone = new Zone(array(
-                'nombre' => 'Punto Zona ' . $k,
-                'url' => 'https://www.google.com/',
-                'imagen' => 'img/zones/default/imagen.png',
-                'imagen_web' => 'img/zones/default/imagen_web.png'
-            ));
+            $zone = new Zone();
+            $zone->nombre = 'Punto Zona ' . $k;
+            $zone->url = 'https://www.google.com/';
+            $zone->imagen = 'img/zones/default/imagen.png';
+            $zone->imagen_web = 'img/zones/default/imagen_web.png';
 
             ZoneCategory::where('nombre', 'Televisión')->first()->zones()->save($zone);
         }

@@ -40,6 +40,19 @@ class EventSubCategory extends BaseModel {
         $this->icono = asset($this->icono);
     }
 
+    static public function getSubCategories()
+    {
+        $sub_categories = self::with('events')->get()->each(function($sub_cat)
+        {
+            $sub_cat->prepareForWS();
+            foreach ($sub_cat->events as $event)
+            {
+                $event->prepareForWS();
+            }
+        });
+        return $sub_categories;
+    }
+
     static public function createSubCategory($data)
     {
         $sub_category = new self();

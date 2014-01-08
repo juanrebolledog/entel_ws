@@ -1,6 +1,23 @@
 <?php
 class Zone extends BaseModel {
 
+    public function __construct()
+    {
+        Validator::extend('web_dimensions', function($attribute, $value, $parameters)
+        {
+            $size = getimagesize($value);
+            return $size[0] <= 300 && $size[1] <= 100;
+        });
+
+        Validator::extend('ws_dimensions', function($attribute, $value, $parameters)
+        {
+            $size = getimagesize($value);
+            return $size[0] <= 300 && $size[1] <= 100;
+        });
+
+        parent::__construct();
+    }
+
     protected $table = 'puntos_zonas';
 
     public $timestamps = false;
