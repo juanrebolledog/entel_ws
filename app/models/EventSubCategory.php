@@ -42,12 +42,22 @@ class EventSubCategory extends BaseModel {
 
     static public function getSubCategories()
     {
-        $sub_categories = self::with('events')->get()->each(function($sub_cat)
+        $sub_categories = self::with(array('events' => function($query)
+            {
+                $query->with('images');
+            }))->get()->each(function($sub_cat)
         {
             $sub_cat->prepareForWS();
             foreach ($sub_cat->events as $event)
             {
                 $event->prepareForWS();
+                if (!empty($event->images))
+                {
+                    foreach ($event->images as $img)
+                    {
+                        $img->prepareForWS();
+                    }
+                }
             }
         });
         return $sub_categories;

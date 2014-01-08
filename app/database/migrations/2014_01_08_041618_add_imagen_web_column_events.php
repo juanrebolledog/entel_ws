@@ -14,7 +14,7 @@ class AddImagenWebColumnEvents extends Migration {
     {
         Schema::table('eventos', function(Blueprint $table)
         {
-            $table->string('imagen_grande_web', 200);
+            $table->string('imagen_grande_web', 200)->nullable();
         });
     }
 

@@ -96,6 +96,12 @@
                             T&iacute;tulo / 800x50 / <?= asset($event->imagen_titulo); ?>
                         </header>
                     </div>
+                    <div class="entel-image">
+                        <img src="<?= asset($event->imagen_grande_web); ?>" alt="">
+                        <header>
+                            Grande Web / 800x173 / <?= asset($event->imagen_grande_web); ?>
+                        </header>
+                    </div>
                 </div>
             </section>
         </div>

@@ -8,9 +8,9 @@ class EventSeeder extends Seeder {
 
         foreach ($categories as $k=>$cat)
         {
-            foreach (array(1, 2, 3, 4, 5, 6) as $j)
+            foreach (array(1, 2) as $j)
             {
-                AppEvent::create(array(
+                $e = AppEvent::create(array(
                     'nombre' => 'Test Event ' . $j . ' ' . $cat->nombre,
                     'descripcion' => 'Test Event is for those who are feeling good',
                     'sub_categoria_id' => $cat->id,
@@ -28,6 +28,14 @@ class EventSeeder extends Seeder {
                     'lng' => -69.8053905 + rand(-10, 10),
                     'legal' => 'Legal test'
                 ));
+
+                foreach (array(1, 2) as $i)
+                {
+                    $image = new EventImage();
+                    $image->descripcion = 'Test Image Description';
+                    $image->imagen = 'img/events/default/grande_web.png';
+                    $e->images()->save($image);
+                }
             }
         }
     }

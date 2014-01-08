@@ -122,7 +122,9 @@ class WebApiController extends BaseController {
 
     public function benefits()
     {
-        $response = array();
+        $sub_categories = BenefitSubCategory::getSubCategories();
+
+        $response = $sub_categories->toArray();
         $this->setApiResponse($response, true);
         return Response::json($this->api_response);
     }
@@ -136,7 +138,16 @@ class WebApiController extends BaseController {
 
     public function socials()
     {
-        $response = array();
+        $galleries = SocialGallery::getGalleries();
+        $response = $galleries->toArray();
+        $this->setApiResponse($response, true);
+        return Response::json($this->api_response);
+    }
+
+    public function summer()
+    {
+        $galleries = SocialGallery::getGalleries();
+        $response = $galleries->toArray();
         $this->setApiResponse($response, true);
         return Response::json($this->api_response);
     }

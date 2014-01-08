@@ -33,6 +33,11 @@ class AppEvent extends LocationModel {
         return $this->hasMany('EventComment', 'evento_id');
     }
 
+    public function images()
+    {
+        return $this->hasMany('EventImage', 'evento_id');
+    }
+
     public static function validate($input, $options = array())
     {
         if (!empty($options) && isset($options['except']))
