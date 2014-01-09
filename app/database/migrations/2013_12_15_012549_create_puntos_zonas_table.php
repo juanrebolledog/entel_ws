@@ -14,9 +14,8 @@ class CreatePuntosZonasTable extends Migration {
     {
         Schema::create('puntos_zonas', function(Blueprint $table)
         {
-            $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('categoria_id')->unsigned();
+            $table->integer('categoria_id')->unsigned()->nullable();
             $table->foreign('categoria_id')->on('puntos_zonas_categorias')->references('id')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->string('nombre', 100);
