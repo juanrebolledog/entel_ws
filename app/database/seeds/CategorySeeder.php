@@ -9,27 +9,21 @@ class CategorySeeder extends Seeder {
             'nombre' => 'Entretención',
             'banner' => 'img/benefit_categories/default/banner.png',
             'icono' => 'img/benefit_categories/default/icono.png',
-            'banner_link' => '',
-            'created_at' => '2013-12-25 00:00:00',
-            'updated_at' => '2013-12-25 00:00:00'
+            'banner_link' => ''
         ));
 
         BenefitCategory::create(array(
             'nombre' => 'Deporte',
             'banner' => 'img/benefit_categories/default/banner.png',
             'icono' => 'img/benefit_categories/default/icono.png',
-            'banner_link' => '',
-            'created_at' => '2013-12-25 00:00:00',
-            'updated_at' => '2013-12-25 00:00:00'
+            'banner_link' => ''
         ));
 
         $sub_category = new BenefitSubCategory(array(
             'nombre' => 'Fútbol',
             'banner' => 'img/benefit_sub_categories/default/banner.png',
             'icono' => 'img/benefit_sub_categories/default/icono.png',
-            'banner_link' => '',
-            'created_at' => '2013-12-25 00:00:00',
-            'updated_at' => '2013-12-25 00:00:00'
+            'banner_link' => ''
         ));
 
         BenefitCategory::where('nombre', 'Deporte')->first()->sub_categories()->save($sub_category);
@@ -38,9 +32,7 @@ class CategorySeeder extends Seeder {
             'nombre' => 'Ski',
             'banner' => 'img/benefit_sub_categories/default/banner.png',
             'icono' => 'img/benefit_sub_categories/default/icono.png',
-            'banner_link' => '',
-            'created_at' => '2013-12-25 00:00:00',
-            'updated_at' => '2013-12-25 00:00:00'
+            'banner_link' => ''
         ));
 
         BenefitCategory::where('nombre', 'Deporte')->first()->sub_categories()->save($sub_category);
@@ -49,18 +41,14 @@ class CategorySeeder extends Seeder {
             'nombre' => 'Gastronomía',
             'banner' => 'img/benefit_categories/default/banner.png',
             'icono' => 'img/benefit_categories/default/icono.png',
-            'banner_link' => '',
-            'created_at' => '2013-12-25 00:00:00',
-            'updated_at' => '2013-12-25 00:00:00'
+            'banner_link' => ''
         ));
 
         BenefitCategory::create(array(
             'nombre' => 'Otros',
             'banner' => 'img/benefit_categories/default/banner.png',
             'icono' => 'img/benefit_categories/default/icono.png',
-            'banner_link' => '',
-            'created_at' => '2013-12-25 00:00:00',
-            'updated_at' => '2013-12-25 00:00:00'
+            'banner_link' => ''
         ));
 
         DB::table('categorias_eventos')->delete();
@@ -70,18 +58,14 @@ class CategorySeeder extends Seeder {
             'nombre' => 'Entel en Vivo',
             'banner' => 'img/event_categories/default/banner.png',
             'icono' => 'img/event_categories/default/icono.png',
-            'banner_link' => '',
-            'created_at' => '2013-12-25 00:00:00',
-            'updated_at' => '2013-12-25 00:00:00'
+            'banner_link' => ''
         ));
 
         $sub_category = new EventSubCategory(array(
             'nombre' => 'Música',
             'banner' => 'img/event_sub_categories/default/banner.png',
             'icono' => 'img/event_sub_categories/default/icono.png',
-            'banner_link' => '',
-            'created_at' => '2013-12-25 00:00:00',
-            'updated_at' => '2013-12-25 00:00:00'
+            'banner_link' => ''
         ));
 
         EventCategory::where('nombre', 'Entel en Vivo')->first()->sub_categories()->save($sub_category);
@@ -90,9 +74,7 @@ class CategorySeeder extends Seeder {
             'nombre' => 'Fiestas',
             'banner' => 'img/event_sub_categories/default/banner.png',
             'icono' => 'img/event_sub_categories/default/icono.png',
-            'banner_link' => '',
-            'created_at' => '2013-12-25 00:00:00',
-            'updated_at' => '2013-12-25 00:00:00'
+            'banner_link' => ''
         ));
 
         EventCategory::where('nombre', 'Entel en Vivo')->first()->sub_categories()->save($sub_category);

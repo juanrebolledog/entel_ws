@@ -18,7 +18,8 @@ class CreateGaleriasSocialesTable extends Migration {
             $table->string('nombre');
             $table->date('fecha');
             $table->string('imagen_web');
-            $table->timestamps();
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

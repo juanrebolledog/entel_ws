@@ -17,9 +17,14 @@ class CreateNotasTable extends Migration {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('beneficio_id')->unsigned()->nullable();
+            $table->foreign('beneficio_id')->on('beneficios')->references('id')
+                ->onUpdate('cascade')->onDelete('cascade');
             $table->integer('usuario_id')->unsigned()->nullable();
+            $table->foreign('usuario_id')->on('usuarios')->references('id')
+                ->onUpdate('cascade')->onDelete('cascade');
             $table->integer('votacion')->unsigned();
-            $table->timestamps();
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

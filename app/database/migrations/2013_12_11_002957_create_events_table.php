@@ -17,12 +17,15 @@ class CreateEventsTable extends Migration {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('sub_categoria_id')->unsigned()->nullable();
+            $table->foreign('sub_categoria_id')->on('categorias_eventos')->references('id')
+                ->onUpdate('cascade')->onDelete('cascade');
             $table->string('nombre', 100);
             $table->string('descripcion', 300);
             $table->string('icono', 100);
             $table->string('imagen_grande', 100);
             $table->string('imagen_chica', 100);
             $table->string('imagen_titulo', 100);
+            $table->string('imagen_grande_web', 100);
             $table->string('fecha', 100);
             $table->string('lugar', 100);
             $table->text('tags');
@@ -32,7 +35,8 @@ class CreateEventsTable extends Migration {
             $table->float('lng');
             $table->boolean('caducado')->default(false);
             $table->text('legal');
-            $table->timestamps();
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

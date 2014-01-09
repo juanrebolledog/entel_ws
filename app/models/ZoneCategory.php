@@ -3,6 +3,8 @@ class ZoneCategory extends BaseModel {
 
     protected $table = 'puntos_zonas_categorias';
 
+    public $timestamps = false;
+
     protected $hidden = array(
         'created_at', 'updated_at'
     );

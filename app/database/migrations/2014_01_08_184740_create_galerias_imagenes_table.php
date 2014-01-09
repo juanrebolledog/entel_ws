@@ -20,7 +20,8 @@ class CreateGaleriasImagenesTable extends Migration {
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->string('imagen');
             $table->string('descripcion');
-            $table->timestamps();
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

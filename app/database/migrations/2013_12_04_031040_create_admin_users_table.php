@@ -18,8 +18,8 @@ class CreateAdminUsersTable extends Migration {
             $table->string('email', 64);
             $table->string('password', 64);
             $table->boolean('active')->default(true);
-            $table->timestamp('created_at')->default('0000-00-00 00:00:00');
-            $table->timestamp('updated_at')->default('0000-00-00 00:00:00');
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

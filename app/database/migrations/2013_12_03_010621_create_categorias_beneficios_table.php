@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePuntosZonasCategoriasTable extends Migration {
+class CreateCategoriasBeneficiosTable extends Migration {
 
     /**
      * Run the migrations.
@@ -12,11 +12,14 @@ class CreatePuntosZonasCategoriasTable extends Migration {
      */
     public function up()
     {
-        Schema::create('puntos_zonas_categorias', function(Blueprint $table)
+        Schema::create('categorias_beneficios', function(Blueprint $table)
         {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('nombre', 100);
-            $table->timestamps();
+            $table->string('banner', 100);
+            $table->string('banner_link', 200);
+            $table->string('icono', 100);
         });
     }
 
@@ -27,7 +30,7 @@ class CreatePuntosZonasCategoriasTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('puntos_zonas_categorias');
+        Schema::drop('categorias_beneficios');
     }
 
 }

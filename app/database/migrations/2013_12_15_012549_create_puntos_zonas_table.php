@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEventosImagenesTable extends Migration {
+class CreatePuntosZonasTable extends Migration {
 
     /**
      * Run the migrations.
@@ -12,16 +12,17 @@ class CreateEventosImagenesTable extends Migration {
      */
     public function up()
     {
-        Schema::create('eventos_imagenes', function(Blueprint $table)
+        Schema::create('puntos_zonas', function(Blueprint $table)
         {
+            $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('evento_id')->unsigned();
-            $table->foreign('evento_id')->on('eventos')->references('id')
+            $table->integer('categoria_id')->unsigned();
+            $table->foreign('categoria_id')->on('puntos_zonas_categorias')->references('id')
                 ->onUpdate('cascade')->onDelete('cascade');
+            $table->string('nombre', 100);
+            $table->string('url', 200);
             $table->string('imagen', 200);
-            $table->string('descripcion', 400);
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->string('imagen_web', 200);
         });
     }
 
@@ -32,7 +33,7 @@ class CreateEventosImagenesTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('eventos_imagenes');
+        Schema::drop('puntos_zonas');
     }
 
 }

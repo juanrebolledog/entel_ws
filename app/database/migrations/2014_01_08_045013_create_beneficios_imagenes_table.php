@@ -20,7 +20,8 @@ class CreateBeneficiosImagenesTable extends Migration {
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->string('imagen', 200);
             $table->string('descripcion', 400);
-            $table->timestamps();
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

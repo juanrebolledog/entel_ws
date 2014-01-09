@@ -20,7 +20,6 @@ class CreateCategoriasEventosTable extends Migration {
             $table->string('banner', 100);
             $table->string('banner_link', 200);
             $table->string('icono', 100);
-            $table->timestamps();
         });
     }
 

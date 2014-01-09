@@ -17,6 +17,7 @@ class CreateUsuariosNivelesTable extends Migration {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('categoria', 45);
+            $table->string('descripcion', 300);
             $table->integer('beneficios');
             $table->integer('comentarios');
             $table->integer('compartir');

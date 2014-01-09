@@ -25,7 +25,8 @@ class CreateComentariosEventosTable extends Migration {
             $table->boolean('eliminado')->default(false);
             $table->boolean('compartido_fb')->default(false);
             $table->boolean('compartido_tw')->default(false);
-            $table->timestamps();
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 
