@@ -17,7 +17,7 @@ class CreateEventsTable extends Migration {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('sub_categoria_id')->unsigned()->nullable();
-            $table->foreign('sub_categoria_id')->on('categorias_eventos')->references('id')
+            $table->foreign('sub_categoria_id')->on('sub_categorias_eventos')->references('id')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->string('nombre', 100);
             $table->string('descripcion', 300);
