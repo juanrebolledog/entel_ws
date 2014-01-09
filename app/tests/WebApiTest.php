@@ -41,7 +41,6 @@ class WebApiTest extends TestCase {
     {
         $req = $this->request('GET', '/web/socials');
         $cnt = json_decode($req->getContent());
-        $this->assertTrue(!empty($cnt->data));
         $this->assertTrue($cnt->status);
     }
 
@@ -49,7 +48,6 @@ class WebApiTest extends TestCase {
     {
         $req = $this->request('GET', '/web/contests');
         $cnt = json_decode($req->getContent());
-        $this->assertTrue(!empty($cnt->data));
         $this->assertTrue($cnt->status);
     }
 }

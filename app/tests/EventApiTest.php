@@ -59,7 +59,7 @@ class EventApiTest extends TestCase {
 
     public function testEventSearch()
     {
-        $request = $this->request('GET', '/api/events/search?q=feeling');
+        $request = $this->request('GET', '/api/events/search?q=Prueba');
         $content = json_decode($request->getContent());
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);

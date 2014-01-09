@@ -50,7 +50,6 @@ class BenefitApiTest extends TestCase {
     {
         $request = $this->request('GET', '/api/benefits?lat=' . $this->origin['lat'] . '&lng=' . $this->origin['lng'] . '&limit=1');
         $content = json_decode($request->getContent());
-        $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
         $this->assertEquals(count($content->data), 1);
     }
@@ -59,7 +58,6 @@ class BenefitApiTest extends TestCase {
     {
         $request = $this->request('GET', '/api/benefits?lat=' . $this->origin['lat'] . '&lng=' . $this->origin['lng'] . '&range=20000');
         $content = json_decode($request->getContent());
-        $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
         foreach ($content->data as $benefit)
         {
@@ -164,7 +162,7 @@ class BenefitApiTest extends TestCase {
 
     public function testBenefitSearch()
     {
-        $request = $this->request('GET', '/api/benefits/search?q=feeling');
+        $request = $this->request('GET', '/api/benefits/search?q=Prueba');
         $content = json_decode($request->getContent());
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
