@@ -21,8 +21,10 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
         $user = User::first();
 
+        $access_keys = Config::get('app.access_keys');
+
         $headers = array(
-            'HTTP_ENTEL-ACCESS-KEY' => Config::get('app.access_keys')['ios'],
+            'HTTP_ENTEL-ACCESS-KEY' => $access_keys['ios'],
             'HTTP_ENTEL-API-KEY' => $user->api_key
         );
 

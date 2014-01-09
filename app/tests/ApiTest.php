@@ -19,8 +19,9 @@ class ApiTest extends TestCase {
 
     public function testResponseForbiddenWhenUnknownApiKey()
     {
+        $access_keys = Config::get('app.access_keys');
         $headers = array(
-            'HTTP_ENTEL-ACCESS-KEY' => Config::get('app.access_keys')['ios'],
+            'HTTP_ENTEL-ACCESS-KEY' => $access_keys['ios'],
             'HTTP_ENTEL-API-KEY' => 'wrong'
         );
 
@@ -31,8 +32,9 @@ class ApiTest extends TestCase {
 
     public function testResponseForbiddenWhenMissingApiKey()
     {
+        $access_keys = Config::get('app.access_keys');
         $headers = array(
-            'HTTP_ENTEL-ACCESS-KEY' => Config::get('app.access_keys')['ios']
+            'HTTP_ENTEL-ACCESS-KEY' => $access_keys['ios'],
         );
 
         $this->setRequestHeaders($headers);

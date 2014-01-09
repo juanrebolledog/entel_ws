@@ -11,8 +11,8 @@ class EventSeeder extends Seeder {
             foreach (array(1, 2) as $j)
             {
                 $e = AppEvent::create(array(
-                    'nombre' => 'Test Event ' . $j . ' ' . $cat->nombre,
-                    'descripcion' => 'Test Event is for those who are feeling good',
+                    'nombre' => 'Evento de Prueba',
+                    'descripcion' => 'Este es una prueba. Un Evento que realmente no sucederá.',
                     'sub_categoria_id' => $cat->id,
                     'icono' => 'img/events/default/icono.png',
                     'imagen_grande' => 'img/events/default/grande.png',

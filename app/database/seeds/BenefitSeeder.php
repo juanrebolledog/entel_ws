@@ -11,8 +11,8 @@ class BenefitSeeder extends Seeder {
             foreach (array(1, 2) as $k)
             {
                 Benefit::create(array(
-                    'nombre' => 'Super Test Benefit ' . $cat->nombre,
-                    'descripcion' => 'Test Benefit is for those who are feeling good',
+                    'nombre' => 'Beneficio de Prueba ' . $cat->nombre,
+                    'descripcion' => 'Descripción de Beneficio de Prueba. Esta es la descripción por tanto es un texto.',
                     'sub_categoria_id' => $cat->id,
                     'icono' => 'img/benefits/default/icono.png',
                     'imagen_grande' => 'img/benefits/default/grande.png',
