@@ -38,8 +38,9 @@
 
             <?php
             echo Form::label('fecha', 'Fecha');
-            echo Form::text('fecha');
+            echo Form::input('date', 'fecha');
             ?>
+
             <?php if ($errors->has('fecha')): ?>
                 <small class="error"><?php echo $errors->first('fecha'); ?></small>
             <?php endif; ?>
