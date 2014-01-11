@@ -9,6 +9,7 @@ class AppEvent extends LocationModel {
     static protected $validation = array(
         'nombre' => 'required',
         'descripcion' => 'required',
+        'descripcion_larga' => 'required',
         'sub_categoria_id' => 'required',
         'fecha' => 'required',
         'tags' => 'required',
@@ -20,7 +21,8 @@ class AppEvent extends LocationModel {
         'icono' => 'required',
         'imagen_grande' => 'required',
         'imagen_chica' => 'required',
-        'imagen_titulo' => 'required'
+        'imagen_titulo' => 'required',
+        'imagen_ubicacion' => 'required'
     );
     
     public function sub_category()
@@ -56,10 +58,7 @@ class AppEvent extends LocationModel {
         $event = self::with('sub_category', 'comments')->find($id);
         if ($event && $event->exists)
         {
-            $event->imagen_titulo = asset($event->imagen_titulo);
-            $event->imagen_grande = asset($event->imagen_grande);
-            $event->imagen_chica = asset($event->imagen_chica);
-            $event->icono = asset($event->icono);
+            $event->prepareForWS();
             return $event;
         }
         return false;
@@ -72,6 +71,7 @@ class AppEvent extends LocationModel {
             $this->imagen_titulo = asset($this->imagen_titulo);
             $this->imagen_grande = asset($this->imagen_grande);
             $this->imagen_chica = asset($this->imagen_chica);
+            $this->imagen_ubicacion = asset($this->imagen_ubicacion);
             $this->icono = asset($this->icono);
             $this->imagen_grande_web = asset($this->imagen_grande_web);
         }
@@ -201,6 +201,24 @@ class AppEvent extends LocationModel {
             if ($data['imagen_titulo']->move($dir, $name_prefix . '_titulo.' . $ext))
             {
                 $event->imagen_titulo = 'img/' . $object_dir . '/' . $name_prefix . '_titulo.' . $ext;
+            }
+        }
+
+        if ($data['imagen_grande_web'])
+        {
+            $ext = $data['imagen_grande_web']->getClientOriginalExtension();
+            if ($data['imagen_grande_web']->move($dir, $name_prefix . '_grande_web.' . $ext))
+            {
+                $event->imagen_titulo = 'img/' . $object_dir . '/' . $name_prefix . '_grande_web.' . $ext;
+            }
+        }
+
+        if ($data['imagen_ubicacion'])
+        {
+            $ext = $data['imagen_ubicacion']->getClientOriginalExtension();
+            if ($data['imagen_ubicacion']->move($dir, $name_prefix . '_ubicacion.' . $ext))
+            {
+                $event->imagen_ubicacion = 'img/' . $object_dir . '/' . $name_prefix . '_ubicacion.' . $ext;
             }
         }
         return $event;

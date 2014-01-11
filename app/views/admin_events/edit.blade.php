@@ -29,6 +29,14 @@
             <?php endif; ?>
 
             <?php
+            echo Form::label('descripcion_larga', 'Descripción Larga');
+            echo Form::textarea('descripcion_larga');
+            ?>
+            <?php if ($errors->has('descripcion_larga')): ?>
+                <small class="error"><?php echo $errors->first('descripcion_larga'); ?></small>
+            <?php endif; ?>
+
+            <?php
             echo Form::label('tags', 'Tags');
             echo Form::text('tags');
             ?>
@@ -129,6 +137,22 @@
             ?>
             <?php if ($errors->has('imagen_titulo')): ?>
                 <small class="error"><?php echo $errors->first('imagen_titulo'); ?></small>
+            <?php endif; ?>
+
+            <?php
+            echo Form::label('imagen_grande_web', 'Grande Web');
+            echo Form::file('imagen_grande_web');
+            ?>
+            <?php if ($errors->has('imagen_grande_web')): ?>
+                <small class="error"><?php echo $errors->first('imagen_grande_web'); ?></small>
+            <?php endif; ?>
+
+            <?php
+            echo Form::label('imagen_ubicacion', 'Ubicación');
+            echo Form::file('imagen_ubicacion');
+            ?>
+            <?php if ($errors->has('imagen_ubicacion')): ?>
+                <small class="error"><?php echo $errors->first('imagen_ubicacion'); ?></small>
             <?php endif; ?>
         </fieldset>
         <?= Form::submit('Guardar', array('class' => 'button')); ?>
