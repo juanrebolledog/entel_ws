@@ -22,7 +22,9 @@ class AppEvent extends LocationModel {
         'imagen_grande' => 'required',
         'imagen_chica' => 'required',
         'imagen_titulo' => 'required',
-        'imagen_ubicacion' => 'required'
+        'imagen_ubicacion' => 'required',
+        'imagen_grande_web' => 'required',
+        'imagen_bg' => 'required'
     );
     
     public function sub_category()
@@ -72,8 +74,9 @@ class AppEvent extends LocationModel {
             $this->imagen_grande = asset($this->imagen_grande);
             $this->imagen_chica = asset($this->imagen_chica);
             $this->imagen_ubicacion = asset($this->imagen_ubicacion);
-            $this->icono = asset($this->icono);
+            $this->imagen_bg = asset($this->imagen_bg);
             $this->imagen_grande_web = asset($this->imagen_grande_web);
+            $this->icono = asset($this->icono);
         }
         return true;
     }
@@ -114,9 +117,12 @@ class AppEvent extends LocationModel {
         $event = new AppEvent();
         $event->nombre = $data['nombre'];
         $event->descripcion = $data['descripcion'];
+        $event->descripcion_larga = $data['descripcion_larga'];
+        $event->post = $data['post'];
         $event->sub_categoria_id = $data['sub_categoria_id'];
         $event->fecha = $data['fecha'];
         $event->tags = $data['tags'];
+        $event->legal = $data['legal'];
 
         $event->lat = $data['lat'];
         $event->lng = $data['lng'];
@@ -136,9 +142,12 @@ class AppEvent extends LocationModel {
         $event = AppEvent::find($id);
         $event->nombre = $data['nombre'];
         $event->descripcion = $data['descripcion'];
+        $event->descripcion_larga = $data['descripcion_larga'];
+        $event->post = $data['post'];
         $event->sub_categoria_id = $data['sub_categoria_id'];
         $event->fecha = $data['fecha'];
         $event->tags = $data['tags'];
+        $event->legal = $data['legal'];
 
         $event->lat = $data['lat'];
         $event->lng = $data['lng'];
@@ -209,7 +218,7 @@ class AppEvent extends LocationModel {
             $ext = $data['imagen_grande_web']->getClientOriginalExtension();
             if ($data['imagen_grande_web']->move($dir, $name_prefix . '_grande_web.' . $ext))
             {
-                $event->imagen_titulo = 'img/' . $object_dir . '/' . $name_prefix . '_grande_web.' . $ext;
+                $event->imagen_grande_web = 'img/' . $object_dir . '/' . $name_prefix . '_grande_web.' . $ext;
             }
         }
 
@@ -219,6 +228,15 @@ class AppEvent extends LocationModel {
             if ($data['imagen_ubicacion']->move($dir, $name_prefix . '_ubicacion.' . $ext))
             {
                 $event->imagen_ubicacion = 'img/' . $object_dir . '/' . $name_prefix . '_ubicacion.' . $ext;
+            }
+        }
+
+        if ($data['imagen_bg'])
+        {
+            $ext = $data['imagen_bg']->getClientOriginalExtension();
+            if ($data['imagen_bg']->move($dir, $name_prefix . '_bg.' . $ext))
+            {
+                $event->imagen_bg = 'img/' . $object_dir . '/' . $name_prefix . '_bg.' . $ext;
             }
         }
         return $event;

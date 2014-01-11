@@ -36,6 +36,30 @@
                 </div>
             </section>
             <section class="entel-item">
+                <header>Descripci&oacute;n Larga</header>
+                <div class="entel-item-content">
+                    <?= $event->descripcion_larga; ?>
+                </div>
+            </section>
+            <section class="entel-item">
+                <header>Post</header>
+                <div class="entel-item-content">
+                    <?= $event->post; ?>
+                </div>
+            </section>
+            <section class="entel-item">
+                <header>Fecha</header>
+                <div class="entel-item-content">
+                    <?= $event->fecha; ?>
+                </div>
+            </section>
+            <section class="entel-item">
+                <header>Lugar</header>
+                <div class="entel-item-content">
+                    <?= $event->lugar; ?>
+                </div>
+            </section>
+            <section class="entel-item">
                 <header>Sub Categor&iacute;a</header>
                 <div class="entel-item-content">
                     <a href="category.html"><?= $event->sub_category->nombre; ?></a>
@@ -58,13 +82,6 @@
                     <?php foreach (explode(',', $event->tags) as $tag): ?>
                     <span class="round label"><?= trim($tag); ?></span>
                     <?php endforeach; ?>
-                </div>
-            </section>
-
-            <section class="entel-item">
-                <header>Mas Info.</header>
-                <div class="entel-item-content">
-                    <small>[vac&iacute;o]</small>
                 </div>
             </section>
         </div>
@@ -100,6 +117,18 @@
                         <img src="<?= asset($event->imagen_grande_web); ?>" alt="">
                         <header>
                             Grande Web / 800x173 / <?= asset($event->imagen_grande_web); ?>
+                        </header>
+                    </div>
+                    <div class="entel-image">
+                        <img src="<?= asset($event->imagen_ubicacion); ?>" alt="">
+                        <header>
+                            Ubicaci&oacute;n / 800x173 / <?= asset($event->imagen_ubicacion); ?>
+                        </header>
+                    </div>
+                    <div class="entel-image">
+                        <img src="<?= asset($event->imagen_bg); ?>" alt="">
+                        <header>
+                            Fondo / 800x173 / <?= asset($event->imagen_bg); ?>
                         </header>
                     </div>
                 </div>

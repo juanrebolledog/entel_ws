@@ -37,11 +37,27 @@
             <?php endif; ?>
 
             <?php
+            echo Form::label('post', 'Post');
+            echo Form::textarea('post');
+            ?>
+            <?php if ($errors->has('post')): ?>
+                <small class="error"><?php echo $errors->first('post'); ?></small>
+            <?php endif; ?>
+
+            <?php
             echo Form::label('tags', 'Tags');
             echo Form::text('tags');
             ?>
             <?php if ($errors->has('tags')): ?>
                 <small class="error"><?php echo $errors->first('tags'); ?></small>
+            <?php endif; ?>
+
+            <?php
+            echo Form::label('legal', 'Bases Legales');
+            echo Form::text('legal');
+            ?>
+            <?php if ($errors->has('legal')): ?>
+                <small class="error"><?php echo $errors->first('legal'); ?></small>
             <?php endif; ?>
 
             <?php
@@ -153,6 +169,14 @@
             ?>
             <?php if ($errors->has('imagen_ubicacion')): ?>
                 <small class="error"><?php echo $errors->first('imagen_ubicacion'); ?></small>
+            <?php endif; ?>
+
+            <?php
+            echo Form::label('imagen_bg', 'Fondo');
+            echo Form::file('imagen_bg');
+            ?>
+            <?php if ($errors->has('imagen_bg')): ?>
+                <small class="error"><?php echo $errors->first('imagen_bg'); ?></small>
             <?php endif; ?>
         </fieldset>
         <?= Form::submit('Guardar', array('class' => 'button')); ?>
