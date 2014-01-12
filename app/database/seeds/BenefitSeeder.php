@@ -13,6 +13,7 @@ class BenefitSeeder extends Seeder {
                 Benefit::create(array(
                     'nombre' => 'Beneficio de Prueba ' . $cat->nombre,
                     'descripcion' => 'Descripción de Beneficio de Prueba. Esta es la descripción por tanto es un texto.',
+                    'descripcion_larga' => 'Esta es la descripción larga',
                     'sub_categoria_id' => $cat->id,
                     'icono' => 'http://lorempixel.com/64/64/fashion',
                     'imagen_grande' => 'http://lorempixel.com/535/173/fashion',
