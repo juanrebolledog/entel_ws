@@ -70,31 +70,11 @@ class BenefitSubCategory extends BaseModel {
 
     static public function getSubCategories($category_id = null)
     {
-        $category_query = self::with('benefits');
-        if ($category_id)
-        {
-            $categories = $category_query->where('categoria_id', $category_id)->get();
-        }
-        else
-        {
-            $categories = $category_query->get();
-        }
-        if ($categories)
-        {
-            if (get_class($categories) != 'Illuminate\Database\Eloquent\Collection')
+        $category = self::with(array('benefits' => function($query)
             {
-                $categories->prepareForWS();
-            }
-            else
-            {
-                foreach ($categories as $cat)
-                {
-                    $cat->prepareForWS();
-                }
-            }
-            return $categories;
-        }
-        return false;
+                $query->with('images');
+            }))->get();
+        return $category;
     }
 
     static public function createCategory($data)

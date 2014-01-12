@@ -8,9 +8,9 @@ class BenefitSeeder extends Seeder {
 
         foreach ($categories as $cat)
         {
-            foreach (range(1, 2) as $k)
+            foreach (range(1, 10) as $k)
             {
-                Benefit::create(array(
+                $benefit = Benefit::create(array(
                     'nombre' => 'Beneficio de Prueba ' . $cat->nombre,
                     'descripcion' => 'Descripción de Beneficio de Prueba. Esta es la descripción por tanto es un texto.',
                     'descripcion_larga' => 'Esta es la descripción larga',
@@ -35,6 +35,15 @@ class BenefitSeeder extends Seeder {
                     'horario' => 'Lun a Vie',
                     'texto_ubicacion' => 'Este es el texto que va en ubicación'
                 ));
+
+                foreach (range(1, 10) as $i)
+                {
+                    $image = new BenefitImage(array(
+                        'imagen' => 'https://lorempixel.com/800/600/fashion',
+                        'descripcion' => 'Descripción #' . $i
+                    ));
+                    $benefit->images()->save($image);
+                }
             }
         }
     }

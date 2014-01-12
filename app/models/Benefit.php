@@ -40,6 +40,11 @@ class Benefit extends LocationModel {
         return $this->hasMany('BenefitVote', 'beneficio_id');
     }
 
+    public function images()
+    {
+        return $this->hasMany('BenefitImage', 'beneficio_id');
+    }
+
     public static function validate($input, $options = array())
     {
         if (!empty($options) && isset($options['except']))
