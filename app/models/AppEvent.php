@@ -37,9 +37,24 @@ class AppEvent extends LocationModel {
         return $this->hasMany('EventComment', 'evento_id');
     }
 
+    public function prices()
+    {
+        return $this->hasMany('EventPrice', 'evento_id');
+    }
+
+    public function discounts()
+    {
+        return $this->hasMany('EventDiscount', 'evento_id');
+    }
+
     public function images()
     {
         return $this->hasMany('EventImage', 'evento_id');
+    }
+
+    public function videos()
+    {
+        return $this->hasMany('EventVideo', 'evento_id');
     }
 
     public static function validate($input, $options = array())
@@ -134,6 +149,28 @@ class AppEvent extends LocationModel {
         $event = self::uploadImages($event, $data);
 
         $event->save();
+
+        if ( (!empty($data['localidad']) && !empty($data['valor'])) && (count($data['localidad']) == count($data['valor'])) )
+        {
+            foreach ($data['localidad'] as $k=>$loc)
+            {
+                $price = new EventPrice();
+                $price->localidad = $loc;
+                $price->valor_normal = $data['valor'][$k];
+                $event->prices()->save($price);
+            }
+        }
+
+        if (!empty($data['descuento']))
+        {
+            foreach ($data['descuento'] as $k=>$desc)
+            {
+                $discount = new EventDiscount();
+                $discount->cantidad = $desc;
+                $event->discounts()->save($discount);
+            }
+        }
+
         return $event;
     }
 

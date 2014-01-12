@@ -45,6 +45,9 @@ class EventSubCategory extends BaseModel {
         $sub_categories = self::with(array('events' => function($query)
             {
                 $query->with('images');
+                $query->with('prices');
+                $query->with('discounts');
+                $query->with('videos');
             }))->get()->each(function($sub_cat)
         {
             $sub_cat->prepareForWS();

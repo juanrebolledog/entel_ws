@@ -33,12 +33,20 @@ class EventSeeder extends Seeder {
                     'post' => 'Este es el post que va en el Evento. En el se puede hacer una larga descripción o hablar de otros temas referentes al Evento'
                 ));
 
-                foreach (array(1, 2) as $i)
+                foreach (array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) as $i)
                 {
                     $image = new EventImage();
-                    $image->descripcion = 'Test Image Description';
-                    $image->imagen = 'img/events/default/grande_web.png';
+                    $image->descripcion = 'Test Imagen ' . $i . ' descripción';
+                    $image->imagen = 'https://lorempixel.com/800/600/nightlife/Test-' . $i;
                     $e->images()->save($image);
+                }
+
+                foreach (array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) as $i)
+                {
+                    $video = new EventVideo();
+                    $video->descripcion = 'Test Video ' . $i . ' descripción';
+                    $video->url = 'C0DPdy98e4c';
+                    $e->videos()->save($video);
                 }
             }
         }

@@ -77,6 +77,49 @@
             <?php endif; ?>
         </fieldset>
         <fieldset>
+            <legend>Valores y Descuentos</legend>
+            <div class="row">
+                <div class="column large-10">
+                    <table class="entel-table">
+                        <thead>
+                        <tr>
+                            <th>{{ 'Localidad' }}</th>
+                            <th>{{ 'Valor' }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                {{ Form::text('localidad[]') }}
+                            </td>
+                            <td>
+                                {{ Form::text('valor[]') }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <a href="#">Agregar otra localidad</a>
+                </div>
+                <div class="column large-2">
+                    <table class="entel-table">
+                        <thead>
+                        <tr>
+                            <th>{{ 'Descuentos' }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                {{ Form::text('descuento[]') }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <a href="#">Agregar otro descuento</a>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
             <legend>Ubicaci&oacute;n</legend>
             <?php
             echo Form::label('lat', 'Latitud');
