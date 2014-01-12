@@ -88,6 +88,7 @@ class Benefit extends LocationModel {
         $this->imagen_chica = asset($this->imagen_chica);
         $this->icono = asset($this->icono);
         $this->imagen_grande_web = asset($this->imagen_grande_web);
+        $this->imagen_descripcion = asset($this->imagen_descripcion);
     }
 
     static public function createBenefit($data)
