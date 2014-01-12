@@ -11,7 +11,7 @@ class GallerySeeder extends Seeder {
             'imagen_web' => 'img/social_galleries/default/imagen_web.png'
         ));
 
-        foreach (array(1, 2, 3, 4, 5, 6) as $k)
+        foreach (range(1, 6) as $k)
         {
             $image = new GalleryImage();
             $image->imagen = 'img/gallery_images/default/imagen.png';
@@ -26,7 +26,7 @@ class GallerySeeder extends Seeder {
             'imagen_web' => 'img/social_galleries/default/imagen_web.png'
         ));
 
-        foreach (array(1, 2, 3, 4, 5, 6) as $k)
+        foreach (range(1, 6) as $k)
         {
             $image = new GalleryImage();
             $image->imagen = 'img/gallery_images/default/imagen.png';
@@ -41,7 +41,7 @@ class GallerySeeder extends Seeder {
             'imagen_web' => 'img/social_galleries/default/imagen_web.png'
         ));
 
-        foreach (array(1, 2, 3, 4, 5, 6) as $k)
+        foreach (range(1, 6) as $k)
         {
             $image = new GalleryImage();
             $image->imagen = 'img/gallery_images/default/imagen.png';

@@ -131,7 +131,8 @@ class WebApiController extends BaseController {
 
     public function contests()
     {
-        $response = array();
+        $contests = Contest::getContests();
+        $response = $contests->toArray();
         $this->setApiResponse($response, true);
         return Response::json($this->api_response);
     }

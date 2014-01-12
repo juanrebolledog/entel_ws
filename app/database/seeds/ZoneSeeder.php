@@ -9,7 +9,7 @@ class ZoneSeeder extends Seeder {
             'nombre' => 'Entretención'
         ));
 
-        foreach (array(1, 2, 3, 4, 5, 6) as $k)
+        foreach (range(1, 6) as $k)
         {
             $zone = new Zone();
             $zone->nombre = 'Punto Zona ' . $k;
@@ -24,7 +24,7 @@ class ZoneSeeder extends Seeder {
             'nombre' => 'Bolsas'
         ));
 
-        foreach (array(1, 2, 3, 4, 5, 6) as $k)
+        foreach (range(1, 6) as $k)
         {
             $zone = new Zone();
             $zone->nombre = 'Punto Zona ' . $k;
@@ -39,7 +39,7 @@ class ZoneSeeder extends Seeder {
             'nombre' => 'Recarga'
         ));
 
-        foreach (array(1, 2, 3, 4, 5, 6) as $k)
+        foreach (range(1, 6) as $k)
         {
             $zone = new Zone();
             $zone->nombre = 'Punto Zona ' . $k;
@@ -54,7 +54,7 @@ class ZoneSeeder extends Seeder {
             'nombre' => 'Televisión'
         ));
 
-        foreach (array(1, 2, 3, 4, 5, 6) as $k)
+        foreach (range(1, 6) as $k)
         {
             $zone = new Zone();
             $zone->nombre = 'Punto Zona ' . $k;

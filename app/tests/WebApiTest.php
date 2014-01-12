@@ -48,6 +48,19 @@ class WebApiTest extends TestCase {
     {
         $req = $this->request('GET', '/web/contests');
         $cnt = json_decode($req->getContent());
+        $this->assertTrue(!empty($cnt->data));
         $this->assertTrue($cnt->status);
+    }
+
+    public function testContestsResponseContainsImageUrls()
+    {
+        $req = $this->request('GET', '/web/contests');
+        $cnt = json_decode($req->getContent());
+        $this->assertTrue(!empty($cnt->data));
+        $this->assertTrue($cnt->status);
+        foreach ($cnt->data as $contest)
+        {
+            $this->assertEquals(1, preg_match('/^http|https*/', $contest->imagen_banner));
+        }
     }
 }

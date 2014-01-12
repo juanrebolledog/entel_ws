@@ -8,7 +8,7 @@ class BenefitSeeder extends Seeder {
 
         foreach ($categories as $cat)
         {
-            foreach (array(1, 2) as $k)
+            foreach (range(1, 2) as $k)
             {
                 Benefit::create(array(
                     'nombre' => 'Beneficio de Prueba ' . $cat->nombre,
