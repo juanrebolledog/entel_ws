@@ -63,4 +63,28 @@ class WebApiTest extends TestCase {
             $this->assertEquals(1, preg_match('/^http|https*/', $contest->imagen_banner));
         }
     }
+
+    public function testSummerResponse()
+    {
+        $req = $this->request('GET', '/web/summer');
+        $cnt = json_decode($req->getContent());
+        $this->assertTrue(!empty($cnt->data));
+        $this->assertTrue($cnt->status);
+    }
+
+    public function testSummerResponseContainsImageUrls()
+    {
+        $req = $this->request('GET', '/web/summer');
+        $cnt = json_decode($req->getContent());
+        $this->assertTrue(!empty($cnt->data));
+        $this->assertTrue($cnt->status);
+        foreach ($cnt->data as $summer_cat)
+        {
+            foreach ($summer_cat->summers as $summer)
+            {
+                $this->assertEquals(1, preg_match('/^http|https*/', $summer->imagen_descripcion));
+                $this->assertEquals(1, preg_match('/^http|https*/', $summer->imagen_titulo));
+            }
+        }
+    }
 }

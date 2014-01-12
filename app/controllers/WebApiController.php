@@ -147,7 +147,7 @@ class WebApiController extends BaseController {
 
     public function summer()
     {
-        $galleries = SocialGallery::getGalleries();
+        $galleries = SummerCategory::getCategories();
         $response = $galleries->toArray();
         $this->setApiResponse($response, true);
         return Response::json($this->api_response);

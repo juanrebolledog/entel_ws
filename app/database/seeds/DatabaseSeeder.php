@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('ZoneSeeder');
         $this->call('GallerySeeder');
         $this->call('ContestSeeder');
+        $this->call('SummerSeeder');
     }
 
 }
