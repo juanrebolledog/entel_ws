@@ -35,7 +35,7 @@ class Zone extends BaseModel {
 
     public function category()
     {
-        return $this->belongsTo('ZoneCategory', 'categoria_id');
+        return $this->belongsTo('ZoneSubCategory', 'categoria_id');
     }
 
     public static function validate($input, $options = array())

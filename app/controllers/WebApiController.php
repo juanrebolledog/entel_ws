@@ -53,60 +53,8 @@ class WebApiController extends BaseController {
 
     public function zones()
     {
-        $response = array(
-            'categories' => array(
-                array(
-                    'name' => 'Cat 1',
-                    'zones' => array(
-                        array(
-                            'image_sm' => '//placehold.it/100x90.png',
-                            'amount' => 1000,
-                            'name' => 'Zone Test'
-                        ),
-                        array(
-                            'image_sm' => '//placehold.it/100x90.png',
-                            'amount' => 1000,
-                            'name' => 'Zone Test'
-                        ),
-                        array(
-                            'image_sm' => '//placehold.it/100x90.png',
-                            'amount' => 1000,
-                            'name' => 'Zone Test'
-                        ),
-                        array(
-                            'image_sm' => '//placehold.it/100x90.png',
-                            'amount' => 1000,
-                            'name' => 'Zone Test'
-                        )
-                    )
-                ),
-                array(
-                    'name' => 'Cat 2',
-                    'zones' => array(
-                        array(
-                            'image_sm' => '//placehold.it/100x90.png',
-                            'amount' => 1000,
-                            'name' => 'Zone Test'
-                        ),
-                        array(
-                            'image_sm' => '//placehold.it/100x90.png',
-                            'amount' => 1000,
-                            'name' => 'Zone Test'
-                        ),
-                        array(
-                            'image_sm' => '//placehold.it/100x90.png',
-                            'amount' => 1000,
-                            'name' => 'Zone Test'
-                        ),
-                        array(
-                            'image_sm' => '//placehold.it/100x90.png',
-                            'amount' => 1000,
-                            'name' => 'Zone Test'
-                        )
-                    )
-                )
-            )
-        );
+        $zones = ZoneCategory::getCategories();
+        $response = $zones->toArray();
         $this->setApiResponse($response, true);
         return Response::json($this->api_response);
     }

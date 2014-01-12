@@ -3,66 +3,67 @@ class ZoneSeeder extends Seeder {
     public function run()
     {
         DB::table('puntos_zonas_categorias')->delete();
+        DB::table('puntos_zonas_sub_categorias')->delete();
         DB::table('puntos_zonas')->delete();
 
-        ZoneCategory::create(array(
-            'nombre' => 'Entretención'
-        ));
-
-        foreach (range(1, 6) as $k)
-        {
-            $zone = new Zone();
-            $zone->nombre = 'Punto Zona ' . $k;
-            $zone->url = 'https://www.google.com/';
-            $zone->imagen = 'img/zones/default/imagen.png';
-            $zone->imagen_web = 'img/zones/default/imagen_web.png';
-
-            ZoneCategory::where('nombre', 'Entretención')->first()->zones()->save($zone);
-        }
-
-        ZoneCategory::create(array(
+        $cat = ZoneCategory::create(array(
             'nombre' => 'Bolsas'
         ));
 
-        foreach (range(1, 6) as $k)
-        {
-            $zone = new Zone();
-            $zone->nombre = 'Punto Zona ' . $k;
-            $zone->url = 'https://www.google.com/';
-            $zone->imagen = 'img/zones/default/imagen.png';
-            $zone->imagen_web = 'img/zones/default/imagen_web.png';
+        $sub_cats = array(
+            'Voz', 'Mensajes', 'Datos', 'Mixtas'
+        );
 
-            ZoneCategory::where('nombre', 'Bolsas')->first()->zones()->save($zone);
+        foreach ($sub_cats as $k)
+        {
+            $sub_cat = new ZoneSubCategory();
+            $sub_cat->nombre = $k;
+            $sub_cat->imagen_icono = 'http://lorempixel.com/64/64/technics';
+
+            $cat->sub_categories()->save($sub_cat);
+
+            foreach (range(1, 10) as $j)
+            {
+                $zone = new Zone();
+                $zone->nombre = 'Punto #' . $j;
+                $zone->url = 'https://zona.entel.cl/';
+                $zone->imagen = 'http://lorempixel.com/535/173/nightlife';
+                $zone->imagen_web = 'http://lorempixel.com/800/173/nightlife';
+                $zone->cantidad = $j * 100;
+                $zone->vigencia = $j . ' días';
+
+                $sub_cat->zones()->save($zone);
+            }
         }
 
-        ZoneCategory::create(array(
-            'nombre' => 'Recarga'
+        $cat = ZoneCategory::create(array(
+            'nombre' => 'Recargas'
         ));
 
-        foreach (range(1, 6) as $k)
+        $sub_cats = array(
+            'Recargas'
+        );
+
+        foreach ($sub_cats as $k)
         {
-            $zone = new Zone();
-            $zone->nombre = 'Punto Zona ' . $k;
-            $zone->url = 'https://www.google.com/';
-            $zone->imagen = 'img/zones/default/imagen.png';
-            $zone->imagen_web = 'img/zones/default/imagen_web.png';
+            $sub_cat = new ZoneSubCategory();
+            $sub_cat->nombre = $k;
+            $sub_cat->imagen_icono = 'http://lorempixel.com/64/64/technics';
 
-            ZoneCategory::where('nombre', 'Recarga')->first()->zones()->save($zone);
-        }
+            $cat->sub_categories()->save($sub_cat);
 
-        ZoneCategory::create(array(
-            'nombre' => 'Televisión'
-        ));
+            foreach (range(1, 10) as $j)
+            {
+                $zone = new Zone();
+                $zone->nombre = 'Punto #' . $j;
+                $zone->url = 'https://zona.entel.cl/';
+                $zone->imagen = 'http://lorempixel.com/535/173/nightlife';
+                $zone->imagen_web = 'http://lorempixel.com/800/173/nightlife';
+                $zone->cantidad = $j * 100;
+                $zone->vigencia = $j . ' días';
 
-        foreach (range(1, 6) as $k)
-        {
-            $zone = new Zone();
-            $zone->nombre = 'Punto Zona ' . $k;
-            $zone->url = 'https://www.google.com/';
-            $zone->imagen = 'img/zones/default/imagen.png';
-            $zone->imagen_web = 'img/zones/default/imagen_web.png';
-
-            ZoneCategory::where('nombre', 'Televisión')->first()->zones()->save($zone);
+                $sub_cat->zones()->save($zone);
+            }
         }
     }
 } 

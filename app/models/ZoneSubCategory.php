@@ -1,7 +1,7 @@
 <?php
-class ZoneCategory extends BaseModel {
+class ZoneSubCategory extends BaseModel {
 
-    protected $table = 'puntos_zonas_categorias';
+    protected $table = 'puntos_zonas_sub_categorias';
 
     public $timestamps = false;
 
@@ -10,12 +10,13 @@ class ZoneCategory extends BaseModel {
     );
 
     static public $validation = array(
-        'nombre' => 'required'
+        'nombre' => 'required',
+        'imagen_icono' => 'required'
     );
 
-    public function sub_categories()
+    public function zones()
     {
-        return $this->hasMany('ZoneSubCategory', 'padre_id');
+        return $this->hasMany('Zone', 'categoria_id');
     }
 
     public static function validate($input, $options = array())
@@ -35,7 +36,7 @@ class ZoneCategory extends BaseModel {
     {
         if ($id)
         {
-            $category = self::find($id);
+            $category = self::with('zones')->find($id);
             if ($category && $category->exists)
             {
                 return $category;
@@ -43,13 +44,10 @@ class ZoneCategory extends BaseModel {
         }
         return false;
     }
-    
+
     static public function getCategories()
     {
-        return self::with(array('sub_categories' => function($query)
-            {
-                $query->with('zones');
-            }))->get();
+        return self::with('zones')->get();
     }
 
     static public function createZone($data)
