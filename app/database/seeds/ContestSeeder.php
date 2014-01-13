@@ -10,7 +10,7 @@ class ContestSeeder extends Seeder {
             $contest = Contest::create(array(
                 'nombre' => 'Concurso #' + $i+1,
                 'descripcion' => 'Las personas hicieron colas increíbles para que no les dieran nada. Aquí los ganadores que perdieron mas tiempo.',
-                'imagen_banner' => 'http://lorempixel.com/800/173/technics'
+                'imagen_banner' => 'img/contests/default/imagen.png'
             ));
 
             foreach (range(1, 10) as $j)

@@ -18,7 +18,7 @@ class ZoneSeeder extends Seeder {
         {
             $sub_cat = new ZoneSubCategory();
             $sub_cat->nombre = $k;
-            $sub_cat->imagen_icono = 'http://lorempixel.com/64/64/technics';
+            $sub_cat->imagen_icono = 'img/zone_sub_categories/default/icono.png';
 
             $cat->sub_categories()->save($sub_cat);
 
@@ -27,8 +27,8 @@ class ZoneSeeder extends Seeder {
                 $zone = new Zone();
                 $zone->nombre = 'Punto #' . $j;
                 $zone->url = 'https://zona.entel.cl/';
-                $zone->imagen = 'http://lorempixel.com/535/173/nightlife';
-                $zone->imagen_web = 'http://lorempixel.com/300/150/nightlife';
+                $zone->imagen = 'img/zones/default/imagen.png';
+                $zone->imagen_web = 'img/zones/default/imagen_web.png';
                 $zone->cantidad = $j * 100;
                 $zone->vigencia = $j . ' días';
 
@@ -48,7 +48,7 @@ class ZoneSeeder extends Seeder {
         {
             $sub_cat = new ZoneSubCategory();
             $sub_cat->nombre = $k;
-            $sub_cat->imagen_icono = 'http://lorempixel.com/64/64/technics';
+            $sub_cat->imagen_icono = 'img/zone_sub_categories/default/icono.png';
 
             $cat->sub_categories()->save($sub_cat);
 
@@ -57,8 +57,8 @@ class ZoneSeeder extends Seeder {
                 $zone = new Zone();
                 $zone->nombre = 'Punto #' . $j;
                 $zone->url = 'https://zona.entel.cl/';
-                $zone->imagen = 'http://lorempixel.com/535/173/nightlife';
-                $zone->imagen_web = 'http://lorempixel.com/300/150/nightlife';
+                $zone->imagen = 'img/zones/default/imagen.png';
+                $zone->imagen_web = 'img/zones/default/imagen_web.png';
                 $zone->cantidad = $j * 100;
                 $zone->vigencia = $j . ' días';
 

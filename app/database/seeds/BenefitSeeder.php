@@ -15,12 +15,12 @@ class BenefitSeeder extends Seeder {
                     'descripcion' => 'Descripción de Beneficio de Prueba. Esta es la descripción por tanto es un texto.',
                     'descripcion_larga' => 'Esta es la descripción larga',
                     'sub_categoria_id' => $cat->id,
-                    'icono' => 'http://lorempixel.com/64/64/fashion',
-                    'imagen_grande' => 'http://lorempixel.com/535/173/fashion',
-                    'imagen_chica' => 'http://lorempixel.com/235/163/fashion',
-                    'imagen_titulo' => 'http://lorempixel.com/535/173/fashion',
-                    'imagen_grande_web' => 'http://lorempixel.com/800/173/fashion',
-                    'imagen_descripcion' => 'http://lorempixel.com/535/100/fashion',
+                    'icono' => 'img/benefits/default/icono.png',
+                    'imagen_grande' => 'img/benefits/default/grande.png',
+                    'imagen_chica' => 'img/benefits/default/chica.png',
+                    'imagen_titulo' => 'img/benefits/default/titulo.png',
+                    'imagen_grande_web' => 'img/benefits/default/grande_web.png',
+                    'imagen_descripcion' => 'img/benefits/default/grande.png',
                     'fecha' => 'Diciembre 2013',
                     'lugar' => 'Estadio Municipal',
                     'tags' => 'beneficio, prueba, ejemplo',
@@ -39,7 +39,7 @@ class BenefitSeeder extends Seeder {
                 foreach (range(1, 10) as $i)
                 {
                     $image = new BenefitImage(array(
-                        'imagen' => 'https://lorempixel.com/800/600/fashion',
+                        'imagen' => 'img/benefit_images/default/imagen.png',
                         'descripcion' => 'Descripción #' . $i
                     ));
                     $benefit->images()->save($image);

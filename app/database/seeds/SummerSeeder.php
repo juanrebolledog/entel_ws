@@ -22,8 +22,8 @@ class SummerSeeder extends Seeder {
                 'legal' => 'Bases legales de prueba',
                 'sms_nro' => '1001',
                 'sms_texto' => 'LUNA',
-                'imagen_descripcion' => 'https://lorempixel.com/500/150/technics',
-                'imagen_titulo' => 'https://lorempixel.com/800/173/technics'
+                'imagen_descripcion' => 'img/summers/default/descripcion.png',
+                'imagen_titulo' => 'img/summers/default/titulo.png'
             ));
             $cat->summers()->save($summer);
         }
@@ -45,8 +45,8 @@ class SummerSeeder extends Seeder {
                 'legal' => 'Bases legales de prueba',
                 'sms_nro' => '1001',
                 'sms_texto' => 'LUNA',
-                'imagen_descripcion' => 'https://lorempixel.com/500/150/technics',
-                'imagen_titulo' => 'https://lorempixel.com/800/173/technics'
+                'imagen_descripcion' => 'img/summers/default/descripcion.png',
+                'imagen_titulo' => 'img/summers/default/titulo.png'
             ));
             $cat->summers()->save($summer);
         }
@@ -68,8 +68,8 @@ class SummerSeeder extends Seeder {
                 'legal' => 'Bases legales de prueba',
                 'sms_nro' => '1001',
                 'sms_texto' => 'LUNA',
-                'imagen_descripcion' => 'https://lorempixel.com/500/150/technics',
-                'imagen_titulo' => 'https://lorempixel.com/800/173/technics'
+                'imagen_descripcion' => 'img/summers/default/descripcion.png',
+                'imagen_titulo' => 'img/summers/default/titulo.png'
             ));
             $cat->summers()->save($summer);
         }

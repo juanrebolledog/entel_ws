@@ -15,13 +15,13 @@ class EventSeeder extends Seeder {
                     'descripcion' => 'Este es una prueba. Un Evento que realmente no sucederá.',
                     'descripcion_larga' => 'Este es una prueba. Un Evento que realmente no sucederá. Esta es la descripción larga.',
                     'sub_categoria_id' => $cat->id,
-                    'icono' => 'https://lorempixel.com/64/64/nightlife',
-                    'imagen_grande' => 'https://lorempixel.com/535/173/nightlife',
-                    'imagen_chica' => 'https://lorempixel.com/262/136/nightlife',
-                    'imagen_titulo' => 'https://lorempixel.com/535/173/nightlife',
-                    'imagen_grande_web' => 'https://lorempixel.com/800/173/nightlife',
-                    'imagen_ubicacion' => 'https://lorempixel.com/800/300/nightlife',
-                    'imagen_bg' => 'https://lorempixel.com/1024/768/nightlife',
+                    'icono' => 'img/events/default/icono.png',
+                    'imagen_grande' => 'img/events/default/grande.png',
+                    'imagen_chica' => 'img/events/default/chica.png',
+                    'imagen_titulo' => 'img/events/default/titulo.png',
+                    'imagen_grande_web' => 'img/events/default/grande_web.png',
+                    'imagen_ubicacion' => 'img/events/default/ubicacion.png',
+                    'imagen_bg' => 'img/events/default/bg.png',
                     'fecha' => new DateTime(),
                     'lugar' => 'Estadio Municipal',
                     'tags' => 'evento, prueba, ejemplo',
@@ -37,7 +37,7 @@ class EventSeeder extends Seeder {
                 {
                     $image = new EventImage();
                     $image->descripcion = 'Test Imagen ' . $i . ' descripción';
-                    $image->imagen = 'https://lorempixel.com/800/600/nightlife/Test-' . $i;
+                    $image->imagen = 'img/event_images/default/imagen.png';
                     $e->images()->save($image);
                 }
 
