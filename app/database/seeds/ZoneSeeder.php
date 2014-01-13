@@ -22,13 +22,13 @@ class ZoneSeeder extends Seeder {
 
             $cat->sub_categories()->save($sub_cat);
 
-            foreach (range(1, 10) as $j)
+            foreach (range(1, 5) as $j)
             {
                 $zone = new Zone();
                 $zone->nombre = 'Punto #' . $j;
                 $zone->url = 'https://zona.entel.cl/';
                 $zone->imagen = 'http://lorempixel.com/535/173/nightlife';
-                $zone->imagen_web = 'http://lorempixel.com/800/173/nightlife';
+                $zone->imagen_web = 'http://lorempixel.com/300/150/nightlife';
                 $zone->cantidad = $j * 100;
                 $zone->vigencia = $j . ' días';
 
@@ -52,13 +52,13 @@ class ZoneSeeder extends Seeder {
 
             $cat->sub_categories()->save($sub_cat);
 
-            foreach (range(1, 10) as $j)
+            foreach (range(1, 5) as $j)
             {
                 $zone = new Zone();
                 $zone->nombre = 'Punto #' . $j;
                 $zone->url = 'https://zona.entel.cl/';
                 $zone->imagen = 'http://lorempixel.com/535/173/nightlife';
-                $zone->imagen_web = 'http://lorempixel.com/800/173/nightlife';
+                $zone->imagen_web = 'http://lorempixel.com/300/150/nightlife';
                 $zone->cantidad = $j * 100;
                 $zone->vigencia = $j . ' días';
 

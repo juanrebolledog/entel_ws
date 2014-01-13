@@ -145,4 +145,12 @@ class Zone extends BaseModel {
         $this->imagen = asset($this->imagen);
         $this->imagen_web = asset($this->imagen_web);
     }
+
+    static public function random($num = 1)
+    {
+        return self::orderBy(DB::raw('RAND()'))->take($num)->get()->each(function($obj)
+        {
+            $obj->prepareForWS();
+        });
+    }
 } 

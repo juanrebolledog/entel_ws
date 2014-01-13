@@ -4,48 +4,18 @@ class WebApiController extends BaseController {
     {
         $this->setApiResponse(array(
             'slider' => array(
-                array(
-                    'image_lg' => '//placehold.it/800x200.png',
-                    'image_sm' => '//placehold.it/64x64.png',
-                    'name' => 'Slider Test Element'
-                ),
-                array(
-                    'image_lg' => '//placehold.it/800x200.png',
-                    'image_sm' => '//placehold.it/64x64.png',
-                    'name' => 'Slider Test Element'
-                ),
-                array(
-                    'image_lg' => '//placehold.it/800x200.png',
-                    'image_sm' => '//placehold.it/64x64.png',
-                    'name' => 'Slider Test Element'
-                ),
-                array(
-                    'image_lg' => '//placehold.it/800x200.png',
-                    'image_sm' => '//placehold.it/64x64.png',
-                    'name' => 'Slider Test Element'
-                )
+                array_merge(Zone::random(2)->toArray(),
+                AppEvent::random()->toArray(),
+                Benefit::random()->toArray())
             ),
             'zones' => array(
-                array(
-                    'image_lg' => '//placehold.it/300x150.png',
-                    'name' => 'Zone Test'
-                ),
-                array(
-                    'image_lg' => '//placehold.it/300x150.png',
-                    'name' => 'Zone Test'
-                )
+                Zone::random(2)->toArray()
             ),
             'events' => array(
-                array(
-                    'image_lg' => '//placehold.it/300x150.png',
-                    'name' => 'Event Test'
-                )
+                AppEvent::random()->toArray()
             ),
             'benefits' => array(
-                array(
-                    'image_lg' => '//placehold.it/300x150.png',
-                    'name' => 'Benefit Test'
-                )
+                Benefit::random()->toArray()
             )
         ), true);
         return Response::json($this->api_response);

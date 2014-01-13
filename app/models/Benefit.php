@@ -324,4 +324,12 @@ class Benefit extends LocationModel {
         }
         return $models;
     }
+
+    static public function random($num = 1)
+    {
+        return self::orderBy(DB::raw('RAND()'))->take($num)->get()->each(function($obj)
+        {
+            $obj->prepareForWS();
+        });
+    }
 } 
