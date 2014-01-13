@@ -151,6 +151,7 @@ class BenefitApiTest extends TestCase {
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
         $this->assertEquals($benefit->id, $content->data->id);
+        $this->assertEquals(1, preg_match('/^http|https*/', $content->data->imagen_grande_web));
         $this->assertEquals(1, preg_match('/^http|https*/', $content->data->imagen_grande));
         $this->assertEquals(1, preg_match('/^http|https*/', $content->data->imagen_chica));
         $this->assertEquals(1, preg_match('/^http|https*/', $content->data->imagen_titulo));

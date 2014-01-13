@@ -16,6 +16,7 @@ class EventsSubCategoriesController extends \BaseController {
             {
                 foreach ($sub_categories as &$sub)
                 {
+                    $sub->prepareForWS();
                     foreach ($sub->events as $event)
                     {
                         $event->prepareForWS();

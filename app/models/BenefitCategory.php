@@ -34,8 +34,7 @@ class BenefitCategory extends BaseModel {
         $category = self::find($id);
         if ($category)
         {
-            $category->banner = asset($category->banner);
-            $category->icono = asset($category->icono);
+            $category->prepareForWS();
 
             $sub_categories = BenefitSubCategory::getSubCategories($id);
             $category->sub_categories = $sub_categories->toArray();

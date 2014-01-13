@@ -12,11 +12,39 @@ class EventCategoriesApiTest extends TestCase {
         $content = json_decode($request->getContent());
         $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
-        $this->assertTrue(isset($content->data->sub_categories));
+    }
 
-        foreach ($content->data->sub_categories as $sub_cat)
+    public function testEventCategoriesShow()
+    {
+        $request = $this->request('GET', '/api/events/category');
+        $content = json_decode($request->getContent());
+        $this->assertTrue(!empty($content->data));
+        $this->assertTrue($content->status);
+
+        foreach ($content->data as $category)
         {
-            $this->assertTrue(isset($sub_cat->id));
+            $cat_req = $this->request('GET', '/api/events/sub_categories/' . $category->id);
+            $cat_content = json_decode($cat_req->getContent());
+            $this->assertTrue(!empty($cat_content->data));
+            $this->assertTrue($cat_content->status);
+            $this->assertTrue(isset($cat_content->data->sub_categories));
+
+            foreach ($cat_content->data->sub_categories as $sub_cat)
+            {
+                $this->assertEquals(1, preg_match('/^http|https*/', $sub_cat->icono));
+                $this->assertEquals(1, preg_match('/^http|https*/', $sub_cat->banner));
+
+                $this->assertTrue(isset($sub_cat->events));
+
+                foreach ($sub_cat->events as $event)
+                {
+                    $this->assertEquals(1, preg_match('/^http|https*/', $event->imagen_grande_web));
+                    $this->assertEquals(1, preg_match('/^http|https*/', $event->imagen_grande));
+                    $this->assertEquals(1, preg_match('/^http|https*/', $event->imagen_chica));
+                    $this->assertEquals(1, preg_match('/^http|https*/', $event->imagen_titulo));
+                    $this->assertEquals(1, preg_match('/^http|https*/', $event->icono));
+                }
+            }
         }
     }
 }

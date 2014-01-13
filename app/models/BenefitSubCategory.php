@@ -73,7 +73,10 @@ class BenefitSubCategory extends BaseModel {
         $category = self::with(array('benefits' => function($query)
             {
                 $query->with('images');
-            }))->get();
+            }))->get()->each(function($cat)
+            {
+                $cat->prepareForWS();
+            });
         return $category;
     }
 
@@ -128,6 +131,15 @@ class BenefitSubCategory extends BaseModel {
                 $category->banner = 'img/' . $object_dir . '/' . $name_prefix . '_banner.' . $ext;
             }
         }
+
+        if ($data['icono'])
+        {
+            $ext = $data['icono']->getClientOriginalExtension();
+            if ($data['icono']->move($dir, $name_prefix . '_icono.' . $ext))
+            {
+                $category->icono = 'img/' . $object_dir . '/' . $name_prefix . '_icono.' . $ext;
+            }
+        }
         return $category;
     }
 
@@ -142,5 +154,6 @@ class BenefitSubCategory extends BaseModel {
                 $benefit->prepareForWS();
             }
         }
+        return $this;
     }
 } 
