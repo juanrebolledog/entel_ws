@@ -143,6 +143,8 @@ class Summer extends BaseModel {
     public function prepareForWS()
     {
         $this->imagen_banner = asset($this->imagen_banner);
+        $this->imagen_titulo = asset($this->imagen_titulo);
+        $this->imagen_descripcion = asset($this->imagen_descripcion);
         return $this;
     }
 } 
