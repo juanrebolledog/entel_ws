@@ -70,4 +70,11 @@ class WebApiController extends BaseController {
         $this->setApiResponse($response, true);
         return Response::json($this->api_response);
     }
+
+	public function geo()
+	{
+		$regions = Region::getRegions();
+		$this->setApiResponse($regions->toArray(), true);
+		return Response::json($this->api_response);
+	}
 }

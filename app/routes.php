@@ -9,6 +9,7 @@ Route::group(array('prefix' => 'web'), function()
     Route::get('contests', 'WebApiController@contests');
     Route::get('socials', 'WebApiController@socials');
     Route::get('summer', 'WebApiController@summer');
+	Route::get('geo', 'WebApiController@geo');
 });
 
 Route::group(array('prefix' => 'api', 'before' => 'auth'), function()
