@@ -216,66 +216,20 @@ class AppEvent extends LocationModel {
         $object_dir = 'events';
         $name_prefix = hash('sha1', $event->lat . ' - ' . $event->lng);
         $dir = public_path() . '/' . 'img' . '/' . $object_dir . '/';
+	    $image_fields = array('icono', 'imagen_grande', 'imagen_grande_web', 'imagen_chica', 'imagen_titulo', 'imagen_ubicacion', 'imagen_bg');
 
-        if ($data['icono'])
-        {
-            $ext = $data['icono']->getClientOriginalExtension();
-            if ($data['icono']->move($dir, $name_prefix . '_icono.' . $ext))
-            {
-                $event->icono = 'img/' . $object_dir . '/' . $name_prefix . '_icono.' . $ext;
-            }
-        }
-        if ($data['imagen_grande'])
-        {
-            $ext = $data['imagen_grande']->getClientOriginalExtension();
-            if ($data['imagen_grande']->move($dir, $name_prefix . '_grande.' . $ext))
-            {
-                $event->imagen_grande = 'img/' . $object_dir . '/' . $name_prefix . '_grande.' . $ext;
-            }
-        }
-        if ($data['imagen_chica'])
-        {
-            $ext = $data['imagen_chica']->getClientOriginalExtension();
-            if ($data['imagen_chica']->move($dir, $name_prefix . '_chica.' . $ext))
-            {
-                $event->imagen_chica = 'img/' . $object_dir . '/' . $name_prefix . '_chica.' . $ext;
-            }
-        }
-        if ($data['imagen_titulo'])
-        {
-            $ext = $data['imagen_titulo']->getClientOriginalExtension();
-            if ($data['imagen_titulo']->move($dir, $name_prefix . '_titulo.' . $ext))
-            {
-                $event->imagen_titulo = 'img/' . $object_dir . '/' . $name_prefix . '_titulo.' . $ext;
-            }
-        }
+	    foreach ($image_fields as $ifield)
+	    {
+		    if ($data[$ifield])
+		    {
+			    $ext = $data[$ifield]->getClientOriginalExtension();
+			    if ($data[$ifield]->move($dir, $name_prefix . '_' . $ifield . '.' . $ext))
+			    {
+				    $event->$ifield = 'img/' . $object_dir . '/' . $name_prefix . '_' . $ifield . '.' . $ext;
+			    }
+		    }
+	    }
 
-        if ($data['imagen_grande_web'])
-        {
-            $ext = $data['imagen_grande_web']->getClientOriginalExtension();
-            if ($data['imagen_grande_web']->move($dir, $name_prefix . '_grande_web.' . $ext))
-            {
-                $event->imagen_grande_web = 'img/' . $object_dir . '/' . $name_prefix . '_grande_web.' . $ext;
-            }
-        }
-
-        if ($data['imagen_ubicacion'])
-        {
-            $ext = $data['imagen_ubicacion']->getClientOriginalExtension();
-            if ($data['imagen_ubicacion']->move($dir, $name_prefix . '_ubicacion.' . $ext))
-            {
-                $event->imagen_ubicacion = 'img/' . $object_dir . '/' . $name_prefix . '_ubicacion.' . $ext;
-            }
-        }
-
-        if ($data['imagen_bg'])
-        {
-            $ext = $data['imagen_bg']->getClientOriginalExtension();
-            if ($data['imagen_bg']->move($dir, $name_prefix . '_bg.' . $ext))
-            {
-                $event->imagen_bg = 'img/' . $object_dir . '/' . $name_prefix . '_bg.' . $ext;
-            }
-        }
         return $event;
     }
 

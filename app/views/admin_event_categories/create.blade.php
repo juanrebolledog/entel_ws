@@ -36,6 +36,14 @@
                 <small class="error"><?php echo $errors->first('banner'); ?></small>
             <?php endif; ?>
 
+	        <?php
+	        echo Form::label('icono', 'Icono');
+	        echo Form::file('icono');
+	        ?>
+	        <?php if ($errors->has('icono')): ?>
+		        <small class="error"><?php echo $errors->first('icono'); ?></small>
+	        <?php endif; ?>
+
         </fieldset>
         <?= Form::submit('Guardar', array('class' => 'button')); ?>
         <?= link_to(action('AdminEventCategoriesController@index'), 'Cancelar', array('class' => 'button secondary')); ?>

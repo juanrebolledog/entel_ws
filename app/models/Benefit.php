@@ -183,47 +183,20 @@ class Benefit extends LocationModel {
         $object_dir = 'benefits';
         $name_prefix = hash('sha1', $benefit->lat . ' - ' . $benefit->lng);
         $dir = public_path() . '/' . 'img' . '/' . $object_dir . '/';
+	    $image_fields = array('icono', 'imagen_grande', 'imagen_grande_web', 'imagen_chica', 'imagen_titulo');
 
-        if ($data['icono'])
-        {
-            $ext = $data['icono']->getClientOriginalExtension();
-            if ($data['icono']->move($dir, $name_prefix . '_icono.' . $ext))
-            {
-                $benefit->icono = 'img/' . $object_dir . '/' . $name_prefix . '_icono.' . $ext;
-            }
-        }
-        if ($data['imagen_grande'])
-        {
-            $ext = $data['imagen_grande']->getClientOriginalExtension();
-            if ($data['imagen_grande']->move($dir, $name_prefix . '_grande.' . $ext))
-            {
-                $benefit->imagen_grande = 'img/' . $object_dir . '/' . $name_prefix . '_grande.' . $ext;
-            }
-        }
-        if ($data['imagen_chica'])
-        {
-            $ext = $data['imagen_chica']->getClientOriginalExtension();
-            if ($data['imagen_chica']->move($dir, $name_prefix . '_chica.' . $ext))
-            {
-                $benefit->imagen_chica = 'img/' . $object_dir . '/' . $name_prefix . '_chica.' . $ext;
-            }
-        }
-        if ($data['imagen_titulo'])
-        {
-            $ext = $data['imagen_titulo']->getClientOriginalExtension();
-            if ($data['imagen_titulo']->move($dir, $name_prefix . '_titulo.' . $ext))
-            {
-                $benefit->imagen_titulo = 'img/' . $object_dir . '/' . $name_prefix . '_titulo.' . $ext;
-            }
-        }
-	    if ($data['imagen_grande_web'])
+	    foreach ($image_fields as $ifield)
 	    {
-		    $ext = $data['imagen_grande_web']->getClientOriginalExtension();
-		    if ($data['imagen_grande_web']->move($dir, $name_prefix . '_grande_web.' . $ext))
+		    if ($data[$ifield])
 		    {
-			    $benefit->imagen_grande_web = 'img/' . $object_dir . '/' . $name_prefix . '_grande_web.' . $ext;
+			    $ext = $data[$ifield]->getClientOriginalExtension();
+			    if ($data[$ifield]->move($dir, $name_prefix . '_' . $ifield . '.' . $ext))
+			    {
+				    $benefit->$ifield = 'img/' . $object_dir . '/' . $name_prefix . '_' . $ifield . '.' . $ext;
+			    }
 		    }
 	    }
+
         return $benefit;
     }
 
