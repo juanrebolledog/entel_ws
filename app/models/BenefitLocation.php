@@ -28,4 +28,9 @@ class BenefitLocation extends BaseModel {
 		$validator = Validator::make($input, self::$rules);
 		return $validator;
 	}
+
+	static public function getLocations($benefit_id)
+	{
+		return self::where('beneficio_id', $benefit_id)->get();
+	}
 } 

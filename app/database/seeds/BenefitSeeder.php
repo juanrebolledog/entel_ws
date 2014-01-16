@@ -3,6 +3,7 @@ class BenefitSeeder extends Seeder {
     public function run()
     {
         DB::table('beneficios')->delete();
+	    Eloquent::unguard();
 
         $categories = BenefitSubCategory::all();
 
@@ -43,8 +44,8 @@ class BenefitSeeder extends Seeder {
 
 	                $location = new BenefitLocation(array(
 		                'lugar' => 'Estadio Municipal',
-		                'lat' => 10.8053905 + rand(-10, 10),
-		                'lng' => -69.8457396 + rand(-10, 10)
+		                'lat' => 10.8053905,
+		                'lng' => -69.8457396
 	                ));
 	                $benefit->locations()->save($location);
                 }

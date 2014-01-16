@@ -18,8 +18,14 @@ class BenefitApiTest extends TestCase {
     {
         $request = $this->request('GET', '/api/benefits?lat=' . $this->origin['lat'] . '&lng=' . $this->origin['lng']);
         $content = json_decode($request->getContent());
-        $this->assertTrue(!empty($content->data));
         $this->assertTrue($content->status);
+	    $this->assertTrue(!empty($content->data));
+
+	    if (isset($content->data->locations) && !empty($content->data->locations))
+	    {
+		    $first_location = $content->data->locations[0];
+		    $this->assertTrue($first_location->distancia < Config::get('app.search_limit'));
+	    }
     }
 
     public function testBenefitIndexWithCoordsOrdering()
@@ -31,9 +37,12 @@ class BenefitApiTest extends TestCase {
         $distances = array();
         foreach ($content->data as $dobj)
         {
-            $this->assertTrue(isset($dobj->distancia));
-            $this->assertTrue(is_numeric($dobj->distancia) || is_float($dobj->distancia));
-            array_push($distances, $dobj->distancia);
+	        foreach ($dobj->locations as $location)
+	        {
+		        $this->assertTrue(isset($location->distancia));
+		        $this->assertTrue(is_numeric($location->distancia) || is_float($location->distancia));
+		        array_push($distances, $location->distancia);
+	        }
         }
 
         foreach ($distances as $k=>$distance)

@@ -14,13 +14,12 @@ class BenefitsController extends BaseController {
         $limit = (int)filter_var(Input::get('limit'), FILTER_SANITIZE_NUMBER_INT);
         $range = (float)filter_var(Input::get('range'), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         $user_id = Auth::getUser()->id;
-        if (is_float($lat) && is_float($lng)) {
+        if ($lat && $lng) {
             $benefits = Benefit::findByLocation($lat, $lng, $user_id, $range, $limit);
         } else {
-            $benefits = Benefit::getBenefits();
-            $benefits = $benefits->toArray();
+            $benefits = Benefit::getBenefits($user_id);
         }
-        $this->setApiResponse($benefits, true);
+        $this->setApiResponse($benefits->toArray(), true);
         return Response::json($this->api_response);
     }
 

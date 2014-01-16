@@ -78,16 +78,29 @@ class Benefit extends LocationModel {
         return false;
     }
 
-    static public function getBenefits()
+    static public function getBenefits($user_id)
     {
-        $benefits = self::with(array('votes' => function($query)
+	    $ignored_benefits = BenefitIgnore::where('usuario_id', $user_id)->get();
+	    $ignored_ids = array();
+	    foreach ($ignored_benefits as $ib)
+	    {
+		    array_push($ignored_ids, $ib->beneficio_id);
+	    }
+
+        $benefits = self::with(array('votes' => function($query) use ($user_id)
             {
-                $query->where('usuario_id', Auth::getUser()->id);
-            }, 'comments', 'sub_category'))->get()->each(function($benefit)
-            {
-                $benefit->prepareForWS();
-                $benefit->sub_category->prepareForWS();
-            });
+                $query->where('usuario_id', $user_id);
+            }, 'comments', 'sub_category', 'locations'));
+
+	    if (!empty($ignored_ids))
+	    {
+		    $benefits = $benefits->whereNotIn('id', $ignored_ids);
+	    }
+	    $benefits = $benefits->get()->each(function($benefit)
+	    {
+		    $benefit->prepareForWS();
+		    $benefit->sub_category->prepareForWS();
+	    });
         return $benefits;
     }
     
@@ -285,49 +298,58 @@ class Benefit extends LocationModel {
             array_push($ignored_ids, $ib->beneficio_id);
         }
 
-        $models = array();
         $query = self::with('sub_category', 'comments');
+
         if (!empty($ignored_ids))
         {
             $query = $query->whereNotIn('id', $ignored_ids);
-            $benefits = $query->get();
-        }
-        else
-        {
-            $benefits = $query->get();
         }
 
-        foreach ($benefits as $model)
-        {
-            $distance = self::calculateDistance(array('lat' => $lat, 'lng' => $lng),
-                array('lat' => $model->lat, 'lng' => $model->lng));
-            if ($range)
-            {
-                if (is_numeric($range) && $distance <= $range)
-                {
-                    $model->distancia = $distance;
-                    $model->prepareForWS();
-                    $model->sub_category->prepareForWS();
-                    array_push($models, $model->toArray());
-                }
-            }
-            else
-            {
-                $model->distancia = $distance;
-                $model->prepareForWS();
-                $model->sub_category->prepareForWS();
-                array_push($models, $model->toArray());
-            }
-        }
-        $models = array_values(array_sort($models, function($value)
-        {
-            return $value['distancia'];
-        }));
+	    $benefits = $query->get();
+
+	    foreach ($benefits as $benefit)
+	    {
+		    foreach (BenefitLocation::getLocations($benefit->id) as $location)
+		    {
+			    $benefit_locations = array();
+			    $location->distancia = round(self::calculateDistance(array('lat' => $lat, 'lng' => $lng),
+				    array('lat' => $location->lat, 'lng' => $location->lng)));
+
+			    if ($range)
+			    {
+				    if ($location->distancia <= Config::get('app.search_limit') && $location->distancia <= $range)
+				    {
+					    array_push($benefit_locations, $location->toArray());
+				    }
+			    }
+			    else
+			    {
+				    if ($location->distancia <= Config::get('app.search_limit'))
+				    {
+					    array_push($benefit_locations, $location->toArray());
+				    }
+			    }
+			    $benefit->locations = $benefit_locations;
+		    }
+		}
+
+	    $benefits = $benefits->filter(function($benefit)
+	    {
+		    if (!empty($benefit->locations))
+		    {
+			    return $benefit;
+		    }
+	    })->each(function($benefit)
+		    {
+			    $benefit->prepareForWS();
+			    $benefit->sub_category->prepareForWS();
+		    });
+
         if ($limit && is_int($limit))
         {
-            $models = array_slice($models, 0, $limit);
+            $benefits = $benefits->take($limit);
         }
-        return $models;
+        return $benefits;
     }
 
     static public function random($num = 1)
