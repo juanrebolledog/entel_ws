@@ -14,7 +14,7 @@
     </header>
 
     <div class="row">
-        <div class="large-9 medium-9 small-12 columns">
+        <div class="large-12 medium-12 small-12 columns">
             <div class="element-search">
                 <form action="#" method="post">
                     <input type="text" placeholder="Búsqueda"/>
@@ -26,9 +26,9 @@
                     <th width="50">
                         <input type="checkbox">
                     </th>
-                    <th width="200">Nombre</th>
-                    <th width="400" class="hide-for-small">Descripci&oacute;n</th>
-                    <th width="100">Sub Categor&iacute;a</th>
+                    <th>Nombre</th>
+                    <th class="hide-for-small">Descripci&oacute;n</th>
+                    <th>Sub Categor&iacute;a</th>
                     <th>&nbsp;</th>
                 </tr>
                 </thead>
@@ -55,79 +55,6 @@
                 <?php endforeach; ?>
                 </tbody>
             </table>
-        </div>
-        <div class="large-3 medium-3 small-12 columns">
-            <section class="entel-item collapsable">
-                <header>&Uacute;ltimos Comentarios <i class="fa fa-angle-down right"></i></header>
-                <div class="entel-item-content">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Beneficio</th>
-                            <th>Fecha</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <a href="benefit.html">2x1 en la pizza mas peque...</a>
-                            </td>
-                            <td>
-                                2013-11-23 14:07:43
-
-                            </td>
-                            <td>
-                                <a href="comment.html"><span class="fa fa-eye"></span></a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-            <section class="entel-item collapsable">
-                <header>&Uacute;ltimas Valoraciones <i class="fa fa-angle-down right"></i></header>
-                <div class="entel-item-content">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Beneficio</th>
-                            <th>Val.</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <a href="benefit.html">2x1 en la pizza mas peque...</a>
-                            </td>
-                            <td>5</td>
-                            <td>
-                                <a href="benefit.html"><span class="fa fa-eye"></span></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="benefit.html">2x1 en la pizza mas peque...</a>
-                            </td>
-                            <td>4</td>
-                            <td>
-                                <a href="benefit.html"><span class="fa fa-eye"></span></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="benefit.html">2x1 en la pizza mas peque...</a>
-                            </td>
-                            <td>5</td>
-                            <td>
-                                <a href="benefit.html"><span class="fa fa-eye"></span></a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
         </div>
     </div>
 

@@ -61,30 +61,36 @@
             <?php endif; ?>
         </fieldset>
         <fieldset>
-            <legend>Ubicaci&oacute;n</legend>
-            <?php
-            echo Form::label('lat', 'Latitud');
-            echo Form::text('lat');
-            ?>
-            <?php if ($errors->has('lat')): ?>
-                <small class="error"><?php echo $errors->first('lat'); ?></small>
-            <?php endif; ?>
+            <legend>Ubicaciones</legend>
+	        <fieldset>
+		        <div class="entel-form-location">
+			        <?php
+			        echo Form::label('lat', 'Latitud');
+			        echo Form::text('lat[]');
+			        ?>
+			        <?php if ($errors->has('lat')): ?>
+				        <small class="error"><?php echo $errors->first('lat'); ?></small>
+			        <?php endif; ?>
 
-            <?php
-            echo Form::label('lng', 'Longitud');
-            echo Form::text('lng');
-            ?>
-            <?php if ($errors->has('lng')): ?>
-                <small class="error"><?php echo $errors->first('lng'); ?></small>
-            <?php endif; ?>
+			        <?php
+			        echo Form::label('lng', 'Longitud');
+			        echo Form::text('lng[]');
+			        ?>
+			        <?php if ($errors->has('lng')): ?>
+				        <small class="error"><?php echo $errors->first('lng'); ?></small>
+			        <?php endif; ?>
 
-            <?php
-            echo Form::label('lugar', 'Lugar');
-            echo Form::text('lugar');
-            ?>
-            <?php if ($errors->has('lugar')): ?>
-                <small class="error"><?php echo $errors->first('lugar'); ?></small>
-            <?php endif; ?>
+			        <?php
+			        echo Form::label('lugar', 'Lugar');
+			        echo Form::text('lugar[]');
+			        ?>
+			        <?php if ($errors->has('lugar')): ?>
+				        <small class="error"><?php echo $errors->first('lugar'); ?></small>
+			        <?php endif; ?>
+		        </div>
+	        </fieldset>
+	        <div class="locations"></div>
+	        <a id="add-location" href="#">{{ 'Agregar Ubicación' }}</a>
         </fieldset>
         <fieldset>
             <legend>SMS</legend>
@@ -114,6 +120,14 @@
                 <small class="error"><?php echo $errors->first('imagen_grande'); ?></small>
             <?php endif; ?>
 
+	        <?php
+	        echo Form::label('imagen_grande_web', 'Grande Web (800x135)');
+	        echo Form::file('imagen_grande_web');
+	        ?>
+	        <?php if ($errors->has('imagen_grande_web')): ?>
+		        <small class="error"><?php echo $errors->first('imagen_grande_web'); ?></small>
+	        <?php endif; ?>
+
             <?php
             echo Form::label('imagen_chica', 'Chica');
             echo Form::file('imagen_chica');
@@ -142,4 +156,46 @@
         <?= link_to('admin/benefits', 'Cancelar', array('class' => 'button secondary')); ?>
     <?= Form::close(); ?>
 </section>
+@stop
+
+@section('scripts')
+<script type="text/template" id="entel-form-location-tpl">
+	<fieldset>
+		<div class="entel-form-location">
+			<?php
+			echo Form::label('lat', 'Latitud');
+			echo Form::text('lat[]');
+			?>
+			<?php if ($errors->has('lat')): ?>
+				<small class="error"><?php echo $errors->first('lat'); ?></small>
+			<?php endif; ?>
+
+			<?php
+			echo Form::label('lng', 'Longitud');
+			echo Form::text('lng[]');
+			?>
+			<?php if ($errors->has('lng')): ?>
+				<small class="error"><?php echo $errors->first('lng'); ?></small>
+			<?php endif; ?>
+
+			<?php
+			echo Form::label('lugar', 'Lugar');
+			echo Form::text('lugar[]');
+			?>
+			<?php if ($errors->has('lugar')): ?>
+				<small class="error"><?php echo $errors->first('lugar'); ?></small>
+			<?php endif; ?>
+		</div>
+	</fieldset>
+</script>
+<script>
+	(function($, _) {
+		var tpl = _.template($('#entel-form-location-tpl').html());
+		$('#add-location').on('click', function(e) {
+			var $e = $(e.currentTarget);
+			e.preventDefault();
+			$('.locations').append(tpl());
+		})
+	})(jQuery, _);
+</script>
 @stop

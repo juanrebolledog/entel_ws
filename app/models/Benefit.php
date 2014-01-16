@@ -125,16 +125,20 @@ class Benefit extends LocationModel {
         $benefit->rating = 0;
         $benefit->tags = $data['tags'];
 
-        $benefit->lat = $data['lat'];
-        $benefit->lng = $data['lng'];
-        $benefit->lugar = $data['lugar'];
-
         $benefit->sms_texto = $data['sms_texto'];
         $benefit->sms_nro = $data['sms_nro'];
 
         $benefit = self::uploadImages($benefit, $data);
 
         $benefit->save();
+	    foreach ($data['lat'] as $k=>$lats)
+	    {
+		    $location = new BenefitLocation();
+		    $location->lat = $lats;
+		    $location->lng = $data['lng'][$k];
+		    $location->lugar = $data['lugar'][$k];
+		    $benefit->locations()->save($location);
+	    }
         return $benefit;
     }
 
@@ -212,6 +216,14 @@ class Benefit extends LocationModel {
                 $benefit->imagen_titulo = 'img/' . $object_dir . '/' . $name_prefix . '_titulo.' . $ext;
             }
         }
+	    if ($data['imagen_grande_web'])
+	    {
+		    $ext = $data['imagen_grande_web']->getClientOriginalExtension();
+		    if ($data['imagen_grande_web']->move($dir, $name_prefix . '_grande_web.' . $ext))
+		    {
+			    $benefit->imagen_grande_web = 'img/' . $object_dir . '/' . $name_prefix . '_grande_web.' . $ext;
+		    }
+	    }
         return $benefit;
     }
 

@@ -138,6 +138,7 @@
 </footer>
 
 <script src="<?= asset('js/vendor/jquery.js'); ?>"></script>
+<script src="<?= asset('js/vendor/underscore.js'); ?>"></script>
 <script src="<?= asset('js/vendor/foundation/foundation.js'); ?>"></script>
 <script src="<?= asset('js/vendor/foundation/foundation.topbar.js'); ?>"></script>
 <!-- Other JS plugins can be included here -->

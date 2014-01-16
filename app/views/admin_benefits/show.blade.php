@@ -20,6 +20,7 @@
     </header>
     <div class="row">
         <div class="large-6 medium-6 small-12 columns">
+	        <!--
             <section class="entel-item">
                 <header>Ubicaci&oacute;n</header>
                 <div id='map-element'></div>
@@ -29,6 +30,7 @@
                     </small>
                 </div>
             </section>
+            -->
             <section class="entel-item">
                 <header>Descripci&oacute;n</header>
                 <div class="entel-item-content">
@@ -67,9 +69,26 @@
                 </div>
             </section>
             <section class="entel-item">
-                <header>Mas Info.</header>
+                <header>Ubicaciones</header>
                 <div class="entel-item-content">
-                    <small>[vac&iacute;o]</small>
+                    <?php foreach ($benefit->locations as $location): ?>
+	                    <div class="entel-location">
+		                    <dl>
+			                    <dt>Lugar</dt>
+			                    <dd>
+				                    <?php echo $location->lugar; ?>
+			                    </dd>
+			                    <dt>Latitud</dt>
+			                    <dd>
+				                    <?php echo $location->lat; ?>
+			                    </dd>
+			                    <dt>Longitud</dt>
+			                    <dd>
+				                    <?php echo $location->lng; ?>
+			                    </dd>
+		                    </dl>
+	                    </div>
+	                <?php endforeach; ?>
                 </div>
             </section>
         </div>
