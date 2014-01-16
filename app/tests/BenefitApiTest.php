@@ -70,7 +70,10 @@ class BenefitApiTest extends TestCase {
         $this->assertTrue($content->status);
         foreach ($content->data as $benefit)
         {
-            $this->assertTrue($benefit->distancia <= 20000);
+	        foreach ($benefit->locations as $location)
+	        {
+		        $this->assertTrue($location->distancia <= Config::get('app.search_limit'));
+	        }
         }
     }
 

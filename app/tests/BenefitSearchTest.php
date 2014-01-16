@@ -23,8 +23,8 @@ class BenefitSearchTest extends TestCase {
 
     public function testBenefitSearchByCoordinates()
     {
-	    $lat = 10.8053905;
-	    $lng = -69.8457396;
+	    $lat = $this->origin['lat'];
+	    $lng = $this->origin['lng'];
 	    $user_id = 1;
 	    $range = null;
 	    $limit = null;
@@ -35,8 +35,8 @@ class BenefitSearchTest extends TestCase {
 		    $this->assertTrue(is_array($benefit->locations));
 		    foreach ($benefit->locations as $location)
 		    {
-			    $this->assertTrue(isset($location->distancia));
-			    $this->assertTrue(is_numeric($location->distancia));
+			    $this->assertTrue(isset($location['distancia']));
+			    $this->assertTrue(is_numeric($location['distancia']));
 		    }
 	    });
     }

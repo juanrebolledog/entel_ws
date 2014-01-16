@@ -26,7 +26,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
         $this->setRequestHeaders($headers);
         $this->origin = array(
             'lat' => 10.8053905,
-            'lng' => -69.8053905
+            'lng' => -69.8457396
         );
         $this->dest = array(
             'lat' => 10.2020,
