@@ -14,19 +14,22 @@ class BenefitRedeem extends LocationModel {
 
     static public function redeem($id, $user_id, $lat, $lng)
     {
-        $benefit = Benefit::find($id);
-        $distance_to_target = self::calculateDistance(array('lat' => $lat, 'lng' => $lng), array('lat' => $benefit->lat, 'lng' => $benefit->lng));
-        if ($benefit && $distance_to_target <= 20 && $distance_to_target >= 0)
-        {
-            $redeemed = new BenefitRedeem();
-            $redeemed->beneficio_id = $id;
-            $redeemed->usuario_id = $user_id;
-            if ($redeemed->save())
-            {
-                Auth::getUser()->recalculateLevel();
-                return true;
-            }
-        }
+        $benefit = Benefit::with('locations')->find($id);
+	    foreach ($benefit->locations as $location)
+	    {
+		    $distance_to_target = self::calculateDistance(array('lat' => $lat, 'lng' => $lng), array('lat' => $location->lat, 'lng' => $location->lng));
+		    if ($benefit && $distance_to_target <= Config::get('app.search_limit', 50) && $distance_to_target >= 0)
+		    {
+			    $redeemed = new BenefitRedeem();
+			    $redeemed->beneficio_id = $id;
+			    $redeemed->usuario_id = $user_id;
+			    if ($redeemed->save())
+			    {
+				    Auth::getUser()->recalculateLevel();
+				    return true;
+			    }
+		    }
+	    }
         return false;
     }
 } 

@@ -45,6 +45,11 @@ class Benefit extends LocationModel {
         return $this->hasMany('BenefitImage', 'beneficio_id');
     }
 
+	public function locations()
+	{
+		return $this->hasMany('BenefitLocation', 'beneficio_id');
+	}
+
     public static function validate($input, $options = array())
     {
         if (!empty($options) && isset($options['except']))
@@ -327,7 +332,16 @@ class Benefit extends LocationModel {
 
     static public function random($num = 1)
     {
-        return self::orderBy(DB::raw('RAND()'))->take($num)->get()->each(function($obj)
+	    $db = Config::get('database.default');
+	    if ($db == 'sqlite')
+	    {
+		    $random_string = 'RANDOM()';
+	    }
+	    else
+	    {
+		    $random_string = 'RAND()';
+	    }
+        return self::orderBy(DB::raw($random_string))->take($num)->get()->each(function($obj)
         {
             $obj->prepareForWS();
         });

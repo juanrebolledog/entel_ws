@@ -22,12 +22,9 @@ class BenefitSeeder extends Seeder {
                     'imagen_grande_web' => 'img/benefits/default/grande_web.png',
                     'imagen_descripcion' => 'img/benefits/default/grande.png',
                     'fecha' => 'Diciembre 2013',
-                    'lugar' => 'Estadio Municipal',
                     'tags' => 'beneficio, prueba, ejemplo',
                     'sms_texto' => 'TEXT',
                     'sms_nro' => '0000',
-                    'lat' => 10.8053905 + rand(-10, 10),
-                    'lng' => -69.8457396 + rand(-10, 10),
                     'rating' => 0,
                     'legal' => 'Legal test',
                     'texto_beneficio' => '2x1 en 3 artículos',
@@ -43,6 +40,13 @@ class BenefitSeeder extends Seeder {
                         'descripcion' => 'Descripción #' . $i
                     ));
                     $benefit->images()->save($image);
+
+	                $location = new BenefitLocation(array(
+		                'lugar' => 'Estadio Municipal',
+		                'lat' => 10.8053905 + rand(-10, 10),
+		                'lng' => -69.8457396 + rand(-10, 10)
+	                ));
+	                $benefit->locations()->save($location);
                 }
             }
         }

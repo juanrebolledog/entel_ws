@@ -92,13 +92,14 @@ class UserApiTest extends TestCase {
         $this->assertEquals($content->data->id, 1);
         $this->assertTrue($content->status);
 
-        $benefit = Benefit::first();
+        $benefit = Benefit::with('locations')->first();
+	    $one_location = $benefit->locations[0];
 
         foreach (array(1, 2, 3) as $k)
         {
             $data = array(
-                'lat' => $benefit->lat,
-                'lng' => $benefit->lng
+                'lat' => $one_location->lat,
+                'lng' => $one_location->lng
             );
             $this->setRequestData($data);
             $resp_redeem = $this->request('POST', '/api/benefits/' . $benefit->id . '/redeem');

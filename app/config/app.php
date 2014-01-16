@@ -185,5 +185,7 @@ return array(
     'access_keys' => array(
         'ios' => '71b7ea211f7db5054dd6a037c37e45f477733e7da38fdad7b657c6d98f32cc2e',
         'android' => '71b7ea211f7db5054dd6a037c37e45f477733e7da38fdad7b657c6d98f32cc2e'
-    )
+    ),
+
+	'search_limit' => 50
 );

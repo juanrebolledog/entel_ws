@@ -414,10 +414,11 @@ class BenefitApiTest extends TestCase {
 
     public function testBenefitRedeem()
     {
-        $benefit = Benefit::take(1)->first();
+        $benefit = Benefit::with('locations')->take(1)->first();
+	    $one_location = $benefit->locations[0];
         $data = array(
-            'lat' => $benefit->lat,
-            'lng' => $benefit->lng
+            'lat' => $one_location->lat,
+            'lng' => $one_location->lng
         );
         $this->setRequestData($data);
         $req = $this->request('POST', '/api/benefits/' . $benefit->id . '/redeem');
@@ -482,10 +483,11 @@ class BenefitApiTest extends TestCase {
 
     public function testBenefitRedeemTwice()
     {
-        $benefit = Benefit::take(1)->first();
+        $benefit = Benefit::with('locations')->take(1)->first();
+	    $one_location = $benefit->locations[0];
         $data = array(
-            'lat' => $benefit->lat,
-            'lng' => $benefit->lng
+            'lat' => $one_location->lat,
+            'lng' => $one_location->lng
         );
         $this->setRequestData($data);
         $req = $this->request('POST', '/api/benefits/' . $benefit->id . '/redeem');
@@ -493,10 +495,10 @@ class BenefitApiTest extends TestCase {
         $this->assertTrue($cont->status);
         $this->assertTrue($cont->data->redeemed);
 
-        $data = array(
-            'lat' => $benefit->lat,
-            'lng' => $benefit->lng
-        );
+	    $data = array(
+		    'lat' => $one_location->lat,
+		    'lng' => $one_location->lng
+	    );
         $this->setRequestData($data);
         $req = $this->request('POST', '/api/benefits/' . $benefit->id . '/redeem');
         $cont = json_decode($req->getContent());
