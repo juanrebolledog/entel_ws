@@ -43,7 +43,7 @@ Route::filter('auth', function()
         $access_keys = Config::get('app.access_keys');
         if (!in_array($access_key, array_values($access_keys)))
         {
-            return Response::make(array('message' => 'You are not authorized to access this resource.'), 403);
+            return Response::make(array('message' => 'No estás autorizado para acceder a este recurso.'), 403);
         }
         if ($api_key)
         {
@@ -61,17 +61,17 @@ Route::filter('auth', function()
             }
             else
             {
-                return Response::make(array('message' => 'You are not authorized to access this resource.'), 403);
+                return Response::make(array('message' => 'No estás autorizado para acceder a este recurso.'), 403);
             }
         }
         else
         {
-            return Response::make(array('message' => 'You are not authorized to access this resource.'), 403);
+            return Response::make(array('message' => 'No estás autorizado para acceder a este recurso.'), 403);
         }
     }
     else
     {
-        return Response::make(array('message' => 'You are not authorized to access this resource.'), 403);
+        return Response::make(array('message' => 'No estás autorizado para acceder a este recurso.'), 403);
     }
 
 });
@@ -82,7 +82,7 @@ Route::filter('public', function()
     $access_keys = Config::get('app.access_keys');
     if (!in_array($access_key, array_values($access_keys)))
     {
-        return Response::make(array('message' => 'You are not authorized to access this resource.'), 403);
+        return Response::make(array('message' => 'No estás autorizado para acceder a este recurso.'), 403);
     }
 });
 
