@@ -262,10 +262,8 @@ class Benefit extends LocationModel {
 
         foreach (self::with('sub_category', 'comments')->get() as $model)
         {
-            $model->imagen_titulo = asset($model->imagen_titulo);
-            $model->imagen_grande = asset($model->imagen_grande);
-            $model->imagen_chica = asset($model->imagen_chica);
-            $model->icono = asset($model->icono);
+            $model->prepareForWS();
+	        $model->locations = array();
             array_push($models, $model->toArray());
         }
         $models = array_values(array_sort($models, function($value)
@@ -284,6 +282,7 @@ class Benefit extends LocationModel {
             $query->orWhere('tags', 'LIKE', '%' . $q . '%');
         })->get()->each(function($benefit)
             {
+	            $benefit->locations = array();
                 $benefit->prepareForWS();
             });
         return $results;

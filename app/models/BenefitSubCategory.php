@@ -76,6 +76,10 @@ class BenefitSubCategory extends BaseModel {
             }))->get()->each(function($cat)
             {
                 $cat->prepareForWS();
+	            $cat->benefits->each(function($benefit)
+	            {
+		            $benefit->locations = array();
+	            });
             });
         return $category;
     }
