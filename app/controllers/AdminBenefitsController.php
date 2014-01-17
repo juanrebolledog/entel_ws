@@ -26,8 +26,18 @@ class AdminBenefitsController extends AdminBaseController {
     public function create()
     {
         $benefit = new Benefit();
-        $benefit_categories = BenefitSubCategory::lists('nombre', 'id');
-        return $this->layout->content = View::make('admin_benefits.create', array('benefit' => $benefit, 'categories' => $benefit_categories));
+	    $select_data = array();
+        BenefitCategory::with('sub_categories')->get()->each(function($cat) use (&$select_data)
+		        {
+			        $select_data[$cat->nombre] = array();
+			        $cat->sub_categories->each(function($scat) use (&$select_data, $cat)
+			        {
+				        $select_data[$cat->nombre][$scat->id] = $scat->nombre;
+
+			        });
+		        });
+
+        return $this->layout->content = View::make('admin_benefits.create', array('benefit' => $benefit, 'categories' => $select_data));
     }
 
     public function store()
@@ -53,13 +63,17 @@ class AdminBenefitsController extends AdminBaseController {
     public function edit($id)
     {
         $benefit = Benefit::find($id);
-        $benefit_categories = BenefitSubCategory::all();
-        $categories = array();
-        foreach ($benefit_categories as $cat)
-        {
-            $categories[$cat->id] = $cat->nombre;
-        }
-        return $this->layout->content = View::make('admin_benefits.edit', array('benefit' => $benefit, 'categories' => $categories));
+	    $select_data = array();
+	    BenefitCategory::with('sub_categories')->get()->each(function($cat) use (&$select_data)
+	    {
+		    $select_data[$cat->nombre] = array();
+		    $cat->sub_categories->each(function($scat) use (&$select_data, $cat)
+		    {
+			    $select_data[$cat->nombre][$scat->id] = $scat->nombre;
+
+		    });
+	    });
+        return $this->layout->content = View::make('admin_benefits.edit', array('benefit' => $benefit, 'categories' => $select_data));
     }
 
     public function update($id)
