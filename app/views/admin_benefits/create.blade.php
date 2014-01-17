@@ -90,7 +90,7 @@
 		        </div>
 	        </fieldset>
 	        <div class="locations"></div>
-	        <a id="add-location" href="#">{{ 'Agregar Ubicación' }}</a>
+	        <a class="button tiny" id="add-location" href="#">{{ 'Agregar Ubicación' }}</a>
         </fieldset>
         <fieldset>
             <legend>SMS</legend>
@@ -161,6 +161,7 @@
 @section('scripts')
 <script type="text/template" id="entel-form-location-tpl">
 	<fieldset>
+		<div class="right" id="entel-location-control"><a class="remove-control" href="#"><i class="fa fa-times"></i></a></div>
 		<div class="entel-form-location">
 			<?php
 			echo Form::label('lat', 'Latitud');
@@ -194,8 +195,15 @@
 		$('#add-location').on('click', function(e) {
 			var $e = $(e.currentTarget);
 			e.preventDefault();
-			$('.locations').append(tpl());
-		})
+			$('.locations').append($(tpl()).fadeIn(200));
+		});
+		$('.locations').on('click', '.remove-control', function(e) {
+			e.preventDefault();
+			var $e = $(e.currentTarget);
+			$e.parent().parent('fieldset').fadeOut(200, function() {
+				this.remove();
+			});
+		});
 	})(jQuery, _);
 </script>
 @stop

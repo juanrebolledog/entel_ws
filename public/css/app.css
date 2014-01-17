@@ -8298,73 +8298,78 @@ input[type="checkbox"] {
 }
 
 /* line 111, ../scss/app.scss */
+#entel-location-control {
+  margin-top: -10px;
+}
+
+/* line 115, ../scss/app.scss */
 .entel-table {
   width: 100%;
 }
 
-/* line 115, ../scss/app.scss */
+/* line 119, ../scss/app.scss */
 .entel-image {
   margin-bottom: 15px;
   color: #6f6f6f;
 }
-/* line 118, ../scss/app.scss */
+/* line 122, ../scss/app.scss */
 .entel-image header {
   margin: 5px 0 5px 0;
   font-weight: bold;
   font-size: 10px;
 }
 
-/* line 125, ../scss/app.scss */
+/* line 129, ../scss/app.scss */
 .entel-element-rating {
   color: #0073ae;
 }
 
-/* line 129, ../scss/app.scss */
+/* line 133, ../scss/app.scss */
 .entel-padded {
   padding: 10px !important;
 }
 
-/* line 133, ../scss/app.scss */
+/* line 137, ../scss/app.scss */
 table {
   border: 0;
 }
-/* line 135, ../scss/app.scss */
+/* line 139, ../scss/app.scss */
 table thead {
   background-color: transparent;
   border-bottom: 1px solid #b3b3b3;
 }
-/* line 138, ../scss/app.scss */
+/* line 142, ../scss/app.scss */
 table thead th {
   color: #333333 !important;
 }
 
-/* line 144, ../scss/app.scss */
+/* line 148, ../scss/app.scss */
 #app-content {
   padding: 15px;
 }
 
-/* line 148, ../scss/app.scss */
+/* line 152, ../scss/app.scss */
 #map-element {
   width: 100%;
   height: 300px;
 }
 
-/* line 153, ../scss/app.scss */
+/* line 157, ../scss/app.scss */
 section {
   margin-bottom: 45px;
 }
-/* line 155, ../scss/app.scss */
+/* line 159, ../scss/app.scss */
 section > header {
   border-bottom: 1px solid #666666;
   margin-bottom: 30px;
 }
-/* line 158, ../scss/app.scss */
+/* line 162, ../scss/app.scss */
 section > header ul {
   list-style: none;
   padding: 0;
   margin: 0 0 10px 0;
 }
-/* line 162, ../scss/app.scss */
+/* line 166, ../scss/app.scss */
 section > header ul li {
   list-style: none;
   display: inline-block;
@@ -8376,11 +8381,11 @@ section > header ul li {
   -o-transition: background-color 0.2s;
   transition: background-color 0.2s;
 }
-/* line 173, ../scss/app.scss */
+/* line 177, ../scss/app.scss */
 section > header ul li:last-child {
   margin-right: 0;
 }
-/* line 176, ../scss/app.scss */
+/* line 180, ../scss/app.scss */
 section > header ul li:hover {
   background-color: #0073ae;
   color: #efefef;
@@ -8390,33 +8395,33 @@ section > header ul li:hover {
   -o-transition: background-color 0.2s;
   transition: background-color 0.2s;
 }
-/* line 184, ../scss/app.scss */
+/* line 188, ../scss/app.scss */
 section > header ul li:hover a {
   color: #efefef;
 }
-/* line 190, ../scss/app.scss */
+/* line 194, ../scss/app.scss */
 section .row {
   margin-left: 0;
   margin-right: 0;
   max-width: none;
 }
-/* line 194, ../scss/app.scss */
+/* line 198, ../scss/app.scss */
 section .row .columns:first-child {
   padding-left: 0;
 }
-/* line 197, ../scss/app.scss */
+/* line 201, ../scss/app.scss */
 section .row .columns:last-child {
   padding-right: 0;
 }
 
-/* line 203, ../scss/app.scss */
+/* line 207, ../scss/app.scss */
 #content {
   float: left;
   width: 100%;
   margin-bottom: 0;
 }
 
-/* line 209, ../scss/app.scss */
+/* line 213, ../scss/app.scss */
 footer {
   width: 100%;
   background-color: #333333;
@@ -8424,13 +8429,13 @@ footer {
   float: left;
   height: 40px;
 }
-/* line 216, ../scss/app.scss */
+/* line 220, ../scss/app.scss */
 footer .entel-item-content {
   padding: 15px;
   font-size: 70%;
   color: #efefef;
 }
-/* line 220, ../scss/app.scss */
+/* line 224, ../scss/app.scss */
 footer .entel-item-content a {
   padding-left: 5px;
   padding-right: 5px;
@@ -8440,7 +8445,7 @@ footer .entel-item-content a {
   transition: color 0.2s;
   color: #efefef;
 }
-/* line 229, ../scss/app.scss */
+/* line 233, ../scss/app.scss */
 footer .entel-item-content a:hover {
   color: #0073ae;
   -moz-transition: color 0.2s;
@@ -8450,7 +8455,7 @@ footer .entel-item-content a:hover {
 }
 
 @media screen and (max-width: 640px) {
-  /* line 242, ../scss/app.scss */
+  /* line 246, ../scss/app.scss */
   section .row .columns {
     padding: 0;
   }
