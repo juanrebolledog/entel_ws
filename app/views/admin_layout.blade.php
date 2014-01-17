@@ -24,32 +24,52 @@
 
         <ul class="right hide-for-large">
             <li class="divider"></li>
-            <li><a href="index.html">Home</a></li>
+            <li>
+	            {{ link_to(action('AdminHomeController@index'), 'Home') }}
+            </li>
+	        <li class="divider"></li>
+	        <li>
+		        {{ link_to(action('AdminBenefitsController@index'), 'Beneficios') }}
+	        </li>
             <li class="divider"></li>
             <li>
-                <?= link_to('admin/benefits', 'Beneficios'); ?>
+	            {{ link_to(action('AdminBenefitCategoriesController@index'), 'Categorías de Beneficios') }}
             </li>
-            <li class="divider"></li>
-            <li>
-                {{ link_to(action('AdminBenefitCommentsController@index'), 'Comentarios') }}
-            </li>
-            <li class="divider"></li>
-            <li>
-                <?= link_to('admin/events', 'Eventos'); ?>
-            </li>
-            <li class="divider"></li>
-            <li>
-                {{ link_to(action('AdminZonesController@index'), 'Zonas') }}
-            </li>
-            <li class="divider"></li>
-            <li><a href="categories.html">Categor&iacute;as</a></li>
-            <li class="divider"></li>
-            <li><a href="benefit_ratings.html">Notas</a></li>
+	        <li class="divider"></li>
+	        <li>
+		        {{ link_to(action('AdminBenefitSubCategoriesController@index'), 'Sub Categorías de Beneficios') }}
+	        </li>
+	        <li class="divider"></li>
+	        <li>
+		        {{ link_to(action('AdminBenefitCommentsController@index'), 'Comentarios') }}
+	        </li>
+	        <li class="divider"></li>
+	        <li>
+		        {{ link_to(action('AdminBenefitVotesController@index'), 'Notas') }}
+	        </li>
+	        <li class="divider"></li>
+	        <li>
+		        {{ link_to(action('AdminEventsController@index'), 'Eventos') }}
+	        </li>
+	        <li class="divider"></li>
+	        <li>
+		        {{ link_to(action('AdminEventCategoriesController@index'), 'Categorías Eventos') }}
+	        </li>
+	        <li class="divider"></li>
+	        <li>
+		        {{ link_to(action('AdminZonesController@index'), 'Zonas') }}
+	        </li>
             <li class="divider"></li>
             <li class="divider"></li>
             <li><a href="configuration.html">Configuraci&oacute;n</a></li>
+	        <li class="divider"></li>
+	        <li>
+		        {{ link_to(action('AdminUsersController@index'), 'Usuarios WS') }}
+	        </li>
             <li class="divider"></li>
-            <li><a href="users.html">Usuarios</a></li>
+            <li>
+	            {{ link_to(action('SuperAdminUsersController@index'), 'Usuarios Admin') }}
+            </li>
         </ul>
 
         <ul class="right">
@@ -72,7 +92,7 @@
     <div class="large-2 hide-for-medium hide-for-small columns" id="app-sidebar">
         <ul class="entel-side-nav">
             <li class="<?= $data['current'] == 'home' ? 'active':''; ?>">
-                <a href="#/home">Home&nbsp;<span class="fa fa-home"></span></a>
+	            <?php echo HTML::decode(HTML::link(action('AdminHomeController@index'), 'Home&nbsp;<span class="fa fa-home"></span>', array('escape' => false))); ?>
             </li>
             <li class="<?= $data['current'] == 'benefits' ? 'active':''; ?>">
                 <?php echo HTML::decode(HTML::link(action('AdminBenefitsController@index'), 'Beneficios&nbsp;<span class="fa fa-gift"></span>', array('escape' => false))); ?>
@@ -86,6 +106,9 @@
             <li class="<?= $data['current'] == 'comments' ? 'active':''; ?>">
                 <?php echo HTML::decode(HTML::link(action('AdminBenefitCommentsController@index'), 'Comentarios Beneficios&nbsp;<span class="fa fa-comments"></span>', array('escape' => false))); ?>
             </li>
+	        <li class="<?= $data['current'] == 'ratings' ? 'active':''; ?>">
+		        <?php echo HTML::decode(HTML::link(action('AdminBenefitVotesController@index'), 'Notas&nbsp;<span class="fa fa-star"></span>', array('escape' => false))); ?>
+	        </li>
             <li class="<?= $data['current'] == 'events' ? 'active':''; ?>">
                 <?php echo HTML::decode(HTML::link(action('AdminEventsController@index'), 'Eventos&nbsp;<span class="fa fa-calendar"></span>', array('escape' => false))); ?>
             </li>
@@ -95,9 +118,7 @@
             <li class="<?= $data['current'] == 'zones' ? 'active':''; ?>">
                 <?php echo HTML::decode(HTML::link(action('AdminZonesController@index'), 'Zonas&nbsp;<span class="fa fa-location-arrow"></span>', array('escape' => false))); ?>
             </li>
-            <li class="<?= $data['current'] == 'ratings' ? 'active':''; ?>">
-                <?php echo HTML::decode(HTML::link(action('AdminBenefitVotesController@index'), 'Notas&nbsp;<span class="fa fa-star"></span>', array('escape' => false))); ?>
-            </li>
+
             <li class="divider"></li>
             <li class="<?= $data['current'] == 'stats' ? 'active':''; ?>">
                 <a href="#/stats">Estad&iacute;sticas&nbsp;<span class="fa fa-bar-chart-o"></span></a>
