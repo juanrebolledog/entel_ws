@@ -43,20 +43,21 @@
 
 </nav>
 
-<section id="content">
-    <div class="large-12 medium-12 small-12 columns" id="app-content">
-        @yield('content')
-    </div>
-
+<section id="messages">
+	@if (Session::has('flash_error'))
+	<div class="columns large-12" id="flash-message">
+		<div class="panel callout radius">
+			{{ Session::get('flash_error') }}
+		</div>
+	</div>
+	@endif
 </section>
 
-<footer class="item">
-    <div class="entel-item-content">
-        <div class="text-center">
-            <a href="#">Entel</a> | <a href="#">Soporte</a>
-        </div>
+<section id="content">
+    <div class="columns large-12" id="app-content">
+        @yield('content')
     </div>
-</footer>
+</section>
 
 <script src="<?= asset('js/vendor/jquery.js'); ?>"></script>
 <script src="<?= asset('js/vendor/foundation/foundation.js'); ?>"></script>

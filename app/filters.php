@@ -90,7 +90,7 @@ Route::filter('admin_auth', function()
 {
     if (Auth::guest())
         return Redirect::to(action('SuperAdminUsersController@login_form'))
-            ->with('flash_error', 'You must be logged in to view this page!');
+            ->with('flash_error', 'Debes iniciar sesión para ver esa página.');
 });
 
 
@@ -112,7 +112,7 @@ Route::filter('auth.basic', function()
 
 Route::filter('guest', function()
 {
-    if (Auth::check()) return Redirect::to('/');
+    if (Auth::check()) return Redirect::to(action('AdminHomeController@index'));
 });
 
 /*

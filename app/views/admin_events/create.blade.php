@@ -54,7 +54,7 @@
 
             <?php
             echo Form::label('legal', 'Bases Legales');
-            echo Form::text('legal');
+            echo Form::textarea('legal');
             ?>
             <?php if ($errors->has('legal')): ?>
                 <small class="error"><?php echo $errors->first('legal'); ?></small>

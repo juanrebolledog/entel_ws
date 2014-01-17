@@ -23,7 +23,7 @@ class SuperAdminUsersController extends AdminBaseController {
             Log::info(json_encode($data));
             if (Auth::attempt(array('email' => $data['email'], 'password' => $data['password'])))
             {
-                return Redirect::intended(action('AdminBenefitsController@index'));
+                return Redirect::intended(action('AdminHomeController@index'));
             }
             else
             {
@@ -35,10 +35,8 @@ class SuperAdminUsersController extends AdminBaseController {
 
     public function logout()
     {
-        if (Auth::logout())
-        {
-            return Redirect::to(action('SuperAdminUsersController@login_form'));
-        }
+	    Auth::logout();
+	    return Redirect::to(action('SuperAdminUsersController@login_form'));
     }
 
     public function profile()

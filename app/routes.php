@@ -147,14 +147,15 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin_auth'), function()
         //Route::delete('{id}/delete', 'AdminZonesController@delete');
         Route::post('store', 'AdminZonesController@store');
     });
+
+	Route::get('', 'AdminHomeController@index');
+	// GET for now. Must be changed to POST ASAP.
+	Route::get('logout', 'SuperAdminUsersController@logout');
 });
 
 Route::group(array('before' => 'guest', 'prefix' => 'admin'), function()
 {
     Route::get('login', 'SuperAdminUsersController@login_form');
     Route::post('login', 'SuperAdminUsersController@login');
-
-    // GET for now. Must be changed to POST ASAP.
-    Route::get('logout', 'SuperAdminUsersController@logout');
 });
 

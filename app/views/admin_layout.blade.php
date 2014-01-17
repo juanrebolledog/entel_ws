@@ -71,11 +71,9 @@
 <section id="content">
     <div class="large-2 hide-for-medium hide-for-small columns" id="app-sidebar">
         <ul class="entel-side-nav">
-            <!--
             <li class="<?= $data['current'] == 'home' ? 'active':''; ?>">
                 <a href="#/home">Home&nbsp;<span class="fa fa-home"></span></a>
             </li>
-            -->
             <li class="<?= $data['current'] == 'benefits' ? 'active':''; ?>">
                 <?php echo HTML::decode(HTML::link(action('AdminBenefitsController@index'), 'Beneficios&nbsp;<span class="fa fa-gift"></span>', array('escape' => false))); ?>
             </li>

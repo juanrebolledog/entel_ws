@@ -1,5 +1,17 @@
 @import "settings";
 
+#messages {
+  margin: $padding-medium 0 $padding-medium 0;
+  #flash-message {
+    width: 30%;
+    margin: 0 auto;
+    float: none;
+    .panel {
+      margin: 0;
+    }
+  }
+}
+
 #app-content {
   width: 30%;
   margin: 0 auto;
