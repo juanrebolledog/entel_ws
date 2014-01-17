@@ -40,7 +40,7 @@ class WebApiController extends BaseController {
 
     public function benefits()
     {
-        $sub_categories = BenefitSubCategory::getSubCategories();
+        $sub_categories = BenefitSubCategory::getSubCategories(null, true);
 
         $response = $sub_categories->toArray();
         $this->setApiResponse($response, true);

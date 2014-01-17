@@ -68,17 +68,24 @@ class BenefitSubCategory extends BaseModel {
         return false;
     }
 
-    static public function getSubCategories($category_id = null)
+    static public function getSubCategories($category_id = null, $locations = false)
     {
         $category = self::with(array('benefits' => function($query)
             {
                 $query->with('images');
-            }))->get()->each(function($cat)
+            }))->get()->each(function($cat) use ($locations)
             {
                 $cat->prepareForWS();
-	            $cat->benefits->each(function($benefit)
+	            $cat->benefits->each(function($benefit) use ($locations)
 	            {
-		            $benefit->locations = array();
+		            if (!$locations)
+		            {
+			            $benefit->locations = array();
+		            }
+		            else
+		            {
+			            $benefit->locations = BenefitLocation::getLocations($benefit->id)->toArray();
+		            }
 	            });
             });
         return $category;
