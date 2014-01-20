@@ -269,6 +269,7 @@ class Benefit extends LocationModel {
             {
 	            $benefit->locations = array();
                 $benefit->prepareForWS();
+	            $benefit->sub_category->prepareForWS();
             });
         return $results;
     }

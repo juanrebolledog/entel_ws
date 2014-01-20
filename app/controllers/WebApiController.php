@@ -77,4 +77,15 @@ class WebApiController extends BaseController {
 		$this->setApiResponse($regions->toArray(), true);
 		return Response::json($this->api_response);
 	}
+
+	public function search()
+	{
+		$q = Input::get('q');
+		if ($q)
+		{
+			$benefits = Benefit::searchByKeyword($q);
+			$this->setApiResponse($benefits->toArray(), true);
+			return Response::json($this->api_response);
+		}
+	}
 }
