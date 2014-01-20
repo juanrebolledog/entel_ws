@@ -116,5 +116,6 @@ class ZoneSubCategory extends BaseModel {
     {
         $this->imagen = asset($this->imagen);
         $this->imagen_web = asset($this->imagen_web);
+	    $this->imagen_icono = asset($this->imagen_icono);
     }
 } 

@@ -49,7 +49,18 @@ class ZoneCategory extends BaseModel {
         return self::with(array('sub_categories' => function($query)
             {
                 $query->with('zones');
-            }))->get();
+            }))->get()->each(function($cat)
+	        {
+		        $cat->prepareForWS();
+		        $cat->sub_categories->each(function($sub_cat)
+		        {
+			        $sub_cat->prepareForWS();
+			        $sub_cat->zones->each(function($zone)
+			        {
+				        $zone->prepareForWS();
+			        });
+		        });
+	        });
     }
 
     static public function createZone($data)
