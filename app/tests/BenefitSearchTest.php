@@ -41,6 +41,50 @@ class BenefitSearchTest extends TestCase {
 	    });
     }
 
+	public function testBenefitSearchByCoordinatesOneMeterAway()
+	{
+		$l_benefit = BenefitLocation::first();
+		$lat = $l_benefit->lat + 0.00001;
+		$lng = $l_benefit->lng;
+		$user_id = 1;
+		$range = null;
+		$limit = null;
+		$benefits = Benefit::findByLocation($lat, $lng, $user_id, $range, $limit);
+		$this->assertEquals(20, $benefits->count());
+		$benefits->each(function($benefit)
+		{
+			$this->assertTrue(is_array($benefit->locations));
+			foreach ($benefit->locations as $location)
+			{
+				$this->assertTrue(isset($location['distancia']));
+				$this->assertTrue(is_numeric($location['distancia']));
+				$this->assertEquals(1, $location['distancia']);
+			}
+		});
+	}
+
+	public function testBenefitSearchByCoordinatesTenMetersAway()
+	{
+		$l_benefit = BenefitLocation::first();
+		$lat = $l_benefit->lat + 0.00009;
+		$lng = $l_benefit->lng;
+		$user_id = 1;
+		$range = null;
+		$limit = null;
+		$benefits = Benefit::findByLocation($lat, $lng, $user_id, $range, $limit);
+		$this->assertEquals(20, $benefits->count());
+		$benefits->each(function($benefit)
+		{
+			$this->assertTrue(is_array($benefit->locations));
+			foreach ($benefit->locations as $location)
+			{
+				$this->assertTrue(isset($location['distancia']));
+				$this->assertTrue(is_numeric($location['distancia']));
+				$this->assertEquals(10, $location['distancia']);
+			}
+		});
+	}
+
     public function testBenefitSearchByCoordinatesNoResults()
     {
 	    $lat = 11.8053905;
