@@ -112,6 +112,7 @@ class Benefit extends LocationModel {
         $this->icono = asset($this->icono);
         $this->imagen_grande_web = asset($this->imagen_grande_web);
         $this->imagen_descripcion = asset($this->imagen_descripcion);
+	    return $this;
     }
 
     static public function createBenefit($data)
@@ -131,13 +132,16 @@ class Benefit extends LocationModel {
         $benefit = self::uploadImages($benefit, $data);
 
         $benefit->save();
-	    foreach ($data['lat'] as $k=>$lats)
+	    foreach ($data['lat'] as $k=>$lat)
 	    {
-		    $location = new BenefitLocation();
-		    $location->lat = $lats;
-		    $location->lng = $data['lng'][$k];
-		    $location->lugar = $data['lugar'][$k];
-		    $benefit->locations()->save($location);
+		    if (is_numeric($lat))
+		    {
+			    $location = new BenefitLocation();
+			    $location->lat = $lat;
+			    $location->lng = $data['lng'][$k];
+			    $location->lugar = $data['lugar'][$k];
+			    $benefit->locations()->save($location);
+		    }
 	    }
         return $benefit;
     }
@@ -183,11 +187,11 @@ class Benefit extends LocationModel {
         $object_dir = 'benefits';
         $name_prefix = hash('sha1', $benefit->lat . ' - ' . $benefit->lng);
         $dir = public_path() . '/' . 'img' . '/' . $object_dir . '/';
-	    $image_fields = array('icono', 'imagen_grande', 'imagen_grande_web', 'imagen_chica', 'imagen_titulo');
+	    $image_fields = array('icono', 'imagen_grande', 'imagen_grande_web', 'imagen_chica', 'imagen_titulo', 'imagen_descripcion');
 
 	    foreach ($image_fields as $ifield)
 	    {
-		    if ($data[$ifield])
+		    if (isset($data[$ifield]) && ($data[$ifield] && $data[$ifield] != ''))
 		    {
 			    $ext = $data[$ifield]->getClientOriginalExtension();
 			    if ($data[$ifield]->move($dir, $name_prefix . '_' . $ifield . '.' . $ext))

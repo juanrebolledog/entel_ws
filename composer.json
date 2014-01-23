@@ -5,8 +5,9 @@
 	"license": "",
 	"require": {
 		"laravel/framework": "4.0.*",
-    "jasonlewis/enhanced-router": "1.0.*",
-		"barryvdh/laravel-cors": "dev-master"
+        "jasonlewis/enhanced-router": "1.0.*",
+		"barryvdh/laravel-cors": "dev-master",
+        "Mockery/Mockery": "dev-master@dev"
 	},
 	"autoload": {
 		"classmap": [
