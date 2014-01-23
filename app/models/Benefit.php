@@ -294,9 +294,9 @@ class Benefit extends LocationModel {
 
 	    foreach ($benefits as $benefit)
 	    {
+		    $benefit_locations = array();
 		    foreach (BenefitLocation::getLocations($benefit->id) as $location)
 		    {
-			    $benefit_locations = array();
 			    $location->distancia = round(self::calculateDistance(array('lat' => $lat, 'lng' => $lng),
 				    array('lat' => $location->lat, 'lng' => $location->lng)));
 
@@ -314,8 +314,8 @@ class Benefit extends LocationModel {
 					    array_push($benefit_locations, $location->toArray());
 				    }
 			    }
-			    $benefit->locations = $benefit_locations;
 		    }
+		    $benefit->locations = $benefit_locations;
 		}
 
 	    $benefits = $benefits->filter(function($benefit)
