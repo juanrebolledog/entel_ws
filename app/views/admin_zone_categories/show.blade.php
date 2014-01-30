@@ -20,6 +20,13 @@
     </header>
     <div class="row">
         <div class="large-12 medium-12 small-12 columns">
+	        <section>
+		        <header>{{ 'Imagen' }}</header>
+		        <div class="content">
+			        <div><img src="{{ asset($category->imagen_fondo) }}" alt="{{ asset($category->imagen_fondo) }}"/></div>
+			        <small>{{ asset($category->imagen_fondo) }}</small>
+		        </div>
+	        </section>
             <section>
                 <header>
 	                <h4>{{ 'Sub Categorías' }}</h4>

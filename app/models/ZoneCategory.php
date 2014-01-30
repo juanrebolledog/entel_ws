@@ -38,6 +38,7 @@ class ZoneCategory extends BaseModel {
             $category = self::with('sub_categories')->find($id);
             if ($category && $category->exists)
             {
+	            $category->prepareForWS();
                 return $category;
             }
         }
@@ -51,6 +52,7 @@ class ZoneCategory extends BaseModel {
                 $query->with('zones');
             }))->get()->each(function($cat)
 	        {
+		        $cat->prepareForWS();
 		        $cat->sub_categories->each(function($sub_cat)
 		        {
 			        $sub_cat->prepareForWS();
@@ -67,6 +69,8 @@ class ZoneCategory extends BaseModel {
         $category = new ZoneCategory();
         $category->nombre = $data['nombre'];
 
+	    $category = self::uploadImages($category, $data);
+
         $category->save();
         return $category;
     }
@@ -76,7 +80,37 @@ class ZoneCategory extends BaseModel {
         $category = ZoneCategory::find($id);
         $category->nombre = $data['nombre'];
 
+	    $category = self::uploadImages($category, $data);
+
 	    $category->save();
 	    return $category;
     }
-} 
+
+	static public function uploadImages($scategory, $data)
+	{
+		$object_dir = 'zone_categories';
+		$name_prefix = hash('sha1', $scategory->nombre);
+		$dir = public_path() . '/' . 'img' . '/' . $object_dir . '/';
+		$image_fields = array('imagen_fondo');
+
+		foreach ($image_fields as $ifield)
+		{
+			if (isset($data[$ifield]) && ($data[$ifield] && $data[$ifield] != ''))
+			{
+				$ext = $data[$ifield]->getClientOriginalExtension();
+				if ($data[$ifield]->move($dir, $name_prefix . '_' . $ifield . '.' . $ext))
+				{
+					$scategory->$ifield = 'img/' . $object_dir . '/' . $name_prefix . '_' . $ifield . '.' . $ext;
+				}
+			}
+		}
+
+		return $scategory;
+	}
+
+	public function prepareForWS()
+	{
+		$this->imagen_fondo = asset($this->imagen_fondo);
+		return $this;
+	}
+}

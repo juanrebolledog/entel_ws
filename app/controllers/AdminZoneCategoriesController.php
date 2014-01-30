@@ -91,7 +91,7 @@ class AdminZoneCategoriesController extends AdminBaseController {
 	{
 		$data = Input::all();
 
-		$validator = ZoneCategory::validate($data);
+		$validator = ZoneCategory::validate($data, array('except' => array('imagen_fondo')));
 
 		if ($validator->fails())
 		{
