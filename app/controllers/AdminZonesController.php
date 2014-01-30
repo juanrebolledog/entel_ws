@@ -2,8 +2,6 @@
 
 class AdminZonesController extends AdminBaseController {
 
-    protected $layout = 'admin_layout';
-
     public function __construct()
     {
         $this->beforeFilter(function()

@@ -57,7 +57,11 @@
 	        </li>
 	        <li class="divider"></li>
 	        <li>
-		        {{ link_to(action('AdminZonesController@index'), 'Zonas') }}
+		        {{ link_to(action('AdminZonesController@index'), 'Puntos Zona') }}
+	        </li>
+	        <li class="divider"></li>
+	        <li>
+		        {{ link_to(action('AdminZoneCategoriesController@index'), 'Categorías Puntos Zona') }}
 	        </li>
             <li class="divider"></li>
             <li class="divider"></li>
@@ -116,8 +120,11 @@
                 <?php echo HTML::decode(HTML::link(action('AdminEventCategoriesController@index'), 'Categorías Eventos&nbsp;<span class="fa fa-tag"></span>', array('escape' => false))); ?>
             </li>
             <li class="<?= $data['current'] == 'zones' ? 'active':''; ?>">
-                <?php echo HTML::decode(HTML::link(action('AdminZonesController@index'), 'Zonas&nbsp;<span class="fa fa-location-arrow"></span>', array('escape' => false))); ?>
+                <?php echo HTML::decode(HTML::link(action('AdminZonesController@index'), 'Puntos Zona&nbsp;<span class="fa fa-location-arrow"></span>', array('escape' => false))); ?>
             </li>
+	        <li class="<?= $data['current'] == 'zone_categories' ? 'active':''; ?>">
+		        <?php echo HTML::decode(HTML::link(action('AdminZoneCategoriesController@index'), 'Categorías Puntos Zona&nbsp;<span class="fa fa-tag"></span>', array('escape' => false))); ?>
+	        </li>
 
             <li class="divider"></li>
             <li class="<?= $data['current'] == 'stats' ? 'active':''; ?>">

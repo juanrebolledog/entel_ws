@@ -140,6 +140,21 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin_auth'), function()
 
     Route::group(array('prefix' => 'zones'), function()
     {
+	    Route::group(array('prefix' => 'categories'), function()
+	    {
+		    Route::get('create', 'AdminZoneCategoriesController@create');
+		    Route::get('', 'AdminZoneCategoriesController@index');
+		    Route::get('{id}', 'AdminZoneCategoriesController@show');
+		    Route::get('{id}/edit', 'AdminZoneCategoriesController@edit');
+		    Route::get('{id}/sub_categories/create', 'AdminZoneSubCategoriesController@create');
+		    Route::get('{id}/sub_categories/{sub_id}', 'AdminZoneSubCategoriesController@show');
+		    Route::get('{id}/sub_categories/{sub_id}/edit', 'AdminZoneSubCategoriesController@edit');
+		    Route::put('{id}/update', 'AdminZoneCategoriesController@update');
+		    Route::put('{id}/sub_categories/{sub_id}/update', 'AdminZoneSubCategoriesController@update');
+		    Route::post('store', 'AdminZoneCategoriesController@store');
+		    Route::post('{id}/sub_categories/store', 'AdminZoneSubCategoriesController@store');
+	    });
+
         Route::get('create', 'AdminZonesController@create');
         Route::get('', 'AdminZonesController@index');
         Route::get('{id}', 'AdminZonesController@show');

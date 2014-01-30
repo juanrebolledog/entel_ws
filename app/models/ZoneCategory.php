@@ -35,7 +35,7 @@ class ZoneCategory extends BaseModel {
     {
         if ($id)
         {
-            $category = self::find($id);
+            $category = self::with('sub_categories')->find($id);
             if ($category && $category->exists)
             {
                 return $category;
@@ -51,7 +51,6 @@ class ZoneCategory extends BaseModel {
                 $query->with('zones');
             }))->get()->each(function($cat)
 	        {
-		        $cat->prepareForWS();
 		        $cat->sub_categories->each(function($sub_cat)
 		        {
 			        $sub_cat->prepareForWS();
@@ -63,71 +62,21 @@ class ZoneCategory extends BaseModel {
 	        });
     }
 
-    static public function createZone($data)
+    static public function createCategory($data)
     {
-        $zone = new Zone();
-        $zone->nombre = $data['nombre'];
-        $zone->url = $data['url'];
+        $category = new ZoneCategory();
+        $category->nombre = $data['nombre'];
 
-        $zone = self::uploadImages($zone, $data);
-
-        $zone->save();
-        return $zone;
+        $category->save();
+        return $category;
     }
 
-    static public function updateZone($id, $data)
+    static public function updateCategory($id, $data)
     {
-        $zone = Zone::find($id);
-        $zone->nombre = $data['nombre'];
-        $zone->url = $data['url'];
+        $category = ZoneCategory::find($id);
+        $category->nombre = $data['nombre'];
 
-        $zone = self::uploadImages($zone, $data);
-
-        $zone_array = $zone->toArray();
-        $zone_validator = Validator::make($zone_array, self::$validation);
-        if ($zone_validator->fails())
-        {
-            return $zone;
-        }
-        else
-        {
-            if ($zone->save())
-            {
-                $zone->validator = $zone_validator;
-                return $zone;
-            }
-        }
-    }
-
-    static public function uploadImages($zone, $data)
-    {
-        $object_dir = 'zones';
-        $name_prefix = hash('sha1', $zone->nombre);
-        $dir = public_path() . '/' . 'img' . '/' . $object_dir . '/';
-
-        if ($data['imagen'])
-        {
-            $ext = $data['imagen']->getClientOriginalExtension();
-            if ($data['imagen']->move($dir, $name_prefix . '_imagen.' . $ext))
-            {
-                $zone->imagen = 'img/' . $object_dir . '/' . $name_prefix . '_imagen.' . $ext;
-            }
-        }
-
-        if ($data['imagen_web'])
-        {
-            $ext = $data['imagen_web']->getClientOriginalExtension();
-            if ($data['imagen_web']->move($dir, $name_prefix . '_imagen_web.' . $ext))
-            {
-                $zone->imagen_web = 'img/' . $object_dir . '/' . $name_prefix . '_imagen_web.' . $ext;
-            }
-        }
-        return $zone;
-    }
-
-    public function prepareForWS()
-    {
-        $this->imagen = asset($this->imagen);
-        $this->imagen_web = asset($this->imagen_web);
+	    $category->save();
+	    return $category;
     }
 } 
