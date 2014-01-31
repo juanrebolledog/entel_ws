@@ -3,15 +3,16 @@ class EventSeeder extends Seeder {
     public function run()
     {
         DB::table('eventos')->delete();
+	    Eloquent::unguard();
 
         $categories = EventSubCategory::all();
 
         foreach ($categories as $k=>$cat)
         {
-            foreach (range(1, 2) as $j)
+            foreach (range(1, 10) as $j)
             {
                 $e = AppEvent::create(array(
-                    'nombre' => 'Evento de Prueba',
+                    'nombre' => 'Evento de Prueba ' . $cat->nombre,
                     'descripcion' => 'Este es una prueba. Un Evento que realmente no sucederá.',
                     'descripcion_larga' => 'Este es una prueba. Un Evento que realmente no sucederá. Esta es la descripción larga.',
                     'sub_categoria_id' => $cat->id,
@@ -33,7 +34,7 @@ class EventSeeder extends Seeder {
                     'post' => 'Este es el post que va en el Evento. En el se puede hacer una larga descripción o hablar de otros temas referentes al Evento'
                 ));
 
-                foreach (range(1, 10) as $i)
+                foreach (range(1, 5) as $i)
                 {
                     $image = new EventImage();
                     $image->descripcion = 'Test Imagen ' . $i . ' descripción';
@@ -41,7 +42,7 @@ class EventSeeder extends Seeder {
                     $e->images()->save($image);
                 }
 
-                foreach (range(1, 10) as $i)
+                foreach (range(1, 5) as $i)
                 {
                     $video = new EventVideo();
                     $video->descripcion = 'Test Video ' . $i . ' descripción';
