@@ -1,5 +1,14 @@
 @import "settings";
 
+body {
+  background: url(../img/admin/bg.jpg);
+  background-size: cover;
+}
+
+.top-bar {
+  box-shadow: 0 2px 5px lighten($fg-color, 3%);
+}
+
 #messages {
   margin: $padding-medium 0 $padding-medium 0;
   #flash-message {
@@ -18,16 +27,13 @@
   float: none;
 }
 #login-form {
-  border: 1px solid lighten($fg-color, 50%);
-  -webkit-box-shadow: 0 2px 1px lighten($fg-color, 50%);
-  -moz-box-shadow: 0 2px 1px lighten($fg-color, 50%);
-  box-shadow: 0 2px 1px lighten($fg-color, 50%);
+  box-shadow: 0 2px 5px lighten($fg-color, 3%);
 
   #login-form-header {
     margin: 0;
     padding: 20px;
     padding-bottom: 5px;
-    padding-top: 10px;
+    padding-top: 5px;
     background-color: $fg-color;
     color: $bg-color;
 
@@ -38,6 +44,7 @@
   }
 
   #login-form-content {
+    background-color: $bg-color;
     padding: 20px;
     margin: 0;
 

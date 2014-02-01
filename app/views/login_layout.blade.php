@@ -17,7 +17,7 @@
     <ul class="title-area">
         <li class="name">
             <h1>
-                {{ link_to(action('SuperAdminUsersController@login_form'), 'Zona Entel') }}
+                {{ link_to(action('SuperAdminUsersController@login_form'), 'Zona Entel Admin') }}
             </h1>
         </li>
         <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>

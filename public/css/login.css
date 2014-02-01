@@ -1,64 +1,73 @@
 /* line 3, ../scss/login.scss */
+body {
+  background: url(../img/admin/bg.jpg);
+  background-size: cover;
+}
+
+/* line 8, ../scss/login.scss */
+.top-bar {
+  box-shadow: 0 2px 5px #3b3b3b;
+}
+
+/* line 12, ../scss/login.scss */
 #messages {
   margin: 10px 0 10px 0;
 }
-/* line 5, ../scss/login.scss */
+/* line 14, ../scss/login.scss */
 #messages #flash-message {
   width: 30%;
   margin: 0 auto;
   float: none;
 }
-/* line 9, ../scss/login.scss */
+/* line 18, ../scss/login.scss */
 #messages #flash-message .panel {
   margin: 0;
 }
 
-/* line 15, ../scss/login.scss */
+/* line 24, ../scss/login.scss */
 #app-content {
   width: 30%;
   margin: 0 auto;
   float: none;
 }
 
-/* line 20, ../scss/login.scss */
+/* line 29, ../scss/login.scss */
 #login-form {
-  border: 1px solid #b3b3b3;
-  -webkit-box-shadow: 0 2px 1px #b3b3b3;
-  -moz-box-shadow: 0 2px 1px #b3b3b3;
-  box-shadow: 0 2px 1px #b3b3b3;
+  box-shadow: 0 2px 5px #3b3b3b;
 }
-/* line 26, ../scss/login.scss */
+/* line 32, ../scss/login.scss */
 #login-form #login-form-header {
   margin: 0;
   padding: 20px;
   padding-bottom: 5px;
-  padding-top: 10px;
+  padding-top: 5px;
   background-color: #333333;
   color: white;
 }
-/* line 34, ../scss/login.scss */
+/* line 40, ../scss/login.scss */
 #login-form #login-form-header h3 {
   color: white;
   margin: 0;
 }
-/* line 40, ../scss/login.scss */
+/* line 46, ../scss/login.scss */
 #login-form #login-form-content {
+  background-color: white;
   padding: 20px;
   margin: 0;
 }
-/* line 44, ../scss/login.scss */
+/* line 51, ../scss/login.scss */
 #login-form #login-form-content .button {
   margin-bottom: 0;
 }
 
 @media (max-width: 800px) {
-  /* line 51, ../scss/login.scss */
+  /* line 58, ../scss/login.scss */
   #app-content {
     width: 80%;
   }
 }
 @media (max-width: 600px) {
-  /* line 56, ../scss/login.scss */
+  /* line 63, ../scss/login.scss */
   #app-content {
     width: 100%;
   }
