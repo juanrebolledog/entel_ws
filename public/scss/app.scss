@@ -241,6 +241,17 @@ footer {
   }
 }
 
+.top-bar {
+  input {
+    background: transparent;
+    border: 0;
+    color: white;
+    font-size: 0.8rem;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
 @media screen and (max-width: 640px) {
   section {
     .row {

@@ -165,8 +165,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin_auth'), function()
     });
 
 	Route::get('', 'AdminHomeController@index');
-	// GET for now. Must be changed to POST ASAP.
-	Route::get('logout', 'SuperAdminUsersController@logout');
+	Route::post('logout', 'SuperAdminUsersController@logout');
 });
 
 Route::group(array('before' => 'guest', 'prefix' => 'admin'), function()

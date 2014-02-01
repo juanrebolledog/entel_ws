@@ -83,7 +83,10 @@
             </li>
             <li class="divider"></li>
             <li>
-                {{ link_to(action('SuperAdminUsersController@logout'), 'Salir') }}
+                <!--{{ link_to(action('SuperAdminUsersController@logout'), 'Salir', array('class' => 'logout-button')) }}-->
+	            <form class="logout-form" action="{{ action('SuperAdminUsersController@logout') }}" method="post">
+		            {{ Form::submit('Logout') }}
+	            </form>
             </li>
             <li class="divider"></li>
         </ul>
@@ -155,6 +158,7 @@
 
 </section>
 
+<!--
 <footer class="item">
     <div class="entel-item-content">
         <div class="text-center">
@@ -162,6 +166,7 @@
         </div>
     </div>
 </footer>
+-->
 
 <script src="<?= asset('js/vendor/jquery.js'); ?>"></script>
 <script src="<?= asset('js/vendor/underscore.js'); ?>"></script>
@@ -171,6 +176,17 @@
 
 <script>
     $(document).foundation();
+    var logging_out = false;
+	$('.logout-form').on('submit', function(e) {
+		if (!logging_out) {
+			e.preventDefault();
+			var $e = $(e.currentTarget);
+			if (confirm('¿Estás seguro que quieres salir?')) {
+				logging_out = true;
+				$e.submit();
+			}
+		}
+	});
 </script>
 @yield('scripts')
 
