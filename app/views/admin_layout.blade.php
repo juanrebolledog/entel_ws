@@ -153,6 +153,23 @@
     </div>
 
     <div class="large-10 medium-12 small-12 columns" id="app-content">
+	    <section id="messages">
+		    @if (Session::has('flash_error'))
+		    <div class="columns large-12 flash-message">
+			    <div class="panel callout radius">
+				    {{ Session::get('flash_error') }}
+			    </div>
+		    </div>
+		    @endif
+
+		    @if (Session::has('flash_message'))
+		    <div class="columns large-12 flash-message">
+			    <div class="panel callout radius">
+				    {{ Session::get('flash_message') }}
+			    </div>
+		    </div>
+		    @endif
+	    </section>
         @yield('content')
     </div>
 

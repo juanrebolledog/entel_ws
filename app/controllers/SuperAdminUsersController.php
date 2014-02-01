@@ -23,7 +23,10 @@ class SuperAdminUsersController extends AdminBaseController {
             Log::info(json_encode($data));
             if (Auth::attempt(array('email' => $data['email'], 'password' => $data['password'])))
             {
-                return Redirect::intended(action('AdminHomeController@index'));
+	            $login_msgs = Config::get('app.login_messages');
+	            $login_msg = $login_msgs[array_rand($login_msgs)];
+                return Redirect::intended(action('AdminHomeController@index'))
+	                ->with('flash_message', $login_msg);
             }
             else
             {
@@ -35,8 +38,11 @@ class SuperAdminUsersController extends AdminBaseController {
 
     public function logout()
     {
+	    $logout_msgs = Config::get('app.logout_messages');
+	    $logout_msg = $logout_msgs[array_rand($logout_msgs)];
 	    Auth::logout();
-	    return Redirect::to(action('SuperAdminUsersController@login_form'));
+	    return Redirect::to(action('SuperAdminUsersController@login_form'))
+		    ->with('flash_message', $logout_msg);
     }
 
     public function profile()

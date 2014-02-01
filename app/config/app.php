@@ -187,5 +187,17 @@ return array(
         'android' => '71b7ea211f7db5054dd6a037c37e45f477733e7da38fdad7b657c6d98f32cc2e'
     ),
 
-	'search_limit' => 50
+	'search_limit' => 50,
+
+	'logout_messages' => array(
+		'¡Hasta luego!',
+		'¡Hasta la próxima!',
+		'Nos vemos pronto.'
+	),
+
+	'login_messages' => array(
+		'¡Bienvenido!',
+		'¡Hola!',
+		'Bienvenido.'
+	)
 );
