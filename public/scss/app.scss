@@ -213,7 +213,8 @@ section {
 footer {
   width: 100%;
   background-color: $fg-color;
-  position: relative;
+  position: fixed;
+  bottom: 0;
   float: left;
   height: 40px;
 
