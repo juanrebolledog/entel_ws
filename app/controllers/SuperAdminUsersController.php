@@ -20,8 +20,7 @@ class SuperAdminUsersController extends AdminBaseController {
         $data = Input::all();
         if (!empty($data))
         {
-            Log::info(json_encode($data));
-            if (Auth::attempt(array('email' => $data['email'], 'password' => $data['password'])))
+            if (Auth::attempt(array('email' => $data['email'], 'password' => $data['password']), true))
             {
 	            $login_msgs = Config::get('app.login_messages');
 	            $login_msg = $login_msgs[array_rand($login_msgs)];
