@@ -164,6 +164,26 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin_auth'), function()
         Route::post('store', 'AdminZonesController@store');
     });
 
+	Route::group(array('prefix' => 'summers'), function()
+	{
+		Route::group(array('prefix' => 'categories'), function()
+		{
+			Route::get('create', 'AdminSummerCategoriesController@create');
+			Route::get('', 'AdminSummerCategoriesController@index');
+			Route::get('{id}', 'AdminSummerCategoriesController@show');
+			Route::get('{id}/edit', 'AdminSummerCategoriesController@edit');
+			Route::put('{id}/update', 'AdminSummerCategoriesController@update');
+			Route::post('store', 'AdminSummerCategoriesController@store');
+		});
+
+		Route::get('create', 'AdminSummersController@create');
+		Route::get('', 'AdminSummersController@index');
+		Route::get('{id}', 'AdminSummersController@show');
+		Route::get('{id}/edit', 'AdminSummersController@edit');
+		Route::put('{id}/update', 'AdminSummersController@update');
+		Route::post('store', 'AdminSummersController@store');
+	});
+
 	Route::get('', 'AdminHomeController@index');
 	Route::post('logout', 'SuperAdminUsersController@logout');
 });

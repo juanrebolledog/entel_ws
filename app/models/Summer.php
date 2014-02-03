@@ -74,6 +74,7 @@ class Summer extends BaseModel {
         $summer->legal = $data['legal'];
         $summer->sms_nro = $data['sms_nro'];
         $summer->sms_texto = $data['sms_texto'];
+	    $summer->categoria_id = $data['categoria_id'];
 
         $summer = self::uploadImages($summer, $data);
 
@@ -94,11 +95,12 @@ class Summer extends BaseModel {
         $summer->legal = $data['legal'];
         $summer->sms_nro = $data['sms_nro'];
         $summer->sms_texto = $data['sms_texto'];
+	    $summer->categoria_id = $data['categoria_id'];
 
         $summer = self::uploadImages($summer, $data);
 
         $summer_array = $summer->toArray();
-        $summer_validator = Validator::make($summer_array, self::$validation);
+        $summer_validator = Validator::make($summer_array, self::$rules);
         if ($summer_validator->fails())
         {
             return $summer;
@@ -119,30 +121,25 @@ class Summer extends BaseModel {
         $name_prefix = hash('sha1', $summer->nombre);
         $dir = public_path() . '/' . 'img' . '/' . $object_dir . '/';
 
-        if ($data['imagen_descripcion'])
-        {
-            $ext = $data['imagen_descripcion']->getClientOriginalExtension();
-            if ($data['imagen_descripcion']->move($dir, $name_prefix . '_descripcion.' . $ext))
-            {
-                $summer->imagen_descripcion = 'img/' . $object_dir . '/' . $name_prefix . '_descripcion.' . $ext;
-            }
-        }
+	    $image_fields = array('imagen_descripcion', 'imagen_titulo');
 
-        if ($data['imagen_titulo'])
-        {
-            $ext = $data['imagen_titulo']->getClientOriginalExtension();
-            if ($data['imagen_titulo']->move($dir, $name_prefix . '_titulo.' . $ext))
-            {
-                $summer->imagen_titulo = 'img/' . $object_dir . '/' . $name_prefix . '_titulo.' . $ext;
-            }
-        }
+	    foreach ($image_fields as $ifield)
+	    {
+		    if (isset($data[$ifield]) && ($data[$ifield] && $data[$ifield] != ''))
+		    {
+			    $ext = $data[$ifield]->getClientOriginalExtension();
+			    if ($data[$ifield]->move($dir, $name_prefix . '_' . $ifield . '.' . $ext))
+			    {
+				    $summer->$ifield = 'img/' . $object_dir . '/' . $name_prefix . '_' . $ifield . '.' . $ext;
+			    }
+		    }
+	    }
 
         return $summer;
     }
 
     public function prepareForWS()
     {
-        $this->imagen_banner = asset($this->imagen_banner);
         $this->imagen_titulo = asset($this->imagen_titulo);
         $this->imagen_descripcion = asset($this->imagen_descripcion);
         return $this;

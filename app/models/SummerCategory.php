@@ -70,7 +70,7 @@ class SummerCategory extends BaseModel {
         $category->nombre = $data['nombre'];
 
         $category_array = $category->toArray();
-        $category_validator = Validator::make($category_array, self::$validation);
+        $category_validator = Validator::make($category_array, self::$rules);
         if ($category_validator->fails())
         {
             return $category;
