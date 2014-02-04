@@ -19,8 +19,8 @@ class CreateBeneficiosUbicacionesTable extends Migration {
 			$table->foreign('beneficio_id')->on('beneficios')->references('id')
 				->onUpdate('cascade')->onDelete('cascade');
 			$table->string('lugar', 100);
-			$table->float('lat');
-			$table->float('lng');
+			$table->decimal('lat', 18, 12);
+			$table->decimal('lng', 18, 12);
 		});
 	}
 
