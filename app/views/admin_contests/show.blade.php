@@ -4,7 +4,7 @@
 <section>
     <header>
         <h3>
-            <?= link_to(action('AdminContestsController@index'), 'Zonas'); ?> &raquo; <?= $contest->nombre; ?>
+            <?= link_to(action('AdminContestsController@index'), 'Concursos'); ?> &raquo; <?= $contest->nombre; ?>
         </h3>
         <ul>
             <li>

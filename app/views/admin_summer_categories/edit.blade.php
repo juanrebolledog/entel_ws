@@ -4,7 +4,7 @@
 <section>
 	<header>
 		<h3>
-			{{ link_to(action('AdminSummerCategoriesController@index'), 'Categorías de Veranos') }} &raquo; Crear Nueva
+			{{ link_to(action('AdminSummerCategoriesController@index'), 'Categorías de Veranos') }} &raquo; {{ link_to(action('AdminSummerCategoriesController@show', $category->id), $category->nombre) }} &raquo; {{ 'Editar' }}
 		</h3>
 	</header>
 	{{ Form::model($category, array('method' => 'put', 'url' => action('AdminSummerCategoriesController@update', $category->id))) }}

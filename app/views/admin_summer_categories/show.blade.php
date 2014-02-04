@@ -38,7 +38,7 @@
 		                <tbody>
 		                @foreach ($category->summers as $summer)
 		                <tr>
-			                <td>{{ $scategory->nombre }}</td>
+			                <td>{{ $summer->nombre }}</td>
 			                <td>
 				                {{ link_to(action('AdminSummersController@show', $summer->id), 'Ver') }}
 				                {{ link_to(action('AdminSummersController@edit', $summer->id), 'Editar') }}
