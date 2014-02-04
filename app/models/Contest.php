@@ -59,31 +59,43 @@ class Contest extends BaseModel {
         $contest = self::uploadImages($contest, $data);
 
         $contest->save();
+
+	    if (!empty($data['nombres']) && !empty($data['rut']))
+	    {
+		    foreach ($data['nombres'] as $k=>$nombre)
+		    {
+			    $winner = new ContestWinner();
+			    $winner->nombres = $nombre;
+			    $winner->rut = $data['rut'][$k];
+			    $contest->winners()->save($winner);
+		    }
+	    }
+
         return $contest;
     }
 
     static public function updateContest($id, $data)
     {
-        $contest = self::find($id);
-        $contest->url = $data['url'];
+        $contest = self::with('winners')->find($id);
+        $contest->nombre = $data['nombre'];
         $contest->descripcion = $data['descripcion'];
 
         $contest = self::uploadImages($contest, $data);
 
-        $contest_array = $contest->toArray();
-        $contest_validator = Validator::make($contest_array, self::$validation);
-        if ($contest_validator->fails())
-        {
-            return $contest;
-        }
-        else
-        {
-            if ($contest->save())
-            {
-                $contest->validator = $contest_validator;
-                return $contest;
-            }
-        }
+	    if ($contest->save())
+	    {
+		    if (!empty($data['ganadores_n']))
+		    {
+			    foreach ($data['ganadores_n']['nombres'] as $k=>$nombre)
+			    {
+				    $winner = new ContestWinner();
+				    $winner->nombres = $nombre;
+				    $winner->rut = $data['ganadores_n']['rut'][$k];
+				    $contest->winners()->save($winner);
+			    }
+		    }
+		    return $contest;
+	    }
     }
 
     static public function uploadImages($contest, $data)

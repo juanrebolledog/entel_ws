@@ -184,6 +184,26 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin_auth'), function()
 		Route::post('store', 'AdminSummersController@store');
 	});
 
+	Route::group(array('prefix' => 'contests'), function()
+	{
+		Route::get('create', 'AdminContestsController@create');
+		Route::get('', 'AdminContestsController@index');
+		Route::get('{id}', 'AdminContestsController@show');
+		Route::get('{id}/edit', 'AdminContestsController@edit');
+		Route::put('{id}/update', 'AdminContestsController@update');
+		Route::post('store', 'AdminContestsController@store');
+	});
+
+	Route::group(array('prefix' => 'social_galleries'), function()
+	{
+		Route::get('create', 'AdminSocialGalleriesController@create');
+		Route::get('', 'AdminSocialGalleriesController@index');
+		Route::get('{id}', 'AdminSocialGalleriesController@show');
+		Route::get('{id}/edit', 'AdminSocialGalleriesController@edit');
+		Route::put('{id}/update', 'AdminSocialGalleriesController@update');
+		Route::post('store', 'AdminSocialGalleriesController@store');
+	});
+
 	Route::get('', 'AdminHomeController@index');
 	Route::post('logout', 'SuperAdminUsersController@logout');
 });

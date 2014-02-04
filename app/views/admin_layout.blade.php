@@ -137,10 +137,13 @@
 		        <?php echo HTML::decode(HTML::link(action('AdminZoneCategoriesController@index'), 'Categorías Puntos Zona&nbsp;<span class="fa fa-tag"></span>', array('escape' => false))); ?>
 	        </li>
 	        <li class="<?= $data['current'] == 'summers' ? 'active':''; ?>">
-		        <?php echo HTML::decode(HTML::link(action('AdminSummersController@index'), 'Veranos&nbsp;<span class="fa fa-location-arrow"></span>', array('escape' => false))); ?>
+		        <?php echo HTML::decode(HTML::link(action('AdminSummersController@index'), 'Veranos&nbsp;<span class="fa fa-sun-o"></span>', array('escape' => false))); ?>
 	        </li>
 	        <li class="<?= $data['current'] == 'summer_categories' ? 'active':''; ?>">
 		        <?php echo HTML::decode(HTML::link(action('AdminSummerCategoriesController@index'), 'Categorías Veranos&nbsp;<span class="fa fa-tag"></span>', array('escape' => false))); ?>
+	        </li>
+	        <li class="<?= $data['current'] == 'contests' ? 'active':''; ?>">
+		        <?php echo HTML::decode(HTML::link(action('AdminContestsController@index'), 'Concursos&nbsp;<span class="fa fa-trophy"></span>', array('escape' => false))); ?>
 	        </li>
 
             <li class="divider"></li>
@@ -167,6 +170,7 @@
     </div>
 
     <div class="large-10 medium-12 small-12 columns" id="app-content">
+	    @if (Session::has('flash_error') || Session::has('flash_message'))
 	    <section id="messages">
 		    @if (Session::has('flash_error'))
 		    <div class="columns large-12 flash-message">
@@ -184,6 +188,7 @@
 		    </div>
 		    @endif
 	    </section>
+	    @endif
         @yield('content')
     </div>
 
