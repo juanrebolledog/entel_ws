@@ -200,6 +200,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin_auth'), function()
 		Route::get('', 'AdminSocialGalleriesController@index');
 		Route::get('{id}', 'AdminSocialGalleriesController@show');
 		Route::get('{id}/edit', 'AdminSocialGalleriesController@edit');
+		Route::get('{id}/images', 'AdminSocialGalleriesController@images');
 		Route::put('{id}/update', 'AdminSocialGalleriesController@update');
 		Route::post('store', 'AdminSocialGalleriesController@store');
 	});

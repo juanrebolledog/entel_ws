@@ -145,6 +145,9 @@
 	        <li class="<?= $data['current'] == 'contests' ? 'active':''; ?>">
 		        <?php echo HTML::decode(HTML::link(action('AdminContestsController@index'), 'Concursos&nbsp;<span class="fa fa-trophy"></span>', array('escape' => false))); ?>
 	        </li>
+	        <li class="<?= $data['current'] == 'galleries' ? 'active':''; ?>">
+		        <?php echo HTML::decode(HTML::link(action('AdminSocialGalleriesController@index'), 'Galerías Sociales&nbsp;<span class="fa fa-users"></span>', array('escape' => false))); ?>
+	        </li>
 
             <li class="divider"></li>
             <li class="<?= $data['current'] == 'stats' ? 'active':''; ?>">

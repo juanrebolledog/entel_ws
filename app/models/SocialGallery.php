@@ -8,7 +8,7 @@ class SocialGallery extends BaseModel {
     );
 
     static public $rules = array(
-        'imagen' => 'required',
+        'imagen_web' => 'required',
         'fecha' => 'required',
         'nombre' => 'required'
     );
@@ -61,38 +61,32 @@ class SocialGallery extends BaseModel {
 
     static public function createGallery($data)
     {
-        $gallery = new Gallery();
+        $gallery = new SocialGallery();
         $gallery->nombre = $data['nombre'];
-        $gallery->url = $data['url'];
+        $gallery->fecha = $data['fecha'];
 
         $gallery = self::uploadImages($gallery, $data);
 
-        $gallery->save();
+
+        if ($gallery->save())
+        {
+	        $gallery = self::uploadGalleryImages($gallery, $data);
+        }
         return $gallery;
     }
 
     static public function updateGallery($id, $data)
     {
-        $gallery = Gallery::find($id);
-        $gallery->nombre = $data['nombre'];
-        $gallery->url = $data['url'];
+        $gallery = SocialGallery::find($id);
+	    $gallery->nombre = $data['nombre'];
+	    $gallery->fecha = $data['fecha'];
 
         $gallery = self::uploadImages($gallery, $data);
 
-        $gallery_array = $gallery->toArray();
-        $gallery_validator = Validator::make($gallery_array, self::$validation);
-        if ($gallery_validator->fails())
-        {
-            return $gallery;
-        }
-        else
-        {
-            if ($gallery->save())
-            {
-                $gallery->validator = $gallery_validator;
-                return $gallery;
-            }
-        }
+	    if ($gallery->save())
+	    {
+		    return $gallery;
+	    }
     }
 
     static public function uploadImages($gallery, $data)
@@ -101,16 +95,43 @@ class SocialGallery extends BaseModel {
         $name_prefix = hash('sha1', $gallery->nombre);
         $dir = public_path() . '/' . 'img' . '/' . $object_dir . '/';
 
-        if ($data['imagen'])
-        {
-            $ext = $data['imagen']->getClientOriginalExtension();
-            if ($data['imagen']->move($dir, $name_prefix . '_imagen.' . $ext))
-            {
-                $gallery->galleryn = 'img/' . $object_dir . '/' . $name_prefix . '_imagen.' . $ext;
-            }
-        }
+	    $image_fields = array('imagen_web');
+
+	    foreach ($image_fields as $ifield)
+	    {
+		    if (isset($data[$ifield]) && ($data[$ifield] && $data[$ifield] != ''))
+		    {
+			    $ext = $data[$ifield]->getClientOriginalExtension();
+			    if ($data[$ifield]->move($dir, $name_prefix . '_' . $ifield . '.' . $ext))
+			    {
+				    $gallery->$ifield = 'img/' . $object_dir . '/' . $name_prefix . '_' . $ifield . '.' . $ext;
+			    }
+		    }
+	    }
         return $gallery;
     }
+
+	static public function uploadGalleryImages($gallery, $data)
+	{
+		$object_dir = 'gallery_images';
+		$name_prefix = hash('sha1', $gallery->nombre);
+		$dir = public_path() . '/' . 'img' . '/' . $object_dir . '/';
+
+		foreach ($data['imagenes'] as $k=>$new_image)
+		{
+			$ext = $new_image->getClientOriginalExtension();
+			$hashed_name = hash('sha1', $new_image->getClientOriginalName());
+			if ($new_image->move($dir, $name_prefix . '_' . $hashed_name . '.' . $ext))
+			{
+				$image = new GalleryImage();
+				$image->imagen = 'img/' . $object_dir . '/' . $name_prefix . '_' . $hashed_name . '.' . $ext;
+				$image->descripcion = $data['descripcion'][$k];
+				$gallery->images()->save($image);
+			}
+		}
+
+		return $gallery;
+	}
 
     public function prepareForWS()
     {
