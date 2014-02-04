@@ -71,6 +71,14 @@
 	        <li>
 		        {{ link_to(action('AdminSummerCategoriesController@index'), 'Categorías Veranos') }}
 	        </li>
+	        <li class="divider"></li>
+	        <li>
+		        {{ link_to(action('AdminContestsController@index'), 'Concursos') }}
+	        </li>
+	        <li class="divider"></li>
+	        <li>
+		        {{ link_to(action('AdminSocialGalleriesController@index'), 'Galerías Sociales') }}
+	        </li>
             <li class="divider"></li>
             <li class="divider"></li>
             <li><a href="configuration.html">Configuraci&oacute;n</a></li>
@@ -146,7 +154,7 @@
 		        <?php echo HTML::decode(HTML::link(action('AdminContestsController@index'), 'Concursos&nbsp;<span class="fa fa-trophy"></span>', array('escape' => false))); ?>
 	        </li>
 	        <li class="<?= $data['current'] == 'galleries' ? 'active':''; ?>">
-		        <?php echo HTML::decode(HTML::link(action('AdminSocialGalleriesController@index'), 'Galerías Sociales&nbsp;<span class="fa fa-users"></span>', array('escape' => false))); ?>
+		        <?php echo HTML::decode(HTML::link(action('AdminSocialGalleriesController@index'), 'Galerías Sociales&nbsp;<span class="fa fa-camera-retro"></span>', array('escape' => false))); ?>
 	        </li>
 
             <li class="divider"></li>
