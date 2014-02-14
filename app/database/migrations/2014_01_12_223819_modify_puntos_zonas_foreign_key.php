@@ -31,7 +31,10 @@ class ModifyPuntosZonasForeignKey extends Migration {
      */
     public function down()
     {
-
+	    Schema::table('puntos_zonas', function(Blueprint $table)
+	    {
+		    $table->dropForeign('puntos_zonas_categoria_id_foreign');
+	    });
     }
 
 }

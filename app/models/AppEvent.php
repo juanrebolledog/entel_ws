@@ -11,11 +11,7 @@ class AppEvent extends LocationModel {
         'descripcion' => 'required',
         'descripcion_larga' => 'required',
         'sub_categoria_id' => 'required',
-        'fecha' => 'required',
         'tags' => 'required',
-        'lat' => 'required',
-        'lng' => 'required',
-        'lugar' => 'required',
         'sms_texto' => 'required',
         'sms_nro' => 'required',
         'icono' => 'required',
@@ -57,6 +53,16 @@ class AppEvent extends LocationModel {
         return $this->hasMany('EventVideo', 'evento_id');
     }
 
+	public function location()
+	{
+		return $this->hasMany('EventLocation', 'evento_id');
+	}
+
+	public function dates()
+	{
+		return $this->hasMany('EventDate', 'evento_id');
+	}
+
     public static function validate($input, $options = array())
     {
         if (!empty($options) && isset($options['except']))
@@ -72,7 +78,7 @@ class AppEvent extends LocationModel {
 
     static public function getEvent($id)
     {
-        $event = self::with('sub_category', 'comments')->find($id);
+        $event = self::with('sub_category', 'comments', 'location', 'dates')->find($id);
         if ($event && $event->exists)
         {
             $event->prepareForWS();
@@ -100,7 +106,7 @@ class AppEvent extends LocationModel {
     {
         $models = array();
 
-        foreach (self::with('comments', 'sub_category')->get() as $model)
+        foreach (self::with('comments', 'sub_category', 'location', 'dates')->get() as $model)
         {
             $distance = self::calculateDistance(array('lat' => $lat, 'lng' => $lng),
                 array('lat' => $model->lat, 'lng' => $model->lng));
@@ -118,7 +124,7 @@ class AppEvent extends LocationModel {
 
     static public function searchByKeyword($q = null)
     {
-        $results = self::with('sub_category', 'comments')->where(function($query) use ($q)
+        $results = self::with('sub_category', 'comments', 'location', 'dates')->where(function($query) use ($q)
         {
             $query->where('nombre', 'LIKE', '%' . $q . '%');
             $query->orWhere('descripcion', 'LIKE', '%' . $q . '%');
@@ -135,13 +141,15 @@ class AppEvent extends LocationModel {
         $event->descripcion_larga = $data['descripcion_larga'];
         $event->post = $data['post'];
         $event->sub_categoria_id = $data['sub_categoria_id'];
-        $event->fecha = $data['fecha'];
         $event->tags = $data['tags'];
         $event->legal = $data['legal'];
 
+	    /*
+	    $event->fecha = $data['fecha'];
         $event->lat = $data['lat'];
         $event->lng = $data['lng'];
         $event->lugar = $data['lugar'];
+	    */
 
         $event->sms_texto = $data['sms_texto'];
         $event->sms_nro = $data['sms_nro'];
@@ -182,13 +190,15 @@ class AppEvent extends LocationModel {
         $event->descripcion_larga = $data['descripcion_larga'];
         $event->post = $data['post'];
         $event->sub_categoria_id = $data['sub_categoria_id'];
-        $event->fecha = $data['fecha'];
         $event->tags = $data['tags'];
         $event->legal = $data['legal'];
 
-        $event->lat = $data['lat'];
-        $event->lng = $data['lng'];
-        $event->lugar = $data['lugar'];
+	    /*
+		$event->fecha = $data['fecha'];
+		$event->lat = $data['lat'];
+		$event->lng = $data['lng'];
+		$event->lugar = $data['lugar'];
+		*/
 
         $event->sms_texto = $data['sms_texto'];
         $event->sms_nro = $data['sms_nro'];

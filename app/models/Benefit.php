@@ -306,7 +306,8 @@ class Benefit extends LocationModel {
 
 			    if ($range)
 			    {
-				    if ($location->distancia <= Config::get('app.search_limit') && $location->distancia <= $range)
+				    //if ($location->distancia <= Config::get('app.search_limit') && $location->distancia <= $range)
+				    if ($location->distancia <= $range)
 				    {
 					    array_push($benefit_locations, $location->toArray());
 				    }

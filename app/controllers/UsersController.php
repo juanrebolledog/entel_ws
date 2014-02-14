@@ -18,6 +18,7 @@ class UsersController extends BaseController {
     public function store()
     {
         $data = Input::all();
+
         $validator = User::validate($data);
 
         if ($validator->passes())

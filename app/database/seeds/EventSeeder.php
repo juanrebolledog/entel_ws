@@ -23,16 +23,28 @@ class EventSeeder extends Seeder {
                     'imagen_grande_web' => 'img/events/default/grande_web.png',
                     'imagen_ubicacion' => 'img/events/default/ubicacion.png',
                     'imagen_bg' => 'img/events/default/bg.png',
-                    'fecha' => new DateTime(),
-                    'lugar' => 'Estadio Municipal',
                     'tags' => 'evento, prueba, ejemplo',
                     'sms_texto' => 'TEXT',
                     'sms_nro' => '0000',
-                    'lat' => 10.8053905 + rand(-10, 10),
-                    'lng' => -69.8053905 + rand(-10, 10),
                     'legal' => 'Legal test',
                     'post' => 'Este es el post que va en el Evento. En el se puede hacer una larga descripción o hablar de otros temas referentes al Evento'
                 ));
+
+	            foreach (range(1, 5) as $i)
+	            {
+					$location = new EventLocation();
+		            $location->lugar = 'Estadio Municipal #' . $i;
+		            $location->lat = 10.8053905 + rand(-10, 10);
+		            $location->lng = -69.8053905 + rand(-10, 10);
+		            $e->location()->save($location);
+	            }
+
+	            foreach (range(1, 5) as $i)
+	            {
+		            $date = new EventDate();
+		            $date->fecha = date('Y-m-d', strtotime('+' . $i . ' week'));
+		            $e->dates()->save($date);
+	            }
 
                 foreach (range(1, 5) as $i)
                 {

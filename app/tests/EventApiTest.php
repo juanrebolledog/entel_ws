@@ -14,6 +14,30 @@ class EventApiTest extends TestCase {
         $this->assertTrue($content->status);
     }
 
+	public function testEventIndexContainsLocations()
+	{
+		$request = $this->request('GET', '/api/events');
+		$content = json_decode($request->getContent());
+		$this->assertTrue(!empty($content->data));
+		$this->assertTrue($content->status);
+		foreach ($content->data as $event)
+		{
+			$this->assertTrue(isset($event->location));
+		}
+	}
+
+	public function testEventIndexContainsDates()
+	{
+		$request = $this->request('GET', '/api/events');
+		$content = json_decode($request->getContent());
+		$this->assertTrue(!empty($content->data));
+		$this->assertTrue($content->status);
+		foreach ($content->data as $event)
+		{
+			$this->assertTrue(isset($event->dates));
+		}
+	}
+
     public function testEventIndexWithCoords()
     {
         $request = $this->request('GET', '/api/events?lat=' . $this->origin['lat'] . '&lng=' . $this->origin['lng']);
@@ -56,6 +80,26 @@ class EventApiTest extends TestCase {
         $this->assertTrue($content->status);
         $this->assertTrue($content->data->id == $last->id);
     }
+
+	public function testEventShowContainsLocations()
+	{
+		$last = AppEvent::take(1)->first();
+		$request = $this->request('GET', '/api/events/' . $last->id);
+		$content = json_decode($request->getContent());
+		$this->assertTrue(!empty($content->data));
+		$this->assertTrue($content->status);
+		$this->assertTrue(isset($content->data->location));
+	}
+
+	public function testEventShowContainsDates()
+	{
+		$last = AppEvent::take(1)->first();
+		$request = $this->request('GET', '/api/events/' . $last->id);
+		$content = json_decode($request->getContent());
+		$this->assertTrue(!empty($content->data));
+		$this->assertTrue($content->status);
+		$this->assertTrue(isset($content->data->dates));
+	}
 
     public function testEventSearch()
     {
