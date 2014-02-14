@@ -14,7 +14,7 @@ class AddComunaIdForeignBeneficiosTable extends Migration {
 	{
 		Schema::table('beneficios', function(Blueprint $table)
 		{
-			$table->integer('comuna_id')->unsigned()->nullable();
+			$table->integer('comuna_id')->unsigned();
 			$table->foreign('comuna_id')->on('comunas')->references('id');
 		});
 	}
