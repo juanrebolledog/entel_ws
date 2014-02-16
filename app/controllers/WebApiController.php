@@ -24,10 +24,21 @@ class WebApiController extends BaseController {
     public function zones()
     {
         $zones = ZoneCategory::getCategories();
-        $response = $zones->toArray();
+	    $pages = Page::getAll();
+        $response = array(
+	        'zones' => $zones->toArray(),
+	        'pages' => $pages->toArray()
+        );
         $this->setApiResponse($response, true);
         return Response::json($this->api_response);
     }
+
+	public function kb()
+	{
+		$pages = KBPage::getAll();
+		$this->setApiResponse($pages->toArray(), true);
+		return Response::json($this->api_response);
+	}
 
     public function events()
     {

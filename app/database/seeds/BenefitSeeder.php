@@ -7,7 +7,7 @@ class BenefitSeeder extends Seeder {
 
         $categories = BenefitSubCategory::all();
 
-	    $comunas = Commune::all();
+	    $comunas = Commune::all()->take(10);
 
 	    foreach ($comunas as $com)
 	    {

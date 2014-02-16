@@ -11,6 +11,7 @@ Route::group(array('prefix' => 'web'), function()
     Route::get('summer', 'WebApiController@summer');
 	Route::get('geo', 'WebApiController@geo');
 	Route::get('search', 'WebApiController@search');
+	Route::get('kb', 'WebApiController@kb');
 });
 
 Route::group(array('prefix' => 'api', 'before' => 'auth'), function()
