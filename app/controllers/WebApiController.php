@@ -62,13 +62,6 @@ class WebApiController extends BaseController {
 				$event->current = $current;
 			}
 		}
-	    foreach ($sub_categories as $scat)
-	    {
-		    $scat->events = $scat->events->sortBy(function($event)
-		    {
-			    return $event->current;
-		    });
-	    }
 
         $response = $sub_categories->toArray();
         $this->setApiResponse($response, true);
