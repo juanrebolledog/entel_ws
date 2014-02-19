@@ -13,6 +13,7 @@ class EventSeeder extends Seeder {
             {
                 $e = AppEvent::create(array(
                     'nombre' => 'Evento de Prueba ' . $cat->nombre,
+	                'mini_texto' => '10% DCTO.',
                     'descripcion' => 'Este es una prueba. Un Evento que realmente no sucederá.',
                     'descripcion_larga' => 'Este es una prueba. Un Evento que realmente no sucederá. Esta es la descripción larga.',
                     'sub_categoria_id' => $cat->id,

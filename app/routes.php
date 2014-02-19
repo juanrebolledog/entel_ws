@@ -156,6 +156,13 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin_auth'), function()
 		    Route::post('{id}/sub_categories/store', 'AdminZoneSubCategoriesController@store');
 	    });
 
+	    Route::get('pages', 'AdminZonePagesController@index');
+	    Route::get('pages/create', 'AdminZonePagesController@create');
+	    Route::post('pages/store', 'AdminZonePagesController@store');
+	    Route::get('pages/{id}', 'AdminZonePagesController@show');
+	    Route::get('pages/{id}/edit', 'AdminZonePagesController@edit');
+	    Route::put('pages/{id}/update', 'AdminZonePagesController@update');
+
         Route::get('create', 'AdminZonesController@create');
         Route::get('', 'AdminZonesController@index');
         Route::get('{id}', 'AdminZonesController@show');

@@ -8,7 +8,8 @@ class ZoneSeeder extends Seeder {
 	    Eloquent::unguard();
 
         $cat = ZoneCategory::create(array(
-            'nombre' => 'Bolsas'
+            'nombre' => 'Bolsas',
+	        'imagen_fondo' => 'img/zones/default/imagen_fondo.png'
         ));
 
         $sub_cats = array(
@@ -23,7 +24,7 @@ class ZoneSeeder extends Seeder {
 
             $cat->sub_categories()->save($sub_cat);
 
-            foreach (range(1, 5) as $j)
+            foreach (range(1, 2) as $j)
             {
                 $zone = new Zone();
                 $zone->nombre = 'Punto ' . $j;
@@ -32,13 +33,15 @@ class ZoneSeeder extends Seeder {
                 $zone->imagen_web = 'img/zones/default/imagen_web.png';
                 $zone->cantidad = $j * 100;
                 $zone->vigencia = $j . ' días';
+	            $zone->descripcion = 'Descripción por 10 días';
 
                 $sub_cat->zones()->save($zone);
             }
         }
 
         $cat = ZoneCategory::create(array(
-            'nombre' => 'Recargas'
+            'nombre' => 'Recargas',
+	        'imagen_fondo' => 'img/zones/default/imagen_fondo.png'
         ));
 
         $sub_cats = array(
@@ -53,7 +56,7 @@ class ZoneSeeder extends Seeder {
 
             $cat->sub_categories()->save($sub_cat);
 
-            foreach (range(1, 5) as $j)
+            foreach (range(1, 2) as $j)
             {
                 $zone = new Zone();
                 $zone->nombre = 'Punto ' . $j;
@@ -62,6 +65,7 @@ class ZoneSeeder extends Seeder {
                 $zone->imagen_web = 'img/zones/default/imagen_web.png';
                 $zone->cantidad = $j * 100;
                 $zone->vigencia = $j . ' días';
+	            $zone->descripcion = 'Descripción por 10 días';
 
                 $sub_cat->zones()->save($zone);
             }

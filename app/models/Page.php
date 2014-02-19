@@ -21,6 +21,15 @@ class Page extends BaseModel {
 		return $pages;
 	}
 
+	static public function getPage($id)
+	{
+		$page = self::find($id);
+		$page->obj_debes_saber = json_decode($page->obj_debes_saber, true);
+		$decoded = json_decode($page->obj_contenido, true);
+		$page->obj_contenido = $page->prepareForWS($decoded);
+		return $page;
+	}
+
 	public function prepareForWS($array)
 	{
 		$ifields = array('icono', 'imagen', 'imagen_titulo');
