@@ -86,6 +86,11 @@ class BenefitSubCategory extends BaseModel {
 		            {
 			            $benefit->locations = BenefitLocation::getLocations($benefit->id)->toArray();
 		            }
+
+		            $benefit->images->each(function($image)
+		            {
+			            $image->prepareForWS();
+		            });
 	            });
             });
         return $category;

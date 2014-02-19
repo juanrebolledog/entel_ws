@@ -26,7 +26,7 @@ class EventSeeder extends Seeder {
                     'imagen_bg' => 'img/events/default/bg.png',
                     'tags' => 'evento, prueba, ejemplo',
                     'sms_texto' => 'TEXT',
-                    'sms_nro' => '0000',
+                    'sms_nro' => '954',
                     'legal' => 'Legal test',
                     'post' => 'Este es el post que va en el Evento. En el se puede hacer una larga descripción o hablar de otros temas referentes al Evento'
                 ));
