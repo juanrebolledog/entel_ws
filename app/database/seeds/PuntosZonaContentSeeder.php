@@ -91,22 +91,22 @@ class PuntosZonaContentSeeder extends Seeder {
 				'obj_contenido' => array(
 					array(
 						'titulo' => 'VER TIENDAS',
-						'href' => '#',
+						'href' => 'http://www.entel.cl/personas/sucursales_tradicionales.iws',
 						'icono' => 'img/zonas_content/donde_canjear_icono.png'
 					),
 					array(
 						'titulo' => 'VER TIENDAS EXPRESS',
-						'href' => '#',
+						'href' => 'http://www.entel.cl/personas/sucursales_express.iws',
 						'icono' => 'img/zonas_content/donde_canjear_icono.png'
 					),
 					array(
 						'titulo' => 'MI ENTEL',
-						'href' => '#',
+						'href' => 'http://www.entel.cl/personas/mi_entel.iws',
 						'icono' => 'img/zonas_content/donde_canjear_icono.png'
 					),
 					array(
 						'titulo' => 'OPCIONES AUTOMÁTICAS',
-						'href' => '#',
+						'href' => 'http://personas.entelpcs.cl/PortalPersonas/appmanager/entelpcs/personas?_nfpb=true&_pageLabel=P8200668131268764639746',
 						'icono' => 'img/zonas_content/donde_canjear_icono.png'
 					)
 				)
