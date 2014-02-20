@@ -39,7 +39,7 @@ class BenefitSeeder extends Seeder {
 					    'comuna_id' => $com->id
 				    ));
 
-				    foreach (range(1, 10) as $i)
+				    foreach (range(1, 6) as $i)
 				    {
 					    $image = new BenefitImage(array(
 						    'imagen' => 'img/benefit_images/default/imagen.png',

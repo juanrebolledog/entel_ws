@@ -12,6 +12,24 @@ class CategorySeeder extends Seeder {
             'banner_link' => ''
         ));
 
+	    $sub_category = new BenefitSubCategory(array(
+		    'nombre' => 'Entretención',
+		    'banner' => 'img/benefit_sub_categories/default/banner.png',
+		    'icono' => 'img/benefit_sub_categories/default/icono.png',
+		    'banner_link' => ''
+	    ));
+
+	    BenefitCategory::where('nombre', 'Entretención')->first()->sub_categories()->save($sub_category);
+
+	    $sub_category = new BenefitSubCategory(array(
+		    'nombre' => 'Cine',
+		    'banner' => 'img/benefit_sub_categories/default/banner.png',
+		    'icono' => 'img/benefit_sub_categories/default/icono.png',
+		    'banner_link' => ''
+	    ));
+
+	    BenefitCategory::where('nombre', 'Entretención')->first()->sub_categories()->save($sub_category);
+
         BenefitCategory::create(array(
             'nombre' => 'Deporte',
             'banner' => 'img/benefit_categories/default/banner.png',
@@ -27,6 +45,15 @@ class CategorySeeder extends Seeder {
         ));
 
         BenefitCategory::where('nombre', 'Deporte')->first()->sub_categories()->save($sub_category);
+
+	    $sub_category = new BenefitSubCategory(array(
+		    'nombre' => 'Gimnasio y deporte',
+		    'banner' => 'img/benefit_sub_categories/default/banner.png',
+		    'icono' => 'img/benefit_sub_categories/default/icono.png',
+		    'banner_link' => ''
+	    ));
+
+	    BenefitCategory::where('nombre', 'Deporte')->first()->sub_categories()->save($sub_category);
 
         $sub_category = new BenefitSubCategory(array(
             'nombre' => 'Ski',
@@ -44,12 +71,39 @@ class CategorySeeder extends Seeder {
             'banner_link' => ''
         ));
 
+	    $sub_category = new BenefitSubCategory(array(
+		    'nombre' => 'Fastfood',
+		    'banner' => 'img/benefit_sub_categories/default/banner.png',
+		    'icono' => 'img/benefit_sub_categories/default/icono.png',
+		    'banner_link' => ''
+	    ));
+
+	    BenefitCategory::where('nombre', 'Gastronomía')->first()->sub_categories()->save($sub_category);
+
         BenefitCategory::create(array(
             'nombre' => 'Otros',
             'banner' => 'img/benefit_categories/default/banner.png',
             'icono' => 'img/benefit_categories/default/icono.png',
             'banner_link' => ''
         ));
+
+	    $sub_category = new BenefitSubCategory(array(
+		    'nombre' => 'Seguros',
+		    'banner' => 'img/benefit_sub_categories/default/banner.png',
+		    'icono' => 'img/benefit_sub_categories/default/icono.png',
+		    'banner_link' => ''
+	    ));
+
+	    BenefitCategory::where('nombre', 'Otros')->first()->sub_categories()->save($sub_category);
+
+	    $sub_category = new BenefitSubCategory(array(
+		    'nombre' => 'Farmacias',
+		    'banner' => 'img/benefit_sub_categories/default/banner.png',
+		    'icono' => 'img/benefit_sub_categories/default/icono.png',
+		    'banner_link' => ''
+	    ));
+
+	    BenefitCategory::where('nombre', 'Otros')->first()->sub_categories()->save($sub_category);
 
         DB::table('categorias_eventos')->delete();
         DB::table('sub_categorias_eventos')->delete();
