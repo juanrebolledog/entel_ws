@@ -144,7 +144,7 @@ class BenefitSubCategory extends BaseModel {
         $name_prefix = hash('sha1', $category->nombre . ' - ' . $category->banner_link);
         $dir = public_path() . '/' . 'img' . '/' . $object_dir . '/';
 
-        if ($data['banner'])
+        if (isset($data['banner']) && $data['banner'])
         {
             $ext = $data['banner']->getClientOriginalExtension();
             if ($data['banner']->move($dir, $name_prefix . '_banner.' . $ext))
@@ -153,7 +153,7 @@ class BenefitSubCategory extends BaseModel {
             }
         }
 
-        if ($data['icono'])
+        if (isset($data['icono']) && $data['icono'])
         {
             $ext = $data['icono']->getClientOriginalExtension();
             if ($data['icono']->move($dir, $name_prefix . '_icono.' . $ext))
