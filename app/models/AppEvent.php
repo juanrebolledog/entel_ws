@@ -144,8 +144,8 @@ class AppEvent extends LocationModel {
         $event->tags = $data['tags'];
         $event->legal = $data['legal'];
 
-	    /*
 	    $event->fecha = $data['fecha'];
+        /*
         $event->lat = $data['lat'];
         $event->lng = $data['lng'];
         $event->lugar = $data['lugar'];
@@ -193,8 +193,8 @@ class AppEvent extends LocationModel {
         $event->tags = $data['tags'];
         $event->legal = $data['legal'];
 
+        $event->fecha = $data['fecha'];
 	    /*
-		$event->fecha = $data['fecha'];
 		$event->lat = $data['lat'];
 		$event->lng = $data['lng'];
 		$event->lugar = $data['lugar'];
