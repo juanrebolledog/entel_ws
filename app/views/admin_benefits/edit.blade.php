@@ -61,6 +61,41 @@
             <?php endif; ?>
         </fieldset>
         <fieldset>
+            <legend>Ubicaciones</legend>
+            @foreach ($benefit->locations as $k=>$location)
+            <fieldset>
+                <div class="entel-form-location">
+                    <?php echo Form::hidden('location[' . $k . '][id]', $location->id); ?>
+                    <?php
+                    echo Form::label('location[lat]', 'Latitud');
+                    echo Form::text('location[' . $k . '][lat]', $location->lat);
+                    ?>
+                    <?php if ($errors->has('location[lat]')): ?>
+                        <small class="error"><?php echo $errors->first('location[lat]'); ?></small>
+                    <?php endif; ?>
+
+                    <?php
+                    echo Form::label('location[lng]', 'Longitud');
+                    echo Form::text('location[' . $k . '][lng]', $location->lng);
+                    ?>
+                    <?php if ($errors->has('location[lng]')): ?>
+                        <small class="error"><?php echo $errors->first('location[lng]'); ?></small>
+                    <?php endif; ?>
+
+                    <?php
+                    echo Form::label('location[lugar]', 'Lugar');
+                    echo Form::text('location[' . $k . '][lugar]', $location->lugar);
+                    ?>
+                    <?php if ($errors->has('location[lugar]')): ?>
+                        <small class="error"><?php echo $errors->first('location[lugar]'); ?></small>
+                    <?php endif; ?>
+                </div>
+            </fieldset>
+            @endforeach
+            <div class="locations"></div>
+            <a class="button tiny" id="add-location" href="#">{{ 'Agregar Ubicación' }}</a>
+        </fieldset>
+        <fieldset>
             <legend>SMS</legend>
             <?php
             echo Form::label('sms_texto', 'Texto');
@@ -124,38 +159,42 @@
         <div class="right" id="entel-location-control"><a class="remove-control" href="#"><i class="fa fa-times"></i></a></div>
         <div class="entel-form-location">
             <?php
-            echo Form::label('lat', 'Latitud');
-            echo Form::text('lat[]');
+            echo Form::label('location[lat]', 'Latitud');
             ?>
-            <?php if ($errors->has('lat')): ?>
-                <small class="error"><?php echo $errors->first('lat'); ?></small>
+            <input name="location[<%= elem %>][lat]" type="text">
+            <?php if ($errors->has('location[lat]')): ?>
+                <small class="error"><?php echo $errors->first('location[lat]'); ?></small>
             <?php endif; ?>
 
             <?php
-            echo Form::label('lng', 'Longitud');
-            echo Form::text('lng[]');
+            echo Form::label('location[lng]', 'Longitud');
             ?>
-            <?php if ($errors->has('lng')): ?>
-                <small class="error"><?php echo $errors->first('lng'); ?></small>
+            <input name="location[<%= elem %>][lng]" type="text">
+            <?php if ($errors->has('location[lng]')): ?>
+                <small class="error"><?php echo $errors->first('location[lng]'); ?></small>
             <?php endif; ?>
 
             <?php
-            echo Form::label('lugar', 'Lugar');
-            echo Form::text('lugar[]');
+            echo Form::label('location[lugar]', 'Lugar');
             ?>
-            <?php if ($errors->has('lugar')): ?>
-                <small class="error"><?php echo $errors->first('lugar'); ?></small>
+            <input name="location[<%= elem %>][lugar]" type="text">
+            <?php if ($errors->has('location[lugar]')): ?>
+                <small class="error"><?php echo $errors->first('location[lugar]'); ?></small>
             <?php endif; ?>
         </div>
     </fieldset>
 </script>
 <script>
     (function($, _) {
-        var tpl = _.template($('#entel-form-location-tpl').html());
+        var template = $('#entel-form-location-tpl').text();
         $('#add-location').on('click', function(e) {
+            var $locations = $('.locations');
+            var forms = $('.entel-form-location');
             var $e = $(e.currentTarget);
             e.preventDefault();
-            $('.locations').append($(tpl()).fadeIn(200));
+            var k = forms.length;
+            var tpl = _.template(template);
+            $locations.append(tpl({ elem: k }));
         });
         $('.locations').on('click', '.remove-control', function(e) {
             e.preventDefault();

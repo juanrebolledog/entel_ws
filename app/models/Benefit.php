@@ -173,6 +173,24 @@ class Benefit extends LocationModel {
         {
             if ($benefit->save())
             {
+                foreach ($data['location'] as $k=>$loc)
+                {
+                    if (is_array($loc))
+                    {
+                        if (isset($loc['id']))
+                        {
+                            $location = BenefitLocation::find($loc['id']);
+                        }
+                        else
+                        {
+                            $location = new BenefitLocation();
+                        }
+                        $location->lat = $loc['lat'];
+                        $location->lng = $loc['lng'];
+                        $location->lugar = $loc['lugar'];
+                        $benefit->locations()->save($location);
+                    }
+                }
                 $benefit->validator = $benefit_validator;
                 return $benefit;
             }

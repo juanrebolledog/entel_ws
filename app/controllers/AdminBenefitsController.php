@@ -62,7 +62,7 @@ class AdminBenefitsController extends AdminBaseController {
 
     public function edit($id)
     {
-        $benefit = Benefit::find($id);
+        $benefit = Benefit::with('locations')->find($id);
         $select_data = array();
         BenefitCategory::with('sub_categories')->get()->each(function($cat) use (&$select_data)
         {
