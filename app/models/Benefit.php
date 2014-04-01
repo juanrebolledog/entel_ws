@@ -129,7 +129,7 @@ class Benefit extends LocationModel {
         $benefit->save();
         foreach ($data['location'] as $k=>$loc)
         {
-            if (is_array($loc))
+            if (is_array($loc) && is_numeric($loc['lat']))
             {
                 $location = new BenefitLocation();
                 $location->lat = $loc['lat'];
@@ -213,6 +213,10 @@ class Benefit extends LocationModel {
                 {
                     $benefit->$ifield = 'img/' . $object_dir . '/' . $name_prefix . '_' . $ifield . '.' . $ext;
                 }
+            }
+            else
+            {
+                $benefit->$ifield = '';
             }
         }
 
