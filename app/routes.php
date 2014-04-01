@@ -99,6 +99,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin_auth'), function()
         Route::get('{id}/edit', 'AdminBenefitsController@edit');
         Route::get('{id}/votes', 'AdminBenefitVotesController@show');
         Route::put('{id}/update', 'AdminBenefitsController@update');
+        Route::delete('{id}/delete', 'AdminBenefitsController@delete');
     });
     
     Route::group(array('prefix' => 'events'), function()

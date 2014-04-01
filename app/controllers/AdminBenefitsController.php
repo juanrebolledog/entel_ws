@@ -101,4 +101,18 @@ class AdminBenefitsController extends AdminBaseController {
         Benefit::disableBenefitToggle($id);
         return Redirect::to(action('AdminBenefitsController@index'));
     }
+
+    public function delete($id)
+    {
+        $benefit = Benefit::find($id);
+        if ($benefit->delete())
+        {
+            return Response::json(array(
+                'success' => true
+            ));
+        }
+        return Response::json(array(
+            'success' => false
+        ));
+    }
 } 

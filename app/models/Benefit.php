@@ -3,6 +3,8 @@ class Benefit extends LocationModel {
 
     protected $table = 'beneficios';
 
+    protected $softDelete = true;
+
     protected $hidden = array(
         'created_at', 'updated_at', 'last_login', 'caducado'
     );
@@ -213,10 +215,6 @@ class Benefit extends LocationModel {
                 {
                     $benefit->$ifield = 'img/' . $object_dir . '/' . $name_prefix . '_' . $ifield . '.' . $ext;
                 }
-            }
-            else
-            {
-                $benefit->$ifield = '';
             }
         }
 
