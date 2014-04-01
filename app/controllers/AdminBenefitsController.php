@@ -26,16 +26,16 @@ class AdminBenefitsController extends AdminBaseController {
     public function create()
     {
         $benefit = new Benefit();
-	    $select_data = array();
+        $select_data = array();
         BenefitCategory::with('sub_categories')->get()->each(function($cat) use (&$select_data)
-		        {
-			        $select_data[$cat->nombre] = array();
-			        $cat->sub_categories->each(function($scat) use (&$select_data, $cat)
-			        {
-				        $select_data[$cat->nombre][$scat->id] = $scat->nombre;
+                {
+                    $select_data[$cat->nombre] = array();
+                    $cat->sub_categories->each(function($scat) use (&$select_data, $cat)
+                    {
+                        $select_data[$cat->nombre][$scat->id] = $scat->nombre;
 
-			        });
-		        });
+                    });
+                });
 
         return $this->layout->content = View::make('admin_benefits.create', array('benefit' => $benefit, 'categories' => $select_data));
     }
@@ -63,16 +63,16 @@ class AdminBenefitsController extends AdminBaseController {
     public function edit($id)
     {
         $benefit = Benefit::find($id);
-	    $select_data = array();
-	    BenefitCategory::with('sub_categories')->get()->each(function($cat) use (&$select_data)
-	    {
-		    $select_data[$cat->nombre] = array();
-		    $cat->sub_categories->each(function($scat) use (&$select_data, $cat)
-		    {
-			    $select_data[$cat->nombre][$scat->id] = $scat->nombre;
+        $select_data = array();
+        BenefitCategory::with('sub_categories')->get()->each(function($cat) use (&$select_data)
+        {
+            $select_data[$cat->nombre] = array();
+            $cat->sub_categories->each(function($scat) use (&$select_data, $cat)
+            {
+                $select_data[$cat->nombre][$scat->id] = $scat->nombre;
 
-		    });
-	    });
+            });
+        });
         return $this->layout->content = View::make('admin_benefits.edit', array('benefit' => $benefit, 'categories' => $select_data));
     }
 

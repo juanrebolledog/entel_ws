@@ -12,11 +12,6 @@ class Benefit extends LocationModel {
         'descripcion' => 'required',
         'legal' => 'required',
         'sub_categoria_id' => 'required',
-        'fecha' => 'required',
-        'tags' => 'required',
-        'lat' => 'required',
-        'lng' => 'required',
-        'lugar' => 'required',
         'sms_texto' => 'required',
         'sms_nro' => 'required',
         'icono' => 'required',
@@ -45,10 +40,10 @@ class Benefit extends LocationModel {
         return $this->hasMany('BenefitImage', 'beneficio_id');
     }
 
-	public function locations()
-	{
-		return $this->hasMany('BenefitLocation', 'beneficio_id');
-	}
+    public function locations()
+    {
+        return $this->hasMany('BenefitLocation', 'beneficio_id');
+    }
 
     public static function validate($input, $options = array())
     {
@@ -80,27 +75,27 @@ class Benefit extends LocationModel {
 
     static public function getBenefits($user_id)
     {
-	    $ignored_benefits = BenefitIgnore::where('usuario_id', $user_id)->get();
-	    $ignored_ids = array();
-	    foreach ($ignored_benefits as $ib)
-	    {
-		    array_push($ignored_ids, $ib->beneficio_id);
-	    }
+        $ignored_benefits = BenefitIgnore::where('usuario_id', $user_id)->get();
+        $ignored_ids = array();
+        foreach ($ignored_benefits as $ib)
+        {
+            array_push($ignored_ids, $ib->beneficio_id);
+        }
 
         $benefits = self::with(array('votes' => function($query) use ($user_id)
             {
                 $query->where('usuario_id', $user_id);
             }, 'comments', 'sub_category', 'locations'));
 
-	    if (!empty($ignored_ids))
-	    {
-		    $benefits = $benefits->whereNotIn('id', $ignored_ids);
-	    }
-	    $benefits = $benefits->get()->each(function($benefit)
-	    {
-		    $benefit->prepareForWS();
-		    $benefit->sub_category->prepareForWS();
-	    });
+        if (!empty($ignored_ids))
+        {
+            $benefits = $benefits->whereNotIn('id', $ignored_ids);
+        }
+        $benefits = $benefits->get()->each(function($benefit)
+        {
+            $benefit->prepareForWS();
+            $benefit->sub_category->prepareForWS();
+        });
         return $benefits;
     }
     
@@ -112,7 +107,7 @@ class Benefit extends LocationModel {
         $this->icono = asset($this->icono);
         $this->imagen_grande_web = asset($this->imagen_grande_web);
         $this->imagen_descripcion = asset($this->imagen_descripcion);
-	    return $this;
+        return $this;
     }
 
     static public function createBenefit($data)
@@ -132,17 +127,17 @@ class Benefit extends LocationModel {
         $benefit = self::uploadImages($benefit, $data);
 
         $benefit->save();
-	    foreach ($data['lat'] as $k=>$lat)
-	    {
-		    if (is_numeric($lat))
-		    {
-			    $location = new BenefitLocation();
-			    $location->lat = $lat;
-			    $location->lng = $data['lng'][$k];
-			    $location->lugar = $data['lugar'][$k];
-			    $benefit->locations()->save($location);
-		    }
-	    }
+        foreach ($data['location'] as $k=>$loc)
+        {
+            if (is_array($loc))
+            {
+                $location = new BenefitLocation();
+                $location->lat = $loc['lat'];
+                $location->lng = $loc['lng'];
+                $location->lugar = $loc['lugar'];
+                $benefit->locations()->save($location);
+            }
+        }
         return $benefit;
     }
 
@@ -157,9 +152,11 @@ class Benefit extends LocationModel {
         $benefit->rating = isset($data['rating']) ? $data['rating'] : 0;
         $benefit->tags = $data['tags'];
 
+        /*
         $benefit->lat = $data['lat'];
         $benefit->lng = $data['lng'];
         $benefit->lugar = $data['lugar'];
+        */
 
         $benefit->sms_texto = $data['sms_texto'];
         $benefit->sms_nro = $data['sms_nro'];
@@ -187,19 +184,19 @@ class Benefit extends LocationModel {
         $object_dir = 'benefits';
         $name_prefix = hash('sha1', $benefit->lat . ' - ' . $benefit->lng);
         $dir = public_path() . '/' . 'img' . '/' . $object_dir . '/';
-	    $image_fields = array('icono', 'imagen_grande', 'imagen_grande_web', 'imagen_chica', 'imagen_titulo', 'imagen_descripcion');
+        $image_fields = array('icono', 'imagen_grande', 'imagen_grande_web', 'imagen_chica', 'imagen_titulo', 'imagen_descripcion');
 
-	    foreach ($image_fields as $ifield)
-	    {
-		    if (isset($data[$ifield]) && ($data[$ifield] && $data[$ifield] != ''))
-		    {
-			    $ext = $data[$ifield]->getClientOriginalExtension();
-			    if ($data[$ifield]->move($dir, $name_prefix . '_' . $ifield . '.' . $ext))
-			    {
-				    $benefit->$ifield = 'img/' . $object_dir . '/' . $name_prefix . '_' . $ifield . '.' . $ext;
-			    }
-		    }
-	    }
+        foreach ($image_fields as $ifield)
+        {
+            if (isset($data[$ifield]) && ($data[$ifield] && $data[$ifield] != ''))
+            {
+                $ext = $data[$ifield]->getClientOriginalExtension();
+                if ($data[$ifield]->move($dir, $name_prefix . '_' . $ifield . '.' . $ext))
+                {
+                    $benefit->$ifield = 'img/' . $object_dir . '/' . $name_prefix . '_' . $ifield . '.' . $ext;
+                }
+            }
+        }
 
         return $benefit;
     }
@@ -252,7 +249,7 @@ class Benefit extends LocationModel {
         foreach (self::with('sub_category', 'comments')->get() as $model)
         {
             $model->prepareForWS();
-	        $model->locations = array();
+            $model->locations = array();
             array_push($models, $model->toArray());
         }
         $models = array_values(array_sort($models, function($value)
@@ -271,9 +268,9 @@ class Benefit extends LocationModel {
             $query->orWhere('tags', 'LIKE', '%' . $q . '%');
         })->get()->each(function($benefit)
             {
-	            $benefit->locations = array();
+                $benefit->locations = array();
                 $benefit->prepareForWS();
-	            $benefit->sub_category->prepareForWS();
+                $benefit->sub_category->prepareForWS();
             });
         return $results;
     }
@@ -294,46 +291,46 @@ class Benefit extends LocationModel {
             $query = $query->whereNotIn('id', $ignored_ids);
         }
 
-	    $benefits = $query->get();
+        $benefits = $query->get();
 
-	    foreach ($benefits as $benefit)
-	    {
-		    $benefit_locations = array();
-		    foreach (BenefitLocation::getLocations($benefit->id) as $location)
-		    {
-			    $location->distancia = round(self::calculateDistance(array('lat' => $lat, 'lng' => $lng),
-				    array('lat' => $location->lat, 'lng' => $location->lng)));
+        foreach ($benefits as $benefit)
+        {
+            $benefit_locations = array();
+            foreach (BenefitLocation::getLocations($benefit->id) as $location)
+            {
+                $location->distancia = round(self::calculateDistance(array('lat' => $lat, 'lng' => $lng),
+                    array('lat' => $location->lat, 'lng' => $location->lng)));
 
-			    if ($range)
-			    {
-				    //if ($location->distancia <= Config::get('app.search_limit') && $location->distancia <= $range)
-				    if ($location->distancia <= $range)
-				    {
-					    array_push($benefit_locations, $location->toArray());
-				    }
-			    }
-			    else
-			    {
-				    if ($location->distancia <= Config::get('app.search_limit'))
-				    {
-					    array_push($benefit_locations, $location->toArray());
-				    }
-			    }
-		    }
-		    $benefit->locations = $benefit_locations;
-		}
+                if ($range)
+                {
+                    //if ($location->distancia <= Config::get('app.search_limit') && $location->distancia <= $range)
+                    if ($location->distancia <= $range)
+                    {
+                        array_push($benefit_locations, $location->toArray());
+                    }
+                }
+                else
+                {
+                    if ($location->distancia <= Config::get('app.search_limit'))
+                    {
+                        array_push($benefit_locations, $location->toArray());
+                    }
+                }
+            }
+            $benefit->locations = $benefit_locations;
+        }
 
-	    $benefits = $benefits->filter(function($benefit)
-	    {
-		    if (!empty($benefit->locations))
-		    {
-			    return $benefit;
-		    }
-	    })->each(function($benefit)
-		    {
-			    $benefit->prepareForWS();
-			    $benefit->sub_category->prepareForWS();
-		    });
+        $benefits = $benefits->filter(function($benefit)
+        {
+            if (!empty($benefit->locations))
+            {
+                return $benefit;
+            }
+        })->each(function($benefit)
+            {
+                $benefit->prepareForWS();
+                $benefit->sub_category->prepareForWS();
+            });
 
         if ($limit && is_int($limit))
         {
@@ -344,15 +341,15 @@ class Benefit extends LocationModel {
 
     static public function random($num = 1)
     {
-	    $db = Config::get('database.default');
-	    if ($db == 'sqlite')
-	    {
-		    $random_string = 'RANDOM()';
-	    }
-	    else
-	    {
-		    $random_string = 'RAND()';
-	    }
+        $db = Config::get('database.default');
+        if ($db == 'sqlite')
+        {
+            $random_string = 'RANDOM()';
+        }
+        else
+        {
+            $random_string = 'RAND()';
+        }
         return self::orderBy(DB::raw($random_string))->take($num)->get()->each(function($obj)
         {
             $obj->prepareForWS();

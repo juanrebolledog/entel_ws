@@ -62,35 +62,35 @@
         </fieldset>
         <fieldset>
             <legend>Ubicaciones</legend>
-	        <fieldset>
-		        <div class="entel-form-location">
-			        <?php
-			        echo Form::label('lat', 'Latitud');
-			        echo Form::text('lat[]');
-			        ?>
-			        <?php if ($errors->has('lat')): ?>
-				        <small class="error"><?php echo $errors->first('lat'); ?></small>
-			        <?php endif; ?>
+            <fieldset>
+                <div class="entel-form-location">
+                    <?php
+                    echo Form::label('location[lat]', 'Latitud');
+                    echo Form::text('location[0][lat]');
+                    ?>
+                    <?php if ($errors->has('location[lat]')): ?>
+                        <small class="error"><?php echo $errors->first('location[lat]'); ?></small>
+                    <?php endif; ?>
 
-			        <?php
-			        echo Form::label('lng', 'Longitud');
-			        echo Form::text('lng[]');
-			        ?>
-			        <?php if ($errors->has('lng')): ?>
-				        <small class="error"><?php echo $errors->first('lng'); ?></small>
-			        <?php endif; ?>
+                    <?php
+                    echo Form::label('location[lng]', 'Longitud');
+                    echo Form::text('location[0][lng]');
+                    ?>
+                    <?php if ($errors->has('location[lng]')): ?>
+                        <small class="error"><?php echo $errors->first('location[lng]'); ?></small>
+                    <?php endif; ?>
 
-			        <?php
-			        echo Form::label('lugar', 'Lugar');
-			        echo Form::text('lugar[]');
-			        ?>
-			        <?php if ($errors->has('lugar')): ?>
-				        <small class="error"><?php echo $errors->first('lugar'); ?></small>
-			        <?php endif; ?>
-		        </div>
-	        </fieldset>
-	        <div class="locations"></div>
-	        <a class="button tiny" id="add-location" href="#">{{ 'Agregar Ubicación' }}</a>
+                    <?php
+                    echo Form::label('location[lugar]', 'Lugar');
+                    echo Form::text('location[0][lugar]');
+                    ?>
+                    <?php if ($errors->has('location[lugar]')): ?>
+                        <small class="error"><?php echo $errors->first('location[lugar]'); ?></small>
+                    <?php endif; ?>
+                </div>
+            </fieldset>
+            <div class="locations"></div>
+            <a class="button tiny" id="add-location" href="#">{{ 'Agregar Ubicación' }}</a>
         </fieldset>
         <fieldset>
             <legend>SMS</legend>
@@ -120,13 +120,13 @@
                 <small class="error"><?php echo $errors->first('imagen_grande'); ?></small>
             <?php endif; ?>
 
-	        <?php
-	        echo Form::label('imagen_grande_web', 'Grande Web (800x135)');
-	        echo Form::file('imagen_grande_web');
-	        ?>
-	        <?php if ($errors->has('imagen_grande_web')): ?>
-		        <small class="error"><?php echo $errors->first('imagen_grande_web'); ?></small>
-	        <?php endif; ?>
+            <?php
+            echo Form::label('imagen_grande_web', 'Grande Web (800x135)');
+            echo Form::file('imagen_grande_web');
+            ?>
+            <?php if ($errors->has('imagen_grande_web')): ?>
+                <small class="error"><?php echo $errors->first('imagen_grande_web'); ?></small>
+            <?php endif; ?>
 
             <?php
             echo Form::label('imagen_chica', 'Chica');
@@ -160,50 +160,53 @@
 
 @section('scripts')
 <script type="text/template" id="entel-form-location-tpl">
-	<fieldset>
-		<div class="right" id="entel-location-control"><a class="remove-control" href="#"><i class="fa fa-times"></i></a></div>
-		<div class="entel-form-location">
-			<?php
-			echo Form::label('lat', 'Latitud');
-			echo Form::text('lat[]');
-			?>
-			<?php if ($errors->has('lat')): ?>
-				<small class="error"><?php echo $errors->first('lat'); ?></small>
-			<?php endif; ?>
+    <fieldset>
+        <div class="right" id="entel-location-control"><a class="remove-control" href="#"><i class="fa fa-times"></i></a></div>
+        <div class="entel-form-location">
+            <?php
+            echo Form::label('location[lat]', 'Latitud');
+            ?>
+            <input name="location[<%= elem %>][lat]" type="text">
+            <?php if ($errors->has('location[lat]')): ?>
+                <small class="error"><?php echo $errors->first('location[lat]'); ?></small>
+            <?php endif; ?>
 
-			<?php
-			echo Form::label('lng', 'Longitud');
-			echo Form::text('lng[]');
-			?>
-			<?php if ($errors->has('lng')): ?>
-				<small class="error"><?php echo $errors->first('lng'); ?></small>
-			<?php endif; ?>
+            <?php
+            echo Form::label('location[lng]', 'Longitud');
+            ?>
+            <input name="location[<%= elem %>][lng]" type="text">
+            <?php if ($errors->has('location[lng]')): ?>
+                <small class="error"><?php echo $errors->first('location[lng]'); ?></small>
+            <?php endif; ?>
 
-			<?php
-			echo Form::label('lugar', 'Lugar');
-			echo Form::text('lugar[]');
-			?>
-			<?php if ($errors->has('lugar')): ?>
-				<small class="error"><?php echo $errors->first('lugar'); ?></small>
-			<?php endif; ?>
-		</div>
-	</fieldset>
+            <?php
+            echo Form::label('location[lugar]', 'Lugar');
+            ?>
+            <input name="location[<%= elem %>][lugar]" type="text">
+            <?php if ($errors->has('location[lugar]')): ?>
+                <small class="error"><?php echo $errors->first('location[lugar]'); ?></small>
+            <?php endif; ?>
+        </div>
+    </fieldset>
 </script>
 <script>
-	(function($, _) {
-		var tpl = _.template($('#entel-form-location-tpl').html());
-		$('#add-location').on('click', function(e) {
-			var $e = $(e.currentTarget);
-			e.preventDefault();
-			$('.locations').append($(tpl()).fadeIn(200));
-		});
-		$('.locations').on('click', '.remove-control', function(e) {
-			e.preventDefault();
-			var $e = $(e.currentTarget);
-			$e.parent().parent('fieldset').fadeOut(200, function() {
-				this.remove();
-			});
-		});
-	})(jQuery, _);
+    (function($, _) {
+        var template = $('#entel-form-location-tpl').text();
+        $('#add-location').on('click', function(e) {
+            var $locations = $('.locations');
+            var $e = $(e.currentTarget);
+            e.preventDefault();
+            var k = $locations.children().length;
+            var tpl = _.template(template);
+            $locations.append(tpl({ elem: k+1 }));
+        });
+        $('.locations').on('click', '.remove-control', function(e) {
+            e.preventDefault();
+            var $e = $(e.currentTarget);
+            $e.parent().parent('fieldset').fadeOut(200, function() {
+                this.remove();
+            });
+        });
+    })(jQuery, _);
 </script>
 @stop
