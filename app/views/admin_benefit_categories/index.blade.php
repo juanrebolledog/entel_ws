@@ -41,15 +41,15 @@
                         <input type="checkbox">
                     </td>
                     <td>
-                        {{ link_to(action('AdminBenefitCategoriesController@show', $sub_cat->id), $sub_cat->nombre); }}
+                        {{ link_to(action('AdminBenefitSubCategoriesController@show', $sub_cat->id), $sub_cat->nombre); }}
                     </td>
                     <td>
                         {{ $sub_cat->banner_link }}
                     </td>
                     <td>
                         <a href="#" alt="Desactivar"><span class="fa fa-eye-slash"></span></a>
-                        <?= HTML::decode(HTML::link(action('AdminBenefitCategoriesController@show', $sub_cat->id), '<span class="fa fa-eye"></span>')); ?>
-                        <?= HTML::decode(HTML::link(action('AdminBenefitCategoriesController@edit', $sub_cat->id), '<span class="fa fa-edit"></span>')); ?>
+                        <?= HTML::decode(HTML::link(action('AdminBenefitSubCategoriesController@show', $sub_cat->id), '<span class="fa fa-eye"></span>')); ?>
+                        <?= HTML::decode(HTML::link(action('AdminBenefitSubCategoriesController@edit', $sub_cat->id), '<span class="fa fa-edit"></span>')); ?>
                     </td>
                 </tr>
                 @endforeach
