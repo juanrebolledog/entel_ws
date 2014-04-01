@@ -44,7 +44,7 @@ class AdminEventsController extends AdminBaseController {
     {
         $data = Input::all();
 
-        $validator = AppEvent::validate($data);
+        $validator = AppEvent::validate($data, array('except' => array('imagen_grande_web', 'imagen_ubicacion', 'imagen_bg', 'imagen_titulo', 'imagen_grande', 'icono', 'imagen_chica')));
 
         if ($validator->fails())
         {

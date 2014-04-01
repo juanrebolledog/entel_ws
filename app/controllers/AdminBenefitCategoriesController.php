@@ -43,7 +43,7 @@ class AdminBenefitCategoriesController extends AdminBaseController {
     {
         $data = Input::all();
 
-        $validator = BenefitCategory::validate($data);
+        $validator = BenefitCategory::validate($data, array('except' => array('banner', 'icono')));
 
         if ($validator->fails())
         {

@@ -56,7 +56,7 @@ class AdminEventCategoriesController extends AdminBaseController {
     {
         $data = Input::all();
 
-        $validator = EventSubCategory::validate($data);
+        $validator = EventSubCategory::validate($data, array('except' => array('icono', 'banner')));
 
         if ($validator->fails())
         {
