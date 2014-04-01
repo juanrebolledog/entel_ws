@@ -44,7 +44,7 @@ class AdminBenefitsController extends AdminBaseController {
     {
         $data = Input::all();
 
-        $validator = Benefit::validate($data);
+        $validator = Benefit::validate($data, array('except' => array('icono', 'imagen_grande', 'imagen_grande_web', 'imagen_chica', 'imagen_titulo')));
 
         if ($validator->fails())
         {
