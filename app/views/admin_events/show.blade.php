@@ -41,22 +41,25 @@
                     <?= $event->descripcion_larga; ?>
                 </div>
             </section>
+            <!--
             <section class="entel-item">
                 <header>Post</header>
                 <div class="entel-item-content">
                     <?= $event->post; ?>
                 </div>
             </section>
+            -->
             <section class="entel-item">
-                <header>Fecha</header>
+                <header>Ubicaciones</header>
                 <div class="entel-item-content">
-                    <?= $event->fecha; ?>
-                </div>
-            </section>
-            <section class="entel-item">
-                <header>Lugar</header>
-                <div class="entel-item-content">
-                    <?= $event->lugar; ?>
+                    <dl>
+                        @foreach ($event->locations as $loc)
+                        <dt>{{ $loc->lugar }} - {{ $loc->fecha }}</dt>
+                        <dd>
+                            {{ $loc->lat }}, {{ $loc->lng }}
+                        </dd>
+                        @endforeach
+                    </dl>
                 </div>
             </section>
             <section class="entel-item">

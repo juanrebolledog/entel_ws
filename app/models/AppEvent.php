@@ -9,18 +9,9 @@ class AppEvent extends LocationModel {
     static protected $validation = array(
         'nombre' => 'required',
         'descripcion' => 'required',
-        'descripcion_larga' => 'required',
         'sub_categoria_id' => 'required',
-        'tags' => 'required',
         'sms_texto' => 'required',
-        'sms_nro' => 'required',
-        'icono' => 'required',
-        'imagen_grande' => 'required',
-        'imagen_chica' => 'required',
-        'imagen_titulo' => 'required',
-        'imagen_ubicacion' => 'required',
-        'imagen_grande_web' => 'required',
-        'imagen_bg' => 'required'
+        'sms_nro' => 'required'
     );
     
     public function sub_category()
@@ -53,15 +44,15 @@ class AppEvent extends LocationModel {
         return $this->hasMany('EventVideo', 'evento_id');
     }
 
-	public function location()
-	{
-		return $this->hasMany('EventLocation', 'evento_id');
-	}
+    public function locations()
+    {
+        return $this->hasMany('EventLocation', 'evento_id');
+    }
 
-	public function dates()
-	{
-		return $this->hasMany('EventDate', 'evento_id');
-	}
+    public function dates()
+    {
+        return $this->hasMany('EventDate', 'evento_id');
+    }
 
     public static function validate($input, $options = array())
     {
@@ -144,12 +135,12 @@ class AppEvent extends LocationModel {
         $event->tags = $data['tags'];
         $event->legal = $data['legal'];
 
-	    $event->fecha = $data['fecha'];
         /*
+        $event->fecha = $data['fecha'];
         $event->lat = $data['lat'];
         $event->lng = $data['lng'];
         $event->lugar = $data['lugar'];
-	    */
+        */
 
         $event->sms_texto = $data['sms_texto'];
         $event->sms_nro = $data['sms_nro'];
@@ -179,6 +170,19 @@ class AppEvent extends LocationModel {
             }
         }
 
+        foreach ($data['location'] as $k=>$loc)
+        {
+            if (is_array($loc) && is_numeric($loc['lat']))
+            {
+                $location = new EventLocation();
+                $location->lat = $loc['lat'];
+                $location->lng = $loc['lng'];
+                $location->lugar = $loc['lugar'];
+                $location->fecha = $loc['fecha'];
+                $event->locations()->save($location);
+            }
+        }
+
         return $event;
     }
 
@@ -193,12 +197,12 @@ class AppEvent extends LocationModel {
         $event->tags = $data['tags'];
         $event->legal = $data['legal'];
 
+        /*
         $event->fecha = $data['fecha'];
-	    /*
-		$event->lat = $data['lat'];
-		$event->lng = $data['lng'];
-		$event->lugar = $data['lugar'];
-		*/
+        $event->lat = $data['lat'];
+        $event->lng = $data['lng'];
+        $event->lugar = $data['lugar'];
+        */
 
         $event->sms_texto = $data['sms_texto'];
         $event->sms_nro = $data['sms_nro'];
@@ -215,6 +219,25 @@ class AppEvent extends LocationModel {
         {
             if ($event->save())
             {
+                foreach ($data['location'] as $k=>$loc)
+                {
+                    if (is_array($loc))
+                    {
+                        if (isset($loc['id']))
+                        {
+                            $location = EventLocation::find($loc['id']);
+                        }
+                        else
+                        {
+                            $location = new EventLocation();
+                        }
+                        $location->lat = $loc['lat'];
+                        $location->lng = $loc['lng'];
+                        $location->lugar = $loc['lugar'];
+                        $location->fecha = $loc['fecha'];
+                        $event->locations()->save($location);
+                    }
+                }
                 $event->validator = $event_validator;
                 return $event;
             }
@@ -226,34 +249,34 @@ class AppEvent extends LocationModel {
         $object_dir = 'events';
         $name_prefix = hash('sha1', $event->lat . ' - ' . $event->lng);
         $dir = public_path() . '/' . 'img' . '/' . $object_dir . '/';
-	    $image_fields = array('icono', 'imagen_grande', 'imagen_grande_web', 'imagen_chica', 'imagen_titulo', 'imagen_ubicacion', 'imagen_bg');
+        $image_fields = array('icono', 'imagen_grande', 'imagen_grande_web', 'imagen_chica', 'imagen_titulo', 'imagen_ubicacion', 'imagen_bg');
 
-	    foreach ($image_fields as $ifield)
-	    {
-		    if ($data[$ifield])
-		    {
-			    $ext = $data[$ifield]->getClientOriginalExtension();
-			    if ($data[$ifield]->move($dir, $name_prefix . '_' . $ifield . '.' . $ext))
-			    {
-				    $event->$ifield = 'img/' . $object_dir . '/' . $name_prefix . '_' . $ifield . '.' . $ext;
-			    }
-		    }
-	    }
+        foreach ($image_fields as $ifield)
+        {
+            if ($data[$ifield])
+            {
+                $ext = $data[$ifield]->getClientOriginalExtension();
+                if ($data[$ifield]->move($dir, $name_prefix . '_' . $ifield . '.' . $ext))
+                {
+                    $event->$ifield = 'img/' . $object_dir . '/' . $name_prefix . '_' . $ifield . '.' . $ext;
+                }
+            }
+        }
 
         return $event;
     }
 
     static public function random($num = 1)
     {
-	    $db = Config::get('database.default');
-	    if ($db == 'sqlite')
-	    {
-		    $random_string = 'RANDOM()';
-	    }
-	    else
-	    {
-		    $random_string = 'RAND()';
-	    }
+        $db = Config::get('database.default');
+        if ($db == 'sqlite')
+        {
+            $random_string = 'RANDOM()';
+        }
+        else
+        {
+            $random_string = 'RAND()';
+        }
         return self::orderBy(DB::raw($random_string))->take($num)->get()->each(function($obj)
         {
             $obj->prepareForWS();
