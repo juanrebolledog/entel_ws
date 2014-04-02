@@ -39,13 +39,13 @@
                         <input type="checkbox">
                     </td>
                     <td>
-                        <?= link_to('admin/events/' . $event->id, $event->nombre); ?>
+                        <?= link_to(action('AdminEventsController@show', $event->id), $event->nombre); ?>
                     </td>
                     <td class="hide-for-small">
                         <?= substr($event->descripcion, 0, 40); ?>
                     </td>
                     <td>
-                        <?= link_to('admin/categories/1', $event->sub_category->nombre); ?>
+                        <?= link_to(action('AdminEventCategoriesController@show_sub', $event->sub_category->id), $event->sub_category->nombre); ?>
                     </td>
                     <td>
                         <a href="#" alt="Desactivar"><span class="fa fa-eye-slash"></span></a>

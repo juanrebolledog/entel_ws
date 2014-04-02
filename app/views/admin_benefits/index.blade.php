@@ -8,7 +8,7 @@
         </h3>
         <ul>
             <li>
-                <?= link_to('admin/benefits/create', 'Crear Nuevo'); ?>
+                <?= link_to(action('AdminBenefitsController@create'), 'Crear Nuevo'); ?>
             </li>
         </ul>
     </header>
@@ -45,7 +45,7 @@
                         <?= substr($benefit->descripcion, 0, 40); ?>
                     </td>
                     <td>
-                        <?= link_to('/admin/benefits/sub_categories/' . $benefit->sub_category->id, $benefit->sub_category->nombre); ?>
+                        <?= link_to(action('AdminBenefitSubCategoriesController@show', $benefit->sub_category->id), $benefit->sub_category->nombre); ?>
                     </td>
                     <td>
                         <a href="#" alt="Desactivar"><span class="fa fa-eye-slash"></span></a>

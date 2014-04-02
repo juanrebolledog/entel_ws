@@ -13,13 +13,7 @@ class Benefit extends LocationModel {
         'nombre' => 'required',
         'descripcion' => 'required',
         'legal' => 'required',
-        'sub_categoria_id' => 'required',
-        'sms_texto' => 'required',
-        'sms_nro' => 'required',
-        'icono' => 'required',
-        'imagen_grande' => 'required',
-        'imagen_chica' => 'required',
-        'imagen_titulo' => 'required'
+        'sub_categoria_id' => 'required'
     );
 
     public function sub_category()

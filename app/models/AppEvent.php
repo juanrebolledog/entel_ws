@@ -11,9 +11,7 @@ class AppEvent extends LocationModel {
     static protected $validation = array(
         'nombre' => 'required',
         'descripcion' => 'required',
-        'sub_categoria_id' => 'required',
-        'sms_texto' => 'required',
-        'sms_nro' => 'required'
+        'sub_categoria_id' => 'required'
     );
     
     public function sub_category()
