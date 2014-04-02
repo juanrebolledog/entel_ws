@@ -16,6 +16,9 @@
             <li>
                 <?= link_to(action('AdminEventsController@create'), 'Crear Nuevo'); ?>
             </li>
+            <li>
+                {{ link_to(action('AdminEventsController@delete', $event->id), 'Eliminar', array('_method' => 'DELETE', 'class' => 'ajx_link', '_cb_url' => url(action('AdminEventsController@index')))) }}
+            </li>
         </ul>
     </header>
     <div class="row">

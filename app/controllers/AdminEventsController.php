@@ -97,4 +97,18 @@ class AdminEventsController extends AdminBaseController {
         AppEvent::disableEventToggle($id);
         return Redirect::to(action('AdminEventsController@index'));
     }
+
+    public function delete($id)
+    {
+        $event = AppEvent::find($id);
+        if ($event->delete())
+        {
+            return Response::json(array(
+                'success' => true
+            ));
+        }
+        return Response::json(array(
+            'success' => false
+        ));
+    }
 } 

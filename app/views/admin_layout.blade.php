@@ -239,13 +239,14 @@
         var $e = $(e.currentTarget);
         var method = $e.attr('_method');
         var url = $e.attr('href');
+        var cb_url = $e.attr('_cb_url');
         if (confirm('¿Estás seguro que quieres eliminar este elemento?')) {
             $.ajax({
                 type: method,
                 url: url,
                 success: function(r) {
                     if (r.success) {
-                        window.location.assign('<?php echo url(action('AdminBenefitsController@index')); ?>');
+                        window.location.assign(cb_url);
                     }
                 }
             })

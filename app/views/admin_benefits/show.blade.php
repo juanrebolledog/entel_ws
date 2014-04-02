@@ -17,7 +17,7 @@
                 <?= link_to(action('AdminBenefitsController@create'), 'Crear Nuevo'); ?>
             </li>
             <li>
-                {{ link_to(action('AdminBenefitsController@delete', $benefit->id), 'Eliminar', array('_method' => 'DELETE', 'class' => 'ajx_link')) }}
+                {{ link_to(action('AdminBenefitsController@delete', $benefit->id), 'Eliminar', array('_method' => 'DELETE', 'class' => 'ajx_link', '_cb_url' => url(action('AdminBenefitsController@index')))) }}
             </li>
         </ul>
     </header>

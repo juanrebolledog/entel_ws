@@ -121,6 +121,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin_auth'), function()
         Route::get('{id}/edit', 'AdminEventsController@edit');
         Route::put('{id}/update', 'AdminEventsController@update');
         Route::post('store', 'AdminEventsController@store');
+        Route::delete('{id}/delete', 'AdminEventsController@delete');
     });
 
     Route::group(array('prefix' => 'users'), function()

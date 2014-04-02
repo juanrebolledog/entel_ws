@@ -2,6 +2,8 @@
 class AppEvent extends LocationModel {
     protected $table = 'eventos';
 
+    protected $softDelete = true;
+
     protected $hidden = array(
         'created_at', 'updated_at'
     );
