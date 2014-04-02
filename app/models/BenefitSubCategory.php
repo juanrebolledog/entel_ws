@@ -9,7 +9,6 @@ class BenefitSubCategory extends BaseModel {
     static public $validation = array(
         'nombre' => 'required',
         'banner' => 'required',
-        'banner_link' => 'required',
         'categoria_id' => 'required'
     );
 

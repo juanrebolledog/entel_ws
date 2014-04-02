@@ -5,9 +5,7 @@ class EventSubCategory extends BaseModel {
 
     static public $validation = array(
         'nombre' => 'required',
-        'banner' => 'required',
-        'banner_link' => 'required',
-        'icono' => 'required'
+        'banner' => 'required'
     );
 
     public function events()
