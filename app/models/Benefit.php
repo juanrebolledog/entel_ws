@@ -202,7 +202,7 @@ class Benefit extends LocationModel {
     static public function uploadImages($benefit, $data)
     {
         $object_dir = 'benefits';
-        $name_prefix = hash('sha1', $benefit->lat . ' - ' . $benefit->lng);
+        $name_prefix = hash('sha1', $benefit->nombre . ' - ' . time());
         $dir = public_path() . '/' . 'img' . '/' . $object_dir . '/';
         $image_fields = array('icono', 'imagen_grande', 'imagen_grande_web', 'imagen_chica', 'imagen_titulo', 'imagen_descripcion');
 

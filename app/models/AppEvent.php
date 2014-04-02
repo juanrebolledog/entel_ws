@@ -251,7 +251,7 @@ class AppEvent extends LocationModel {
     static public function uploadImages($event, $data)
     {
         $object_dir = 'events';
-        $name_prefix = hash('sha1', $event->lat . ' - ' . $event->lng);
+        $name_prefix = hash('sha1', $event->nombre . ' - ' . time());
         $dir = public_path() . '/' . 'img' . '/' . $object_dir . '/';
         $image_fields = array('icono', 'imagen_grande', 'imagen_grande_web', 'imagen_chica', 'imagen_titulo', 'imagen_ubicacion', 'imagen_bg');
 
