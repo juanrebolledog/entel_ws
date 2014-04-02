@@ -54,7 +54,7 @@
                 <div class="entel-item-content">
                     <dl>
                         @foreach ($event->locations as $loc)
-                        <dt>{{ $loc->lugar }} - {{ $loc->fecha }}</dt>
+                        <dt>{{ $loc->lugar }} - {{ $loc->fecha }} - {{ $loc->hora }}</dt>
                         <dd>
                             {{ $loc->lat }}, {{ $loc->lng }}
                         </dd>

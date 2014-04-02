@@ -179,6 +179,7 @@ class AppEvent extends LocationModel {
                 $location->lng = $loc['lng'];
                 $location->lugar = $loc['lugar'];
                 $location->fecha = $loc['fecha'];
+                $location->hora = $loc['hora'];
                 $event->locations()->save($location);
             }
         }
@@ -235,6 +236,7 @@ class AppEvent extends LocationModel {
                         $location->lng = $loc['lng'];
                         $location->lugar = $loc['lugar'];
                         $location->fecha = $loc['fecha'];
+                        $location->hora = $loc['hora'];
                         $event->locations()->save($location);
                     }
                 }

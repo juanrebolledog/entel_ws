@@ -74,7 +74,7 @@
         </fieldset>
         <fieldset>
             <legend>Ubicaciones</legend>
-            @foreach ($benefit->locations as $k=>$location)
+            @foreach ($event->locations as $k=>$location)
             <fieldset>
                 <div class="entel-form-location">
                     <?php echo Form::hidden('location[' . $k . '][id]', $location->id); ?>
@@ -108,6 +108,14 @@
                     ?>
                     <?php if ($errors->has('location[fecha]')): ?>
                         <small class="error"><?php echo $errors->first('location[fecha]'); ?></small>
+                    <?php endif; ?>
+
+                    <?php
+                    echo Form::label('location[hora]', 'Horario');
+                    echo Form::text('location[' . $k . '][hora]', $location->hora);
+                    ?>
+                    <?php if ($errors->has('location[hora]')): ?>
+                        <small class="error"><?php echo $errors->first('location[hora]'); ?></small>
                     <?php endif; ?>
                 </div>
             </fieldset>
@@ -232,6 +240,14 @@
             <input name="location[<%= elem %>][fecha]" type="date">
             <?php if ($errors->has('location[fecha]')): ?>
                 <small class="error"><?php echo $errors->first('location[fecha]'); ?></small>
+            <?php endif; ?>
+            
+            <?php
+            echo Form::label('location[hora]', 'Horario');
+            ?>
+            <input name="location[<%= elem %>][hora]" type="text">
+            <?php if ($errors->has('location[hora]')): ?>
+                <small class="error"><?php echo $errors->first('location[hora]'); ?></small>
             <?php endif; ?>
         </div>
     </fieldset>

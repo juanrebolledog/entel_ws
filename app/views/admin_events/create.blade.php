@@ -148,6 +148,14 @@
                     <?php if ($errors->has('location[fecha]')): ?>
                         <small class="error"><?php echo $errors->first('location[fecha]'); ?></small>
                     <?php endif; ?>
+
+                    <?php
+                    echo Form::label('location[hora]', 'Horario');
+                    echo Form::text('location[0][hora]');
+                    ?>
+                    <?php if ($errors->has('location[hora]')): ?>
+                        <small class="error"><?php echo $errors->first('location[hora]'); ?></small>
+                    <?php endif; ?>
                 </div>
             </fieldset>
             <div class="locations"></div>
@@ -270,6 +278,14 @@
             <input name="location[<%= elem %>][fecha]" type="date">
             <?php if ($errors->has('location[fecha]')): ?>
                 <small class="error"><?php echo $errors->first('location[fecha]'); ?></small>
+            <?php endif; ?>
+
+            <?php
+            echo Form::label('location[hora]', 'Horario');
+            ?>
+            <input name="location[<%= elem %>][hora]" type="text">
+            <?php if ($errors->has('location[hora]')): ?>
+                <small class="error"><?php echo $errors->first('location[hora]'); ?></small>
             <?php endif; ?>
         </div>
     </fieldset>
