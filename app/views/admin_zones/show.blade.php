@@ -28,10 +28,6 @@
                         <dd>
                             {{ $zone->nombre }}
                         </dd>
-                        <dt>{{ 'Categoría' }}</dt>
-                        <dd>
-                            {{ $zone->category->nombre }}
-                        </dd>
                         <dt>{{ 'URL' }}</dt>
                         <dd>
                             {{ $zone->url }}
@@ -42,14 +38,6 @@
                             <br/>
                             <small>
                                 {{ $zone->imagen }}
-                            </small>
-                        </dd>
-                        <dt>{{ 'Imágen Web' }}</dt>
-                        <dd>
-                            <img src="{{ asset($zone->imagen_web) }}" alt="{{ $zone->imagen_web }}"/>
-                            <br/>
-                            <small>
-                                {{ $zone->imagen_web }}
                             </small>
                         </dd>
                     </dl>

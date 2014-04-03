@@ -21,14 +21,6 @@
             </div>
 
             <?php
-            echo Form::label('categoria_id', 'Categoría');
-            echo Form::select('categoria_id', $categories);
-            ?>
-            <?php if ($errors->has('categoria_id')): ?>
-                <small class="error"><?php echo $errors->first('categoria_id'); ?></small>
-            <?php endif; ?>
-
-            <?php
             echo Form::label('url', 'URL');
             echo Form::text('url');
             ?>
@@ -42,14 +34,6 @@
             ?>
             <?php if ($errors->has('imagen')): ?>
                 <small class="error"><?php echo $errors->first('imagen'); ?></small>
-            <?php endif; ?>
-
-            <?php
-            echo Form::label('imagen_web', 'Imágen Web');
-            echo Form::file('imagen_web');
-            ?>
-            <?php if ($errors->has('imagen_web')): ?>
-                <small class="error"><?php echo $errors->first('imagen_web'); ?></small>
             <?php endif; ?>
 
         </fieldset>

@@ -78,7 +78,8 @@ class Zone extends BaseModel {
         $zone = new Zone();
         $zone->nombre = $data['nombre'];
         $zone->url = $data['url'];
-        $zone->categoria_id = $data['categoria_id'];
+        //$zone->categoria_id = $data['categoria_id'];
+        $zone->descripcion = '';
 
         $zone = self::uploadImages($zone, $data);
 
@@ -91,7 +92,8 @@ class Zone extends BaseModel {
         $zone = Zone::find($id);
         $zone->nombre = $data['nombre'];
         $zone->url = $data['url'];
-        $zone->categoria_id = $data['categoria_id'];
+        //$zone->categoria_id = $data['categoria_id'];
+        $zone->descripcion = '';
 
         $zone = self::uploadImages($zone, $data);
 
@@ -117,7 +119,7 @@ class Zone extends BaseModel {
         $name_prefix = hash('sha1', $zone->nombre);
         $dir = public_path() . '/' . 'img' . '/' . $object_dir . '/';
 
-        if ($data['imagen'])
+        if (isset($data['imagen']) && $data['imagen'])
         {
             $ext = $data['imagen']->getClientOriginalExtension();
             if ($data['imagen']->move($dir, $name_prefix . '_imagen.' . $ext))
@@ -125,15 +127,7 @@ class Zone extends BaseModel {
                 $zone->imagen = 'img/' . $object_dir . '/' . $name_prefix . '_imagen.' . $ext;
             }
         }
-
-        if ($data['imagen_web'])
-        {
-            $ext = $data['imagen_web']->getClientOriginalExtension();
-            if ($data['imagen_web']->move($dir, $name_prefix . '_imagen_web.' . $ext))
-            {
-                $zone->imagen_web = 'img/' . $object_dir . '/' . $name_prefix . '_imagen_web.' . $ext;
-            }
-        }
+        $zone->imagen_web = '';
         return $zone;
     }
 
