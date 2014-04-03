@@ -11,7 +11,7 @@
                 <?= link_to(action('AdminZonesController@edit', $zone->id), 'Editar'); ?>
             </li>
             <li>
-                <a href="#">Desactivar</a>
+                {{ link_to(action('AdminZonesController@delete', $zone->id), 'Eliminar', array('_method' => 'DELETE', 'class' => 'ajx_link', '_cb_url' => url(action('AdminZonesController@index')))) }}
             </li>
             <li>
                 <?= link_to(action('AdminZonesController@create'), 'Crear Nueva'); ?>

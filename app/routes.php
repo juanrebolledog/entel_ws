@@ -170,7 +170,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'admin_auth'), function()
         Route::get('{id}', 'AdminZonesController@show');
         Route::get('{id}/edit', 'AdminZonesController@edit');
         Route::put('{id}/update', 'AdminZonesController@update');
-        //Route::delete('{id}/delete', 'AdminZonesController@delete');
+        Route::delete('{id}/delete', 'AdminZonesController@delete');
         Route::post('store', 'AdminZonesController@store');
     });
 

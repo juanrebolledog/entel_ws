@@ -78,7 +78,16 @@ class AdminZonesController extends AdminBaseController {
 
     public function delete($id)
     {
-
+        $zone = Zone::getZone($id);
+        if ($zone->delete())
+        {
+            return Response::json(array(
+                'success' => true
+            ));
+        }
+        return Response::json(array(
+            'success' => false
+        ));
     }
 
 }

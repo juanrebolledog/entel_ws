@@ -27,7 +27,6 @@
                         <input type="checkbox">
                     </th>
                     <th>Nombre</th>
-                    <th>Categoría</th>
                     <th width="100">&nbsp;</th>
                 </tr>
                 </thead>
@@ -39,9 +38,6 @@
                     </td>
                     <td>
                         <?= link_to(action('AdminZonesController@show', $zone->id), $zone->nombre); ?>
-                    </td>
-                    <td>
-                        {{ $zone->category->nombre }}
                     </td>
                     <td>
                         <a href="#" alt="Desactivar"><span class="fa fa-eye-slash"></span></a>
