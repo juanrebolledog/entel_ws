@@ -27,10 +27,7 @@ class Zone extends BaseModel {
     );
 
     static public $validation = array(
-        'nombre' => 'required',
-        'url' => 'required',
-        'imagen' => 'required',
-        'imagen_web' => 'required'
+        'nombre' => 'required'
     );
 
     public function category()
