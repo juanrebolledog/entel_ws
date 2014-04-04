@@ -69,7 +69,7 @@ class AppEvent extends LocationModel {
 
     static public function getEvent($id)
     {
-        $event = self::with('sub_category', 'comments', 'location', 'dates')->find($id);
+        $event = self::with('sub_category', 'comments', 'locations', 'dates')->find($id);
         if ($event && $event->exists)
         {
             $event->prepareForWS();
@@ -97,7 +97,7 @@ class AppEvent extends LocationModel {
     {
         $models = array();
 
-        foreach (self::with('comments', 'sub_category', 'location', 'dates')->get() as $model)
+        foreach (self::with('comments', 'sub_category', 'locations', 'dates')->get() as $model)
         {
             $distance = self::calculateDistance(array('lat' => $lat, 'lng' => $lng),
                 array('lat' => $model->lat, 'lng' => $model->lng));
@@ -115,7 +115,7 @@ class AppEvent extends LocationModel {
 
     static public function searchByKeyword($q = null)
     {
-        $results = self::with('sub_category', 'comments', 'location', 'dates')->where(function($query) use ($q)
+        $results = self::with('sub_category', 'comments', 'locations', 'dates')->where(function($query) use ($q)
         {
             $query->where('nombre', 'LIKE', '%' . $q . '%');
             $query->orWhere('descripcion', 'LIKE', '%' . $q . '%');
