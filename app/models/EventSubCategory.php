@@ -47,7 +47,7 @@ class EventSubCategory extends BaseModel {
                 $query->with('discounts');
                 $query->with('videos');
 	            $query->with('dates');
-	            $query->with('location');
+	            $query->with('locations');
             }))->get()->each(function($sub_cat)
         {
             $sub_cat->prepareForWS();
