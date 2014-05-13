@@ -62,6 +62,13 @@
         </fieldset>
         <fieldset>
             <legend>Ubicaciones</legend>
+            <?php
+            echo Form::label('texto_ubicacion', 'Texto Ubicación');
+            echo Form::text('texto_ubicacion');
+            ?>
+            <?php if ($errors->has('texto_ubicacion')): ?>
+                <small class="error"><?php echo $errors->first('texto_ubicacion'); ?></small>
+            <?php endif; ?>
             <fieldset>
                 <div class="entel-form-location">
                     <?php
