@@ -65,7 +65,7 @@ class Zone extends BaseModel {
     static public function getZones()
     {
 
-        $zones = self::with('category')->get();
+        $zones = self::with('category')->orderBy('id', 'DESC')->get();
         foreach ($zones as $zone)
         {
             $zone->prepareForWS();
