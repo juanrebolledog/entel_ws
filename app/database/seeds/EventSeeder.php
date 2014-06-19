@@ -37,7 +37,7 @@ class EventSeeder extends Seeder {
 		            $location->lugar = 'Estadio Municipal #' . $i;
 		            $location->lat = 10.8053905 + rand(-10, 10);
 		            $location->lng = -69.8053905 + rand(-10, 10);
-		            $e->location()->save($location);
+		            $e->locations()->save($location);
 	            }
 
 	            foreach (range(1, 5) as $i)
