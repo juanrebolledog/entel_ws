@@ -72,6 +72,12 @@
                 </div>
             </section>
             <section class="entel-item">
+                <header>Texto Ubicaci&oacute;n</header>
+                <div class="entel-item-content">
+                    <?= $benefit->texto_ubicacion; ?>
+                </div>
+            </section>
+            <section class="entel-item">
                 <header>Ubicaciones</header>
                 <div class="entel-item-content">
                     <?php foreach ($benefit->locations as $location): ?>

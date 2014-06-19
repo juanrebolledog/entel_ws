@@ -120,6 +120,8 @@ class Benefit extends LocationModel {
         $benefit->sms_texto = $data['sms_texto'];
         $benefit->sms_nro = $data['sms_nro'];
 
+        $benefit->texto_ubicacion = $data['texto_ubicacion'];
+
         $benefit = self::uploadImages($benefit, $data);
 
         $benefit->save();
@@ -156,6 +158,8 @@ class Benefit extends LocationModel {
 
         $benefit->sms_texto = $data['sms_texto'];
         $benefit->sms_nro = $data['sms_nro'];
+
+        $benefit->texto_ubicacion = $data['texto_ubicacion'];
 
         $benefit = self::uploadImages($benefit, $data);
 
